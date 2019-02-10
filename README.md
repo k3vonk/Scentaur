@@ -1,0 +1,2 @@
+# Scentaur
+Code Smell Detector
