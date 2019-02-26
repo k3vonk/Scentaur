@@ -1,0 +1,40 @@
+https://jserd.springeropen.com/articles/10.1186/s40411-017-0041-1
+
+//Refactoring
+https://sourcemaking.com/refactoring 
+
+//Common Code Smells
+https://apiumhub.com/tech-blog-barcelona/code-smells/
+
+
+INTRODUCE YOUR VISION OF THE PROJECT AND WHAT YOU HOPE TO ACHIEVE.
+
+Scentaur is a Java specific "code smell" detector. The team behind Scentaur
+believes that many current code smell detector's are not particularly 
+easy to use and understand (i.e. JDeodrant and inFusion) thus we the team envisions
+Scentaur to be a user friendly code smell detector tool.
+
+Team Scentaur plans to achieve in making a web based code smell detector tool. Allowing
+quick, easy and maintable way of detecting smells and even enabling users to refactor
+fragments of code that was detected by Scentaur. Scentaur aims to reduce the amount of time
+required to detect smells unlike JDeodrant which has a significantly long time in detecting smells,
+as it contains many types of detectors (22) along with the ability to refactor smelly code.
+
+Team Scentaur has set several main goals in mind. Here are the following:
+
+- To learn and understand the different types of code smells.
+- To understand and take responsibility in a larger team.
+- To enable Scentaur for future uses outside of the assignment background.
+- To enable easy implementations and execution of other code smells in the future.
+
+Scentaur strives to provide easy access, usage, lookup for all types of users. Being able to 
+switch between a detailed and broad descriptor of the code smells detected followed by a color
+coded lines of code for each individual smell. Team Scentaur encourages young Java users to
+understand the purpose of code smells by presenting easy to understand visualization of code smell data,
+followed by a brief description of the smells involved.
+
+Scentaur also provides for those that are more experienced with Java and data. By presenting 
+a much more indepth explaination of code smells detected and help users to track down the problem.
+
+Quote.....................................................
+
