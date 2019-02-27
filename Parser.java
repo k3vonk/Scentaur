@@ -15,8 +15,7 @@ public class Parser {
     // This is a comment
 
     private static int countLines(MethodDeclaration method){
-        String[] lines = method.getBody().toString().split("\r\n|\r|\n");
-        return  lines.length;
+        return method.getBody().toString().split("\r\n|\r|\n").length;
     }
 
     private static class MethodVisitor extends VoidVisitorAdapter {
