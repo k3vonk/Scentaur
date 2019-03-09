@@ -1,0 +1,8 @@
+Lead Designer 		- [Gajun][William]
+Reflection API 		- [Jackie][Royal]
+File Analysis 		- [Gajun][Royal]
+Smell Detection		- [Everyone]
+Interface Design	- [Gajun][William][Jackie]
+Code Analysis		- [Everyone]
+Smell Visualization	- [Everyone] [Main lead: Jackie][Sub lead: William]
+GUI Interactions w/user	- [Everyone] [Main lead: Royal][Sub lead: Gajun]
