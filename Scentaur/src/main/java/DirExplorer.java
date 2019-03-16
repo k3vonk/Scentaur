@@ -3,18 +3,17 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.commons.*;
-
-import com.github.javaparser.JavaParser;
+import org.apache.commons.io.FileUtils;
 
 public class DirExplorer {
-	/*String directory;
+	String directory;
 	public DirExplorer(String directory) {
 		this.directory = directory;
 	}
 	
+	/*
 	public ArrayList<String> lookupFiles(){
-		List<File> files = (List<File>) FileUtils.listFiles(directory,".java", true);
+	List<File> files = (List<File>) FileUtils.listFiles(directory,".java", true);
 		ArrayList parsedFiles<ParsedFile>;
 		for(File file: files) {
 			parsedFiles.add(new JavaParser(file.getCanonicalPath()));
