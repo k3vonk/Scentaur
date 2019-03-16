@@ -1,9 +1,6 @@
-package Bloaters;
+package smell.bloater;
 
-import Interfaces.Bloaters;
-
-public class BloatersDetectors implements Bloaters{
-
+public class BloatersDetectors implements Bloatable{
 	@Override
 	public boolean isClassEmpty(Object obj) {
 		// TODO Auto-generated method stub
@@ -14,5 +11,4 @@ public class BloatersDetectors implements Bloaters{
 	public void setThreshold() {
 		// TODO Auto-generated method stub
 	}
-
 }
