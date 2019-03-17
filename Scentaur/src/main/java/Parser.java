@@ -51,7 +51,6 @@ public class Parser {
             System.exit(1);
         }
 
-        System.exit(0);
     }
 
 

@@ -14,8 +14,13 @@ class DirectoryExplorer {
 
     public static void main(String arg[]) {
         DirectoryExplorer myDirectoryExplorer = new DirectoryExplorer(System.getProperty("user.dir"));
-        System.out.println(myDirectoryExplorer.lookupFiles());
-        System.exit(0);
+        List<File> files = myDirectoryExplorer.lookupFiles();
+        files.forEach(file -> {
+            System.out.println("=============" + file.getName() + "=============");
+            Parser myParser = new Parser(file.getPath());
+            myParser.parse();
+        });
+
     }
 
 
