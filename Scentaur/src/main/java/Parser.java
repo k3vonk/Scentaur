@@ -14,34 +14,32 @@ import java.util.List;
 public class Parser {
     // This is a comment
 
-    private static int countLines(MethodDeclaration method){
+    File file;
+
+    public Parser(String filePath) {
+        this.file = new File(filePath);
+    }
+
+    private static int countLines(MethodDeclaration method) {
         return method.getBody().toString().split("\r\n|\r|\n").length;
     }
 
     private static class MethodVisitor extends VoidVisitorAdapter {
         @Override
         public void visit(MethodDeclaration n, Object arg) {
-            System.out.println("Found Method - " +n.getName());
-            if(n.getName().asString().equals("visit")){
-                System.out.println("Printing out method definition of method - 'visit'");
-                System.out.println("Number of lines in method - "  + countLines(n) + "\n");
-                System.out.println(n.getBody());
-            }
+            System.out.print("Found Method - " + n.getName());
+            System.out.println(" | Number of lines - " + countLines(n));
         }
     }
 
-    public static void main(String[] args) {
-        String filePath = "src/main/java/Parser.java";
+    public void parse() {
 
         // This is also a comment
         try {
-            CompilationUnit xd = JavaParser.parse(new File(filePath));
+            CompilationUnit xd = JavaParser.parse(file);
             List<Comment> comments = xd.getComments();
             new MethodVisitor().visit(xd, null);
             System.out.println("\nFound (" + comments.size() + ") Comments");
-            comments.forEach((comment ->
-                    System.out.println(comment.getContent())
-            ));
 
 
         } catch (Exception ex) {
@@ -55,5 +53,6 @@ public class Parser {
 
         System.exit(0);
     }
+
 
 }
