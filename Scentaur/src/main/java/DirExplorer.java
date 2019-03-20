@@ -16,7 +16,6 @@ public class DirExplorer{
 	 * Using FileUtils to obtain all the java files within the root directory and its sub directories
 	 * @return A list of files which are java files specifically
 	 */
-	@SuppressWarnings("unchecked")
 	public List<File> fileLookup(){
 		return (List<File>) FileUtils.listFiles(new File(root), new String[] {"java"}, true);	
 	}
