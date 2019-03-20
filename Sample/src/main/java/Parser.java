@@ -8,6 +8,7 @@ import java.util.stream.Collectors;
 import com.github.javaparser.ParseResult;
 import com.github.javaparser.ParserConfiguration;
 import com.github.javaparser.ast.CompilationUnit;
+import com.github.javaparser.ast.body.MethodDeclaration;
 import com.github.javaparser.symbolsolver.JavaSymbolSolver;
 import com.github.javaparser.symbolsolver.resolution.typesolvers.CombinedTypeSolver;
 import com.github.javaparser.symbolsolver.resolution.typesolvers.JavaParserTypeSolver;
@@ -56,13 +57,22 @@ public class Parser {
 				.collect(Collectors.toList());
 	}
 	
+	
 	public static void main(String[] args) throws IOException {
-		Parser parse = new Parser("C:\\Users\\Gajun\\Desktop\\Software Engineering III\\Scentaur\\src\\main");
+		Parser parse = new Parser("C:\\Users\\Gajun\\Desktop\\Software Engineering III\\Sample");
 		List<CompilationUnit> all = parse.getAllCu();
+
+		LongParameterList longParameterList = new LongParameterList();
 		
-		for(CompilationUnit c: all) {
-			System.out.println(c);
+		all.forEach(c -> {
+			System.out.println(c.getStorage().get().getPath());
+			c.accept(longParameterList, null);
+		});
+		
+		for(MethodDeclaration md: longParameterList.get()) {
+			System.out.println(md);
 		}
+		
 	}
 
 }
