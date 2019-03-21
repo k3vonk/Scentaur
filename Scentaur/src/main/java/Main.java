@@ -5,6 +5,7 @@ import java.util.List;
 import com.github.javaparser.ast.CompilationUnit;
 import com.github.javaparser.ast.body.MethodDeclaration;
 
+import smell.bloater.LongMethodDetector;
 import smell.bloater.LongParameterList;
 
 public class Main {
@@ -25,6 +26,19 @@ public class Main {
 		for(MethodDeclaration md: longParameterList.get()) {
 			System.out.println(md);
 		}
+		
+		
+		LongMethodDetector longMethod = new LongMethodDetector();
+		//Test Long Method
+		all.forEach(c -> {
+			System.out.println(c.getStorage().get().getPath());
+			c.accept(longMethod, null);
+		});
+		
+		for(MethodDeclaration md: longMethod.get()) {
+			System.out.println(md);
+		}
+	
 		
 	}
 

@@ -7,5 +7,5 @@ import smell.Smellable; // Ctrl + Shift + O to import a package
  * 
  */
 public interface Bloatable extends Smellable{
-	abstract void setThreshold(); // This method sets the threshold value for a Bloatable instance.
+	abstract void setThreshold(int value); // This method sets the threshold value for a Bloatable instance.
 }
