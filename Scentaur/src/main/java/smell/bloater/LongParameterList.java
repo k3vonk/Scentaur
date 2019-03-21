@@ -31,7 +31,9 @@ public class LongParameterList extends VoidVisitorAdapter<Void> implements Bloat
         
         if (numParams >= PARAMETER_THRESHOLD) {
             longParameterMethods.add(n);
-            n.setLineComment("LongParameter Smell"); //Indicator of Code Smell
+
+           Comment comment = n.getComment().get();
+           n.addOrphanComment(comment);
         }
 
     }
