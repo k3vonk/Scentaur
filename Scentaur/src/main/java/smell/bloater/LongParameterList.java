@@ -23,6 +23,8 @@ public class LongParameterList extends VoidVisitorAdapter<Void> {
         if (numParams > 5) {
             longParameterMethods.add(n);
         }
+        
+        System.out.println(n.getParentNode().get());
     }
     
 }

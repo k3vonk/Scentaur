@@ -17,7 +17,8 @@ public class Main {
 		
 		//Test Long Method
 		all.forEach(c -> {
-			System.out.println(c.getStorage().get().getPath());
+			
+			System.out.println(c.getStorage().get().getPath());	//Test obtains all java file path
 			c.accept(longParameterList, null);
 		});
 		
