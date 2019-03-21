@@ -5,7 +5,7 @@ import java.util.List;
 import com.github.javaparser.ast.CompilationUnit;
 import com.github.javaparser.ast.body.MethodDeclaration;
 
-import smell.Issue;
+import smell.Smell;
 import smell.bloater.LongMethodDetector;
 import smell.bloater.LongParameterList;
 
@@ -22,7 +22,7 @@ public class Main {
 		all.forEach(c -> {
 			
 			//System.out.println(c.getStorage().get().getPath());	//Test obtains all java file path
-			Issue getIssue = c.accept(longParameterList, null);
+			Smell getIssue = c.accept(longParameterList, null);
 			if(getIssue != null){
 				System.out.println("Found an issue(" +getIssue.getIssueType()+") with method " + getIssue.getMethodName() + " within class " + getIssue.getClassName() + " on line number:" + getIssue.getLineNumber());
 			}
