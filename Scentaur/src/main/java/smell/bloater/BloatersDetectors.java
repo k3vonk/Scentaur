@@ -1,6 +1,10 @@
 package smell.bloater;
 
-public class BloatersDetectors implements Bloatable{
+import com.github.javaparser.ast.visitor.VoidVisitorAdapter;
+
+public class BloatersDetectors extends VoidVisitorAdapter<Void> implements Bloatable {
+	
+	public int threshold;
 	@Override
 	public boolean isClassEmpty(Object obj) {
 		// TODO Auto-generated method stub
@@ -8,7 +12,7 @@ public class BloatersDetectors implements Bloatable{
 	}
 
 	@Override
-	public void setThreshold() {
-		// TODO Auto-generated method stub
+	public void setThreshold(int value) {
+		this.threshold = value;
 	}
 }
