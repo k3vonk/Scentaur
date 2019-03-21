@@ -20,8 +20,8 @@ public class LongMethodDetector extends BloatersDetectors{
 	
 	 @Override
 	    public void visit(MethodDeclaration n, Void args){
-	        int methodLenth = n.getEnd().get().line - n.getBegin().get().line;
-	        if (methodLenth > super.threshold) {
+	        int methodLength = n.getEnd().get().line - n.getBegin().get().line;
+	        if (methodLength > super.threshold) {
 	            longMethods.add(n);
 	        }
 	    }
