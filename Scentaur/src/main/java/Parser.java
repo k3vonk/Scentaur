@@ -1,106 +1,63 @@
-import com.github.javaparser.JavaParser;
-import com.github.javaparser.ast.CompilationUnit;
-import com.github.javaparser.ast.body.MethodDeclaration;
-import com.github.javaparser.ast.visitor.VoidVisitorAdapter;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.util.HashMap;
+import java.nio.file.Paths;
+import java.util.List;
+import java.util.stream.Collectors;
 
-public class Parser{
+import com.github.javaparser.ParseResult;
+import com.github.javaparser.ParserConfiguration;
+import com.github.javaparser.ast.CompilationUnit;
+import com.github.javaparser.symbolsolver.JavaSymbolSolver;
+import com.github.javaparser.symbolsolver.resolution.typesolvers.CombinedTypeSolver;
+import com.github.javaparser.symbolsolver.resolution.typesolvers.JavaParserTypeSolver;
+import com.github.javaparser.symbolsolver.resolution.typesolvers.ReflectionTypeSolver;
+import com.github.javaparser.utils.SourceRoot;
 
-    private File file;
-    private CompilationUnit cu;
-    private MethodVisitor m;
-
-    @SuppressWarnings("unchecked")
-	public Parser(String filePath){
-        this.file = new File(filePath);
-        
-        try {
-			cu = JavaParser.parse(file);
-			m = new MethodVisitor();
-			m.visit(cu, null);
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		}
-
-    }
-    
-	/**
-	 * @return the name of the directory containing the file
-	 */
-	public String getParentDirectory() {
-		return file.getParentFile().getName();
-	}
+/**
+ * A Class that parses the root directory. Obtains all the java files contained 
+ * in the directory and sub directory.
+ *
+ */
+public class Parser {
 	
-	/**
-	 * @return number of lines in a file
-	 */
-	public long fileLength(){
-		try {
-			return Files.lines(file.toPath()).count();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+	private String dir;
+	private SourceRoot sourceRoot;
+	private CombinedTypeSolver typeSolver;
+	private ParserConfiguration parserConfiguration;
+	private List<ParseResult<CompilationUnit>> parseResults;
+	
+	public Parser(String dir) throws IOException {
+		this.dir = dir;
 		
-		return 0;
+		//Configure the Symbol Solver
+		configureSymbolSolver();
+		parserConfiguration = new ParserConfiguration().setSymbolResolver(new JavaSymbolSolver(typeSolver));
+		
+		//Parse all source files
+		sourceRoot = new SourceRoot(Paths.get(dir));
+		sourceRoot.setParserConfiguration(parserConfiguration);
+		parseResults = sourceRoot.tryToParse("");
+		
 	}
 	
 	/**
-	 * @return the amount of comments in a file
+	 * Configure the Symbol Solver
 	 */
-	public int commentAmount() {
-		return cu.getComments().size();
+	private void configureSymbolSolver() {
+		this.typeSolver = new CombinedTypeSolver(
+				new ReflectionTypeSolver(),
+				new JavaParserTypeSolver(new File(dir)));
 	}
 	
-	public String fileName() {
-		return file.getName();
+	/**
+	 * Gets all compilation units of all java files
+	 * @return a list of Compilation Units based on the parserConfiguration
+	 */
+	public List<CompilationUnit> getAllCu(){
+		return parseResults.stream()
+				.filter(ParseResult::isSuccessful)
+				.map(r -> r.getResult().get())
+				.collect(Collectors.toList());
 	}
-	
-	public HashMap<String, Integer> getMethod(){
-		return m.getMethod();
-	}
-	
-	public String toString() {
-		String s = String.format("============= %s =============\n", fileName());
-		s += m.toString();
-		s += "File Length: " + fileLength() + "\n";
-		s += "Parent Directory: " + getParentDirectory() + "\n";
-		return s;
-	}
-	    
-    private int countLines(MethodDeclaration method) {
-        return method.getBody().toString().split("\r\n|\r|\n").length;
-    }
-
-    @SuppressWarnings("rawtypes")
-	private class MethodVisitor extends VoidVisitorAdapter {
- 
-    	private HashMap<String, Integer> method = new HashMap<>();
-    	
-        public void visit(MethodDeclaration n, Object arg) {
-            method.put(n.getNameAsString(), countLines(n));
-        }
-        
-        public HashMap<String,Integer> getMethod(){
-        	return method;
-        }
-        
-        public String toString() {
-        	String str = "";
-        	
-        	for(String s: method.keySet()) {
-        		str += String.format("%-18s | Number of lines[%d]\n", s,method.get(s));
-        	}
-        	
-        	return str;
-        }
-    }
-
-
-
-
 }

@@ -33,4 +33,7 @@ public class Car implements Drivable{
 		return manual;
 	}
 
+	public void longP(int a, int b, int c, int d, int e, int f, int g) {
+		//Do something
+	}
 }
