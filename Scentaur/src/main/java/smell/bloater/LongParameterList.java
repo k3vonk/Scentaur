@@ -1,5 +1,6 @@
 package smell.bloater;
 import com.github.javaparser.ast.body.MethodDeclaration;
+import com.github.javaparser.ast.comments.Comment;
 import com.github.javaparser.ast.visitor.VoidVisitorAdapter;
 
 import java.util.ArrayList;
@@ -30,9 +31,9 @@ public class LongParameterList extends VoidVisitorAdapter<Void> implements Bloat
         
         if (numParams >= PARAMETER_THRESHOLD) {
             longParameterMethods.add(n);
+            n.setLineComment("LongParameter Smell"); //Indicator of Code Smell
         }
-        
-        System.out.println(n.getParentNode().get().findCompilationUnit().get().getStorage().get().getPath());
+
     }
 
 	public boolean isClassEmpty(Object obj) {

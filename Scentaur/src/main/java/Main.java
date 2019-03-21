@@ -15,26 +15,22 @@ public class Main {
 		List<CompilationUnit> all = parse.getAllCu();
 
 		LongParameterList longParameterList = new LongParameterList();
+		LongMethodDetector longMethod = new LongMethodDetector();
 		
 		//Test Long Method
 		all.forEach(c -> {
 			
-			System.out.println(c.getStorage().get().getPath());	//Test obtains all java file path
+			//System.out.println(c.getStorage().get().getPath());	//Test obtains all java file path
 			c.accept(longParameterList, null);
-		});
-		
-		for(MethodDeclaration md: longParameterList.get()) {
-			System.out.println(md);
-		}
-		
-		
-		LongMethodDetector longMethod = new LongMethodDetector();
-		//Test Long Method
-		all.forEach(c -> {
-			System.out.println(c.getStorage().get().getPath());
 			c.accept(longMethod, null);
 		});
 		
+		//Parameter Method
+		for(MethodDeclaration md: longParameterList.get()) {
+			System.out.println(md);
+		}
+	
+		//LONG METHOD
 		for(MethodDeclaration md: longMethod.get()) {
 			System.out.println(md);
 		}
