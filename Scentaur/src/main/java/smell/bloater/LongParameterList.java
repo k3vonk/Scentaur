@@ -6,7 +6,7 @@ import com.github.javaparser.ast.visitor.VoidVisitorAdapter;
 import java.util.ArrayList;
 import java.util.List;
 
-public class LongParameterList extends VoidVisitorAdapter<Void> implements Bloatable {
+public class LongParameterList extends VoidVisitorAdapter<Void> {
 
 	public static final int PARAMETER_THRESHOLD = 3;
     private List<MethodDeclaration> longParameterMethods;
@@ -31,21 +31,18 @@ public class LongParameterList extends VoidVisitorAdapter<Void> implements Bloat
         
         if (numParams >= PARAMETER_THRESHOLD) {
             longParameterMethods.add(n);
-
-           Comment comment = n.getComment().get();
-           n.addOrphanComment(comment);
+            addComment(n);   
         }
 
     }
-
-	public boolean isClassEmpty(Object obj) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	public void setThreshold(int value) {
-		// TODO Auto-generated method stub
-		
-	}
+    
+    /**
+     * Add a comment above a method to indicate that its a smell
+     * @param n
+     */
+    private void addComment(MethodDeclaration n) {
+    	Comment comment = n.getComment().get();
+    	n.setJavadocComment(comment.getContent() + "\n\nSmellDetected: " + this.getClass().getSimpleName());
+    }
     
 }

@@ -34,16 +34,6 @@ public class Car implements Drivable{
 	}
 
 	//lkasjdajsldsaj
-	/**
-	 * 
-	 * @param a
-	 * @param b
-	 * @param c
-	 * @param d
-	 * @param e
-	 * @param f
-	 * @param g
-	 */
 	public void longP(int a, int b, int c, int d, int e, int f, int g) {
 		//Do something
 
