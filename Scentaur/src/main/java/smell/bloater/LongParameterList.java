@@ -37,8 +37,10 @@ public class LongParameterList extends GenericVisitorAdapter<Issue, Void> {
             longParameterMethods.add(n);
             addComment(n);
 
-            return new Issue(n.getParentNode().get().findCompilationUnit().get().getClass().getSimpleName(), n.getName().asString(), n.getBegin().get().line,
+            System.out.println(n.getName());
+            return new Issue(n.getParentNode().get().findCompilationUnit().get().getStorage().get().getFileName(), n.getName().toString(), n.getBegin().get().line,
                     "Long Parameter List", "Has too many parameters in method declaration");
+
 
         }
 
