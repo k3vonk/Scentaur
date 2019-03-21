@@ -7,10 +7,9 @@ import com.github.javaparser.ast.visitor.VoidVisitorAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
+import smell.Smell;
 
-import smell.Issue;
-
-public class LongParameterList extends GenericVisitorAdapter<Issue, Void> {
+public class LongParameterList extends GenericVisitorAdapter<Smell, Void> {
 
     public static final int PARAMETER_THRESHOLD = 3;
     private List<MethodDeclaration> longParameterMethods;
@@ -30,7 +29,7 @@ public class LongParameterList extends GenericVisitorAdapter<Issue, Void> {
      * Visits each compilation unit, checking its method parameter is longer than 2
      */
 
-    public Issue visit(MethodDeclaration n, Void args) {
+    public Smell visit(MethodDeclaration n, Void args) {
         int numParams = n.getParameters().size();
 
         if (numParams >= PARAMETER_THRESHOLD) {
@@ -39,14 +38,17 @@ public class LongParameterList extends GenericVisitorAdapter<Issue, Void> {
 
 
             System.out.println(n.getName());
-            return new Issue(n.getParentNode().get().findCompilationUnit().get().getStorage().get().getFileName(), n.getName().toString(), n.getBegin().get().line,
+            return new Smell(
+                    n.getParentNode().get().findCompilationUnit().get().getStorage().get()
+                            .getFileName(),
+                    n.getName().toString(), n.getBegin().get().line,
 
                     "Long Parameter List", "Has too many parameters in method declaration");
 
 
         }
 
-        
+
         return null;
     }
 
