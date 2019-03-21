@@ -13,6 +13,7 @@ public class Issue {
         this.className = className;
         this.lineNumber = lineNumber;
         this.issueType = issueType;
+        this.methodName = methodName;
         this.comment = comment;
     }
 
