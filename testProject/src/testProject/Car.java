@@ -38,4 +38,9 @@ public class Car implements Drivable{
 		//Do something
 
 	}
+	
+	//Hi
+	public void moreP(int a, int b, int c, int d, int e, int f, int g){
+		
+	}
 }

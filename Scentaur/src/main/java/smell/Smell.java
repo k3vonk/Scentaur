@@ -1,41 +1,27 @@
 package smell;
 
-public class Smell {
+import java.util.List;
 
-    private String className;
-    private int lineNumber;
-    private String methodName;
-    private String issueType;
-    private String comment;
+import com.github.javaparser.ast.Node;
+import com.github.javaparser.ast.visitor.VoidVisitorAdapter;
 
-    public Smell(String className, String methodName, int lineNumber, String issueType,
-            String comment) {
-        this.className = className;
-        this.lineNumber = lineNumber;
-        this.issueType = issueType;
-        this.methodName = methodName;
-        this.comment = comment;
-    }
-
-    public String getClassName() {
-        return className;
-    }
-
-    public String getMethodName() {
-        return methodName;
-    }
-
-    public int getLineNumber() {
-        return lineNumber;
-    }
-
-    public String getIssueType() {
-        return issueType;
-    }
-
-    public String getComment() {
-        return comment;
-    }
-
-
+public abstract class Smell extends VoidVisitorAdapter<Void> implements Smellable{
+	
+	protected List<Node> smell;
+	
+	/**
+	 * Obtain the fileName of the node
+	 */
+	public String getFileName(Node n) {
+		return n.getParentNode().get().findCompilationUnit().get().getStorage().get().getFileName();
+	}
+	
+	public List<Node> getIssue() {
+		return smell;
+	}
+	
+	public void clear() {
+		smell.clear();
+	}
+	
 }

@@ -1,8 +1,12 @@
 package smell;
+
+import com.github.javaparser.ast.Node;
+
 /**
- * This interface contains behaviour common to all types
- * of code smells.
+ * Contains behaviours of all code smells
  */
 public interface Smellable {
-	abstract boolean isClassEmpty(Object obj); // Checks if a class contains any methods or instance variables. Lazy class?
+
+	public String getFileName(Node n); 
+	public void addComment(Node n); 	// Add comment to a node
 }
