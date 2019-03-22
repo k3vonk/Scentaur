@@ -15,7 +15,7 @@ public class LongParameterList extends Bloater {
     }
     
     /**
-     * Visits each compilation unit, checking its method parameter is longer than 2
+     * Visits each MethodDeclaration for a Compilation Unit checking its method parameter is longer than 2
      * @return return a Detect object if true, else null
      */
     public void visit(MethodDeclaration n, Void args) {

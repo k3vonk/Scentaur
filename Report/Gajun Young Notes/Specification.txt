@@ -1,0 +1,99 @@
+============ SET UP ============
+
+To increase team productivity and deliver a better software Scentaur will be running on Gradle
+an open-source build automation system.
+
+How to Install Gradle onto Eclipse:
+Help -> Eclipse Marketplace -> Search "Gradle" ->
+Install "Buildship Gradle Integration 3.0"
+
+Importing Scentaur Project
+File -> Import -> Gradle -> Existing Gradle Project -> Scentaur
+
+Creating a new Gradle Project
+File -> New -> Other... -> Gradle -> Gradle Project
+
+Once the project is made/imported. Carry out the following to refresh and import libraries not native
+to Java.
+
+Right Click Scentaur Project-> Gradle -> Refresh Gradle Project
+
+A synchronizing bar at the bottom right of Eclipse will appear. This will allow you to use open-source 
+libraries and allow you to run test codes on Scentaur.
+
+============ SPECIFICATION ============
+
+Scentaur will be running the following libraries:
+JavaParser 
+Apache.commons
+
+------------ Analyze Project
+Scentaur is planned to become a web application through Spring. Thus, users are enabled to either submit a zip folder or java files directly.
+
+If a Zip folder is submitted, its contents will be extracted to a directory.
+Else files will be placed into a directory.
+
+Designate a folder directory to contain the location of where Scentaur should analyze a project.
++ For testing purposes, Scentaur will sniff out code from the testProject directory that the team has created.
+	- Note: Purposely made code smells will be available in testProject.
++ This will be a temporary directory to enable multi users to run our program. 
++ Once a user is done with Scentaur, the contents of the directory is wiped.
+
+In order to analyze the entire directory given, Scentaur will be using Javaparser.
++ A class called Parser will take in the root directory path as a string to allow the parser to begin parsing from the root directory.
++ A method called configureSymbolSolver will set the symboles required to sniff out java files.
++ The constructor will configure symbol solver and parse all source file based JavaParser-JUG-Milano slides
++ Parser will have a method that returns the compilation units from the root directory to its sub directories.
+	- Information about Compilation Units will be given in Software Overview
+
+------------ Detect Code Smells
++ An abstract Smell superclass will generalize all code smells.
+	-Such as generate the file name of where the smell came from.
+	-Generate information from the smell source. [file name, line number, the exact piece of code that has a smell]
++ Sub directories will be made to accommodate smells that are categorized.
+	- These categories include: 
+		1. Abusers
+		2. Bloater
+		3. Coupler
+		4. Dispensable
++ The following interfaces will be made: Smellable, Abusable, Bloatable, Coupleable and Dispensable
+  to ensure that we enable plug-in-play system for the smells within the categories.
++ Smell class will inherit VoidVisitorAdapter<Void> to enable visits within a compilation unit and implements Smellable
++ The categories will also be an abstract class that are sub classes to Smell and implements its respective interface.
++ Finally code smells belonging to a category will inherit the category class.
+
+Sample Solution:
+	Smell extends VoidVisitorAdapter<Void> inherits Smellable
+		Bloater extends Smell inherits Bloatable
+			LongParamterList extends Bloater
+
+This way we can encapsulate data when creating objects of Smell.
+Smell longParameterList = new LongParamterList();
+
+------------ Generate Report
++ The report will be available in different forms.
++ A class named report will take in all the smells that were detected
++ It will then generate numbers based on the smells and categorize each smell
+	Sample text: Bloaters Smells - 23
+			LongParameterList - 15
+			LongMethod	  - 8
++ Generate percentages in terms of smells. Percentages will be as follows:
+	Bloaters/Total Problems * 100%
+	Abusers/Total Problems * 100%
+	Coupler/Total Problems * 100%
+	Dispensable/Total Problems * 100%
++ Further more this can be obtained in a text file. Drawn onto a table displaying data.
++ The report can also generate classes in either text or java format with comments added to wherever 
+  the code smells existed.
+
+------------ Visualize the Code-Base
++ The code base is planned to be visualized on the web browser using spring and css.
++ Each smell will have their own unique hexadecimal code in order for css to interpret the color of the smell.
++ Scentaur plans to visualize problems by either commenting problems above the smell or color coding the specific text.
++ The compilation unit can return word for word the java text file and can then therefore find the line at which the code smell color is added onto the text
++ Problems will be highlighted.
++ A cross comparison will be shown where the left hand side displays the original code and the right hand side displays the updated version displaying the code smell location
++ Users will be able to choose different smells they desire to check their code for.
+
+
+
