@@ -1,0 +1,10 @@
+SOFTWARE OVERVIEW
+
+________PACKAGING________
+
+Smell -> bloaters 
+      -> couplers
+      -> dispensables
+      -> OOPAbusers
+
+________

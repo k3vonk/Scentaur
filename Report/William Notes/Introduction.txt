@@ -1,0 +1,34 @@
+INTRODUCTION
+
+________VISION OF PROJECT________
+
+- Aspiration: Have Scentaur integrated into an IDE alongside StackOverflow to allow developers to have all tools at their disposal to tackle problems and work together to do more than write code; update their software systems (with confidence) and add features more efficiently.
+
+- Testing can give one confidence that the code is functioning correctly. Source control gives one confidence that all team members are working on the same version of the code(Communication is up to date). Scentaur should give users confidence that the system's(software) design is adaptable to change and if a change is made to the system that breaks functionality, it will be caught.
+
+- The nature of Scentaur is quite intricately tied to OOP since it is currently the leading programming paradigm in software development. OOP strives to achieve correctness and maintainability. Correctness is the first step in writing production code. Maintainability (Ability for new features to be added, for system to grow) is what allows software companies to adapt to change quickly and easily integrate new software into their systems. Scentaur is tryng to make sure that your software components remain maintainable. Tell you when your software may be deviating away from maintainability. 
+
+- If Scentaur is not being used by a team then it is not being used properly. It is not made for individuals. Maintainability is a collaborative process. Constant effort to stay on that path. (Clening a room. Entropy.). Scentaur will tell you when the room needs cleaning. "Software dies by a thousand cuts"...Scentaur can be used to guide refactoring.
+
+- If software is good, many different people will be using it over time. The "PIECE/UNIT" of software will be read repeatedly by multiple people and integrated into different systems.
+
+- Scentaur will be targeted towards beginners/entry-level competency learners since coding is being encouraged at large scale to the general public, Scentaur can be the go to software product for beginners to learn how to think about the software design phase of development and give them understanding and appreciation for writing maintainable code (IMPORTANT FOR HUMANS, NOT COMPUTER. HUMANS WILL BE READING THIS, WORKING WITH THIS. ORGANISE CODE IN WAY THAT IS EASY FOR HUMANS TO UNDERSTAND SINCE MANY DIFFERENT HUMANS WILL BE DEVELOPING "GROWING" SOFTWARE SYSTEM OVER TIME.) Thinking about code on a higher level so they can make an immediate impact when working in teams together and having new people join or joining a team/company. Industry practice...?
+
+________WHAT YOU HOPE TO ACHIEVE________
+
+- Help students develop the habit of thinking about the design process of software. OOP..Context-free classes. JAVA lib
+
+- Help students become more aware of how to write software while part of a team as opposed to individually. (Things to factor into software design process; this stage is not as emphasised while writing software individually.) Can only appreciate this when more than one person is working on the project.
+
+- Implement the most common code smells that beginners show and which smells are most indicative/telling.
+
+- Give beginners tips on how to refactor, remedy smell ex. "Consider making a new class to handle this X responsibility/ try creating a better name for this variable... 
+
+- Encourage users to create a hierarchy in their design to help make software easier to understand for new people joining team. So they know where to make their changes. "Packaging, commenting, testing" ||This has to do with industry.||
+
+________MAIN GOALS OF PROJECT IN YOUR VIEW________
+
+- Show importance of thinking about code on a higher level; Writing code so that it can be read and modified easily by others. "When something can be read without effort, great effort has gone into its writing." -  Enrique Jardiel Poncela
+
+- Develop ability to appreciate a high quality codebase. How do you know you are even looking at high quality code?
+“One has no right to love or hate anything if one has not acquired a thorough knowledge of its nature. Great love springs from great knowledge of the beloved object, and if you know it but little you will be able to love it only a little or not at all.” - Leonardo Da Vinci

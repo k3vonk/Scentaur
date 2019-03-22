@@ -1,0 +1,15 @@
+SPECIFICATION
+
+________INTERFACE PROVIDED________
+
+- Web server where folder of source files are uploaded for analysis. We specify what format source files should be uploaded in.
+
+________PLANNED FEATURES________
+
+- Test specific smell groups on codebase. e.g. bloaters
+- Test individual smells on codebase e.g. long methods
+- Test all smells on codebase
+- Drop-down menu to select options
+- Split screen in half; code files and directories on one side, report on other side.
+- Visual depiction of analysis showing portions of codebase containing respective smells with a graph, followed by line number, class with smell and method if applicable, for each smell detected.
+- Show report by smell(all portions of codebase containing this smell), by class(Show smells in each class)
