@@ -1,0 +1,68 @@
+======== Software Overview ========
+Below is a schematic view of the planned Scentaur design.
+
+
+
+
+
+
+
+
+The Scentaur team is advised to follow a similar layout to the diagrams above. This will ensure that
+the team, works towards a cooperative goal. This hierarchy and structure also allows the project
+to maintain a high cohesive and low coupling software design.
+
+Multiple interfaces have been built to date in order to ensure that team-members follow a set structure when designing code smells.
+The following code smell interfaces have been designed to date.
+
+1. Smellable
+2. Bloatable
+3. Coupleable
+4. Abusable
+5. Dispensable
+
+Smellable contains abstract methods which all smells should be capable of performing.
+Bloatable contains abstract methods which are unique to bloater type code smells.
+Coupleable, Abusable and Dispensable will also contain unique abstract methods common to their specific code smell types.
+
+As displayed on the UML diagram above and described within the specification. Smell will be a general abstract class that all smells
+can be created from. Code smells detected are stored in a list of nodes which are specific to the JavaParser Abstract Syntax Tree. 
+We use JavaParser ast to enable us to pinpoint exactly the section of code that contains a specific code smell.
+Below is an image of an Abstract Syntax Tree of a compilation unit for a java file from https://javaparser.org/inspecting-an-ast/
+
+From this diagram a code smell detector such as "primitive obsession" can check how many times a variable is used within that class.
+Where the variable is declared and therefore obtain its scope. If the variable is a primitive obsession smell, the node corresponding to
+this variable can be stored in the smell. 
+
+This node is very powerful as it can obtain various type of information such as the line it appears on the java file, the class it was declared and the directory 
+this smell was detected from.
+
+To further allow team members to add more code smells, the code smell created will only have to appear in the folder respective to the code smell category and instantiated in main (for now).
+The created object is then accepted by the compilation units in the following way.
+
+		//Test longParameterList
+		all.forEach(c -> {
+			c.accept(longParameterList, null);
+		});
+
+To accept more code smells a simple addition of c.accept("code smell object", null); is called.
+This will inspect a compilation unit for that specific "code smell". This reduces redundancy and coupling amongst smells and obviously easy reuse.
+
+The Scentaur team has also generated a testProject directory which contains sample code that we can test for code smells. Specifcally made code smells are 
+present in this directory.
+In order for Scentaur to detect smell in itself a simple change of root directory path made will suffice. e.g. System.Property("user.dir");
+
+Later content:
+The Report. 
+
+The report will simply take in the code smells itself. Therefore taking in a bunch of nodes with smells attached to it.
+For testing reasons once a smell is detected a comment is attached to the node. This will greatly help with the report as it can regenerate the class for each node with the updated comments attached.
+The report will also have a mathmathical object that calculates specifically for Code smells that existed. With average content, dispersity and table of results.
+
+Spring for visualization and xyz
+
+As currently the team is mainly focused on the standard concept of the program much knowledge of spring will come after
+everything is implemented. If time is the issue the team may plan to create a UI instead as Spring is a new concept to the team which may take an extended amount of time to 
+learn and understand.
+
+

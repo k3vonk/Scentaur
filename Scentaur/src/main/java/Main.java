@@ -26,6 +26,11 @@ public class Main {
 			System.out.println(node.getBegin().get().line);
 		}
 		
+		//Has edited code
+		for(CompilationUnit c: all) {
+			System.out.println(c);
+		}
+		
 	}
 
 }
