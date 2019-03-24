@@ -24,7 +24,7 @@ before working on Scentaur. Thus we tackled this by studying online material and
 to understand the usage of JavaParser.
 + Gradle is also a new plugin that the team is using. However, it was quite simple to adapt to.
 + Spring will be used for the web application of Scentaur. However, if things don't go as planned
-we tend to make a GUI instead. Spring will also require time to understand and get used to.
+we tend to make a GUI instead. Spring is rather convoluted and difficult to grasp at a glance and will take considerable amount of time to understand.
 + Although we tend to refactor code, automatically refactoring the code is complex and takes too much time.
 If the team at Scentaur has time at the end we will implement refractoring. Otherwise, we tend to just detect code and offer
 suggestions for refactoring.
