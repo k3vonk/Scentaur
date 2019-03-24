@@ -1,0 +1,30 @@
+The team's philosophy behind Scentaur is simple. We work together as one collaborative unit,
+ensuring everyone on the team understands each other and push towards a common goal.
+
+========== Note Worthy =============
+Here are some note worthy mentions in going forward with Scentaur.
+
++The team at Scentaur will be following normal guidelines such as using JavaDoc to document
+our methods and classes.
++To enable tidy and maintainable code we have selective packaging paths.
++Scentaur uses a plugin called Gradle to enable the team to develop the software at a quicker rate.
+We're also using external libraries such as JavaParser to help the team to parse Java files
+at a much more convenient way.
+JavaParser also provides an abstract syntax tree. We as the developers can then dive into
+the tree to find compilation units of each java file obtaining the nodes that are required 
+for a particular smell detector.
++Scentaur's USP(Unique Selling Point) is that it is a web based application. It is attended for
+all audiences who wish to detect smell within their java classes. This is done by providing a 
+detailed versus a simple distribution of data of smells.
+
+=========== CHallenges ==============
+
++ JavaParser is a new library for the team to use. We had no previous knowledge on this library
+before working on Scentaur. Thus we tackled this by studying online material and looking through the API
+to understand the usage of JavaParser.
++ Gradle is also a new plugin that the team is using. However, it was quite simple to adapt to.
++ Spring will be used for the web application of Scentaur. However, if things don't go as planned
+we tend to make a GUI instead. Spring will also require time to understand and get used to.
++ Although we tend to refactor code, automatically refactoring the code is complex and takes too much time.
+If the team at Scentaur has time at the end we will implement refractoring. Otherwise, we tend to just detect code and offer
+suggestions for refactoring.
