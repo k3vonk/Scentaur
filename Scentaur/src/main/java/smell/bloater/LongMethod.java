@@ -16,19 +16,11 @@ public class LongMethod extends Bloater{
 		longMethods = new ArrayList<>();
 	}
 	
-	public List<MethodDeclaration> get(){
-        return longMethods;
-    }
-	
 	public void visit(MethodDeclaration n, Void args) {
-
+		String[] lines = n.getBody().toString().split("\r\n|\r|\n");
+		if(lines.length >= METHOD_LENGTH_THRESHOLD) longMethods.add(n);
 	}
 
 	@Override
-	public void addComment(Node n) {
-		
-		
-	}
-
-	
+	public void addComment(Node n) {}	
 }

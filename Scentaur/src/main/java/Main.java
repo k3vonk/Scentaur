@@ -5,21 +5,24 @@ import java.util.List;
 import com.github.javaparser.ast.CompilationUnit;
 import com.github.javaparser.ast.Node;
 
+import smell.bloater.LongMethod;
 import smell.bloater.LongParameterList;
 
 public class Main {
 
 	public static void main(String[] args) throws IOException {
-		Parser parse = new Parser(new File("C:\\Users\\Gajun\\Desktop\\Software Engineering III\\testProject").getAbsolutePath());
+		Parser parse = new Parser(new File(System.getProperty("user.dir")).getAbsolutePath());
 		List<CompilationUnit> all = parse.getAllCu();
 
 		LongParameterList longParameterList = new LongParameterList();
-		
+		LongMethod longMethod = new LongMethod();
 		
 		//Test longParameterList
 		all.forEach(c -> {
 			c.accept(longParameterList, null);
+			c.accept(longMethod, null);
 		});
+		
 		
 		System.out.println(longParameterList.getClass());
 		for(Node node: longParameterList.getIssue()) {
