@@ -42,7 +42,5 @@ public class LongParameterList extends Bloater {
 			md.setJavadocComment(
                 comment.getContent() + "\n\nSmellDetected: " + this.getClass().getSimpleName());
 		}
-		
 	}
-
 }

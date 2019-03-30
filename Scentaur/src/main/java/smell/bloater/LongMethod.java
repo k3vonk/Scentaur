@@ -10,15 +10,14 @@ import com.github.javaparser.ast.body.MethodDeclaration;
 public class LongMethod extends Bloater{
 	
 	public static final int METHOD_LENGTH_THRESHOLD = 40;
-	private List<MethodDeclaration> longMethods;
 	
 	public LongMethod() {
-		longMethods = new ArrayList<>();
+		smell = new ArrayList<>();
 	}
 	
 	public void visit(MethodDeclaration n, Void args) {
 		String[] lines = n.getBody().toString().split("\r\n|\r|\n");
-		if(lines.length >= METHOD_LENGTH_THRESHOLD) longMethods.add(n);
+		if(lines.length >= METHOD_LENGTH_THRESHOLD) smell.add(n);
 	}
 
 	@Override

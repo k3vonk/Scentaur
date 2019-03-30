@@ -23,6 +23,10 @@ public class Main {
 			c.accept(longMethod, null);
 		});
 		
+		System.out.println(longMethod.getClass());
+		for(Node node: longMethod.getIssue()) {
+			System.out.println(node.getBegin().get().line);
+		}
 		
 		System.out.println(longParameterList.getClass());
 		for(Node node: longParameterList.getIssue()) {
