@@ -2,14 +2,13 @@ import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
-import javax.print.attribute.standard.PrinterLocation;
-
 import com.github.javaparser.ast.CompilationUnit;
 import com.github.javaparser.ast.Node;
 
 import smell.bloater.LargeClass;
 import smell.bloater.LongMethod;
 import smell.bloater.LongParameterList;
+import smell.bloater.PrimitiveObsession;
 
 public class Main {
 
@@ -19,6 +18,7 @@ public class Main {
 		longParaList(all);
 		longMethod(all);
 		largeClass(all);
+		PrimitiveObsession(all);
 		
 		//Has edited code
 		for(CompilationUnit c: all) {
@@ -61,6 +61,20 @@ public class Main {
 
 		System.out.println(largeClass.getClass());
 		for(Node node : largeClass.getIssue()) {
+			System.out.println(node.getBegin().get().line);
+		}
+	}
+	
+	public static void PrimitiveObsession(List<CompilationUnit> all) {
+		PrimitiveObsession primObsession = new PrimitiveObsession();
+		
+		// Test PrimitiveObsession
+		all.forEach(c -> {
+			c.accept(primObsession, null);			
+		});
+
+		System.out.println(primObsession.getClass());
+		for(Node node : primObsession.getIssue()) {
 			System.out.println(node.getBegin().get().line);
 		}
 	}
