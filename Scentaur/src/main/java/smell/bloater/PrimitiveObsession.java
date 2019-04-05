@@ -7,6 +7,7 @@ import com.github.javaparser.ast.Node;
 import com.github.javaparser.ast.body.ClassOrInterfaceDeclaration;
 import com.github.javaparser.ast.body.FieldDeclaration;
 import com.github.javaparser.ast.comments.Comment;
+import com.github.javaparser.ast.nodeTypes.NodeWithJavadoc;
 
 public class PrimitiveObsession extends Bloater{
 	public static final int PRIMITIVES_THRESHOLD = 0;
@@ -25,8 +26,10 @@ public class PrimitiveObsession extends Bloater{
 		int numPrimitives = 0;
 		List<FieldDeclaration> classFields = cOri.getFields();
 		for(FieldDeclaration f : classFields) if(f.getElementType().isPrimitiveType()) numPrimitives++;
-		if(numPrimitives >= PRIMITIVES_THRESHOLD) smell.add(cOri.getName());
-		System.out.println(smell.toString());
+		if(numPrimitives >= PRIMITIVES_THRESHOLD) {
+			smell.add(cOri);
+			addComment(cOri);
+		}
 	}
 
 	/**
@@ -34,13 +37,12 @@ public class PrimitiveObsession extends Bloater{
      */
 	@Override
 	public void addComment(Node n) {
-		// TODO Auto-generated method stub
 		ClassOrInterfaceDeclaration cOri = (ClassOrInterfaceDeclaration) n;
 		
 		if(!cOri.getComment().isPresent()) {
 			cOri.setJavadocComment("SmellDetected: " + this.getClass().getSimpleName());
 		}else {
-			Comment comment = n.getComment().get();
+			Comment comment = cOri.getComment().get();
 			cOri.setJavadocComment(
                 comment.getContent() + "\n\nSmellDetected: " + this.getClass().getSimpleName());
 		}
