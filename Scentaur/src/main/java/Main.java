@@ -15,7 +15,7 @@ public class Main {
 	public static void main(String[] args) throws IOException {
 		Parser parse = new Parser(new File("..//testProject//src//testProject").getAbsolutePath());
 		List<CompilationUnit> all = parse.getAllCu();
-		longParaList(all);
+		//longParaList(all);
 		longMethod(all);
 		largeClass(all);
 		PrimitiveObsession(all);
