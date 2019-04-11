@@ -15,7 +15,7 @@ import smell.bloater.Bloater;
 
 public class Comments extends Bloater {
 
-    private static final double COMMENTS_RATIO_THRESHOLD = .4;
+    public static final double COMMENTS_RATIO_THRESHOLD = .4;
 
     public Comments() {
         smell = new ArrayList<>();
