@@ -9,21 +9,24 @@ import smell.bloater.LargeClass;
 import smell.bloater.LongMethod;
 import smell.bloater.LongParameterList;
 import smell.bloater.PrimitiveObsession;
+import smell.dispensable.Comments;
 
 public class Main {
 
 	public static void main(String[] args) throws IOException {
 		Parser parse = new Parser(new File("..//testProject//src//testProject").getAbsolutePath());
 		List<CompilationUnit> all = parse.getAllCu();
-		//longParaList(all);
+		longParaList(all);
 		longMethod(all);
 		largeClass(all);
 		PrimitiveObsession(all);
-		
+		comments(all);
 		//Has edited code
 		for(CompilationUnit c: all) {
-			System.out.println(c);
+		//	System.out.println(c);
 		}
+
+
 	}
 	
 	public static void longParaList(List<CompilationUnit> all) {
@@ -78,5 +81,18 @@ public class Main {
 			System.out.println(node.getBegin().get().line);
 		}
 	}
+
+    public static void comments(List<CompilationUnit> all) {
+        Comments comments = new Comments();
+        // Test Long Param List
+        all.forEach(c -> {
+            c.accept(comments, null);
+        });
+
+        System.out.println(comments.getClass());
+        for(Node node: comments.getIssue()) {
+            System.out.println(node.getBegin().get().line);
+        }
+    }
 
 }
