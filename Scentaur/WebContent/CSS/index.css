@@ -1,0 +1,131 @@
+@charset "UTF-8";
+@import url('https://fonts.googleapis.com/css?family=Comfortaa|Fira+Mono');
+
+body
+{
+	font-family: 'Fira Mono', monospace;
+	color: white;
+	background-color: #0c0c0c;
+	padding: 5rem 1.25rem; /* 80 20 */
+}
+
+.welcome-message{
+    font-size: 48px;
+    text-align: center;
+    font-family: 'Comfortaa', cursive;
+}
+
+label{
+    font-size: 15px;
+}
+
+.container
+{
+	width: 100%;
+	max-width: 60%; /* 800 */
+	text-align: center;
+	margin: 0 auto;
+}
+
+.container h1
+{
+	font-size: 42px;
+	font-weight: 300;
+	color: #0f3c4b;
+	margin-bottom: 40px;
+}
+.container h1 a:hover,
+.container h1 a:focus
+{
+	color: #39bfd3;
+}
+.box
+{
+	font-size: 1.25rem; /* 20 */
+background-color: #191919;
+position: relative;
+padding: 100px 20px;
+}
+.box.has-advanced-upload
+{
+	outline: 2px dashed #292929;
+	outline-offset: -20px;
+                border-radius: 20px;
+	-webkit-transition: outline-offset .15s ease-in-out, background-color .15s linear;
+	transition: outline-offset .15s ease-in-out, background-color .15s linear;
+}
+.box.is-dragover
+{
+	outline-offset: -20px;
+	outline-color: #c8dadf;
+	background-color:#8c5656;
+}
+.box__dragndrop,
+.box__icon
+{
+	display: none;
+}
+.box.has-advanced-upload .box__dragndrop
+{
+	display: inline;
+}
+.box.has-advanced-upload .box__icon
+{
+	width: 100%;
+	height: 80px;
+	fill: #92b0b3;
+	display: block;
+	margin-bottom: 40px;
+}
+
+.js .box__file
+{
+	width: 0.1px;
+	height: 0.1px;
+	opacity: 0;
+	overflow: hidden;
+	position: absolute;
+	z-index: -1;
+}
+.js .box__file + label
+{
+	max-width: 80%;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	cursor: pointer;
+	display: inline-block;
+	overflow: hidden;
+}
+.js .box__file + label:hover strong,
+.box__file:focus + label strong,
+.box__file.has-focus + label strong
+{
+	color: #39bfd3;
+}
+
+
+.no-js .box__file + label
+{
+	display: none;
+}
+
+.no-js .box__button
+{
+	display: block;
+}
+.box__button
+{
+	font-weight: 700;
+	color: #e5edf1;
+	background-color: #6fb782;
+	display: block;
+                   border-radius: 8px;
+                   padding: 13px 60px;
+	margin: 40px auto 0;
+                   border: none;
+}
+.box__button:hover,
+.box__button:focus
+{
+	background-color: #40b35e;
+}

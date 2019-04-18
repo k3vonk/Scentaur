@@ -9,6 +9,7 @@
 plugins {
     // Apply the java-library plugin to add support for Java Library
     id 'java-library'
+    id 'java'
 }
 
 dependencies {
@@ -18,8 +19,8 @@ dependencies {
     implementation 'commons-io:commons-io:2.6'
 
     // This dependency is used internally, and not exposed to consumers on their own compile classpath.
-    implementation 'com.google.guava:guava:23.0'
-    implementation 'commons-io:commons-io:2.6'
+    compile 'com.google.guava:guava:23.0'
+    compile 'commons-io:commons-io:2.6'
 
     // Use JUnit test framework
     testImplementation 'junit:junit:4.12'
@@ -31,6 +32,30 @@ dependencies {
 
 	// https://mvnrepository.com/artifact/com.github.javaparser/javaparser-symbol-solver-core
 	compile group: 'com.github.javaparser', name: 'javaparser-symbol-solver-core', version: '3.13.4'
+	
+	// struts library
+    compile group: 'org.apache.struts', name: 'struts2-core', version: '2.3.24.1'
+    compile 'org.apache.struts:struts2-spring-plugin:2.3.24.1'
+    compile 'org.apache.struts:struts2-json-plugin:2.3.24.1'
+ 
+    // spring library
+    compile group: 'org.springframework', name: 'spring-core', version: '4.2.3.RELEASE'
+    compile group: 'org.springframework', name: 'spring-web', version: '4.2.3.RELEASE'
+    compile group: 'org.springframework', name: 'spring-orm', version: '4.2.3.RELEASE'
+    compile group: 'org.springframework', name: 'spring-aop', version: '4.2.3.RELEASE'
+    compile group: 'org.springframework', name: 'spring-aspects', version: '4.2.3.RELEASE'
+    compile group: 'org.springframework', name: 'spring-jdbc', version: '4.2.3.RELEASE'
+     
+    // hibernate library  
+    compile group: 'org.hibernate', name: 'hibernate-core', version: '5.0.1.Final'
+    
+    // jsp servlet support
+    compile 'tomcat:servlet-api:5.5.23'
+    compile 'tomcat:jsp-api:5.5.23'
+    compile 'javax.servlet:javax.servlet-api:3.0.1'
+    
+    // file transition
+    compile 'commons-fileupload:commons-fileupload:1.4'
 
 }
 
