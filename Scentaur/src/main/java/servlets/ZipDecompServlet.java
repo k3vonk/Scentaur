@@ -17,7 +17,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import filebase.FileMap;
+import fileaddress_base.FileMap;
+import parser.CompilationUnitMap;
 
 /**
  * Servlet implementation class ZipDecompServlet
@@ -29,8 +30,8 @@ public class ZipDecompServlet extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		long startTime=System.currentTimeMillis();	
-		String userID = request.getSession().getId();
-		String filePathIn = FileMap.getFile(userID);
+		String sessionID = request.getSession().getId();
+		String filePathIn = FileMap.getFile(sessionID);
 		System.out.println(filePathIn);
 		String filePathOut = filePathIn.substring(0, filePathIn.lastIndexOf(".")) + "/";
 		
@@ -72,5 +73,13 @@ public class ZipDecompServlet extends HttpServlet {
 		System.out.println("******************Finish********************");
         long endTime=System.currentTimeMillis();  
         System.out.println("Time consume£º "+(endTime-startTime)+" ms"); 
+        
+        // parser the file, and store the compilationUnit into a hashmap with sessionID as the key
+        CompilationUnitMap.addCompilationUnit(filePathOut.substring(0, filePathOut.lastIndexOf("/")), sessionID);
+        
+        // put the user's compilation unit into the request and jump to the test.jsp
+        request.setAttribute("compilationUnit", CompilationUnitMap.getCompilationUnit(sessionID));
+        request.getRequestDispatcher("./pages/test.jsp").forward(request, response);
+//        System.out.println("Forward to test.jsp");
 	} 
 }

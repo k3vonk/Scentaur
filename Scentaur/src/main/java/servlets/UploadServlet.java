@@ -18,7 +18,7 @@ import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
-import filebase.FileMap;
+import fileaddress_base.FileMap;
 
 /**
  * Servlet implementation class TestServlet
@@ -40,19 +40,19 @@ public class UploadServlet extends HttpServlet {
 		String message = "";
 		try{
 			//use Apache FileUpload Module to deal with file uploading£º
-			//1¡¢instantiate a DiskFileItemFactory
+			//1.instantiate a DiskFileItemFactory
 			DiskFileItemFactory factory = new DiskFileItemFactory();
-			//2¡¢instantiate a ServletFileUpload resolver
+			//2.instantiate a ServletFileUpload resolver
 			ServletFileUpload upload = new ServletFileUpload(factory);
 			// deal with messy code
 			upload.setHeaderEncoding("UTF-8"); 
-			//3¡¢check if the data belongs to the form
+			//3.check if the data belongs to the form
 			if(!ServletFileUpload.isMultipartContent(request)){
 				
 				System.out.println("no file uploaded");
 
 			}
-           //4¡¢use ServletFileUpload resolver to analyze uploaded items£¬return a List<FileItem>£¬every FileItem is a Form input
+           //4.use ServletFileUpload resolver to analyze uploaded items£¬return a List<FileItem>£¬every FileItem is a Form input
            List<FileItem> list = upload.parseRequest(request);
            for(FileItem item : list){
                // if items in the list are data
@@ -72,9 +72,9 @@ public class UploadServlet extends HttpServlet {
 		          
 		          // obtain the file name without address
 		          filename = filename.substring(filename.lastIndexOf("\\")+1);
-		          // rename the file which begins with the substring of the request from "@" to the end
-		          // for instance C:\X\XX\@xxxxx-filename
-		          String absoluteAdd = new String(savePath + "\\" + request.toString().substring(request.toString().lastIndexOf("@")) +"-"+ filename);
+		          // rename the file which begins with the substring of the request after "@" to the end
+		          // for instance C:\X\XX\Xxxxxxfilename with the first lowercase "x" is the first char after @, the "X" before "x" is just the letter "X"
+		          String absoluteAdd = new String(savePath + "\\" + "X" + request.toString().substring(request.toString().lastIndexOf("@")+1) + filename);
 		          // obtain the upload stream of the file
 		          InputStream in = item.getInputStream();
                    // instantiate an output stream
@@ -103,6 +103,7 @@ public class UploadServlet extends HttpServlet {
 		          // key: session ID	value: the absolute address of the file
 		          FileMap.addFile(userID, absoluteAdd);
 		          System.out.println("User id: "+userID);
+		          
 		          // send the request to ZipDecompservlet
 		          request.getRequestDispatcher("ZipDecompServlet").forward(request, response);
 		      }
