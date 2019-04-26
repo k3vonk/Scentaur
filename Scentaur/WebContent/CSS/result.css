@@ -1,0 +1,221 @@
+@charset "UTF-8";
+@import url('https://fonts.googleapis.com/css?family=Comfortaa|Fira+Mono');
+
+body
+{
+	font-family: 'Fira Mono', monospace;
+	color: white;
+	background-color: #0c0c0c;
+}
+
+.welcome-message{
+    font-size: 28px;
+    text-align: center;
+		font-family: 'Fira Mono', monospace;
+}
+
+.type-selector{
+	font-size: .8em;
+}
+label{
+    font-size: 15px;
+}
+
+.hljs-ln-code{
+	padding-left: 1em !important;
+}
+pre > code {
+	font-family: "Sans Mono", "Consolas", "Courier", monospace;
+	font-size: .7em;
+	padding-left: 20px;
+    white-space: pre-line;
+}
+
+.container
+{
+	width: 90%;
+	margin: 0 auto;
+}
+
+
+.results{
+	padding-left: 2em;
+	font-size: .7em;
+}
+.container h1
+{
+	font-size: 42px;
+	font-weight: 300;
+	color: #0f3c4b;
+	margin-bottom: 40px;
+}
+.container h1 a:hover,
+.container h1 a:focus
+{
+	color: #39bfd3;
+}
+
+.box__smells{
+	height:100%;
+}
+.column {
+	float: left;
+	width: 50%;
+}
+
+.column-full{
+	width: 100%;
+}
+
+.container:after {
+	content: "";
+	display: table;
+	clear: both;
+  }
+
+.hljs {
+	background-color: #191919 !important;
+	border-radius: 10px;
+  max-height:70vh;
+}
+.box
+{
+
+	font-size: 1.25rem; /* 20 */
+background-color: #191919;
+position: relative;
+padding: 2px 80px 50px 80px;
+outline: 2px dashed #292929;
+	outline-offset: -20px;
+                border-radius: 20px;
+	-webkit-transition: outline-offset .15s ease-in-out, background-color .15s linear;
+	transition: outline-offset .15s ease-in-out, background-color .15s linear;
+}
+
+.box__dragndrop,
+.box__icon
+{
+	display: none;
+}
+.box.has-advanced-upload .box__dragndrop
+{
+	display: inline;
+}
+.box.has-advanced-upload .box__icon
+{
+	width: 100%;
+	height: 80px;
+	fill: #92b0b3;
+	display: block;
+	margin-bottom: 40px;
+}
+
+.js .box__file
+{
+	width: 0.1px;
+	height: 0.1px;
+	opacity: 0;
+	overflow: hidden;
+	position: absolute;
+	z-index: -1;
+}
+.js .box__file + label
+{
+	max-width: 80%;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	cursor: pointer;
+	display: inline-block;
+	overflow: hidden;
+}
+.js .box__file + label:hover strong,
+.box__file:focus + label strong,
+.box__file.has-focus + label strong
+{
+	color: #39bfd3;
+}
+
+/* width */
+::-webkit-scrollbar {
+	width: 6px;
+  }
+  
+  /* Track */
+  ::-webkit-scrollbar-track {
+	background: #f1f1f1; 
+  }
+   
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+	background: #002b38; 
+  }
+  
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+	background: #1b2325; 
+  }
+.no-js .box__file + label
+{
+	display: none;
+}
+
+.no-js .box__button
+{
+	display: block;
+}
+.box__button
+{
+	font-weight: 700;
+	color: #e5edf1;
+	background-color: #002b38;
+                   border-radius: 8px;
+                   padding: 10px 30px;
+	margin: 40px auto 0;
+                   border: none;
+}
+.box__button:hover,
+.box__button:focus
+{
+	cursor: pointer;
+	background-color: #1b2325;
+}
+
+
+select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  -ms-appearance: none;
+  appearance: none;
+  outline: 0;
+  box-shadow: none;
+  border: 0 !important;
+  background: #002b38;
+  background-image: none;
+}
+/* Custom Select */
+.select {
+  position: relative;
+	height: 3em;
+	width: 13em;
+	font-family: 'Fira Mono', monospace;
+	
+  line-height: 3;
+  background: #002b38;
+  overflow: hidden;
+  border-radius: .25em;
+}
+select {
+	height: 100%;
+	width: 100%;
+	margin: 0;
+	font-family: 'Verdana', cursive;
+	font-size: 16px;
+  padding: 0 0 0 1.2em;
+  color: #fff;
+  cursor: pointer;
+}
+
+
+.options {
+	margin-top: -30px;
+}
