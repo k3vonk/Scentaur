@@ -9,10 +9,12 @@
 <title>Insert title here</title>
 </head>
 <body>
+	<pre>
 	<%
 		// display the compilation unit
 		List<CompilationUnit> compilationUnit = (List<CompilationUnit>)request.getAttribute("compilationUnit");
 		out.println(compilationUnit.get(0));	
 	%>
+	</pre>
 </body>
 </html>

@@ -12,10 +12,47 @@
 	<link rel="stylesheet" href="CSS/highlighter/dracula.css">
 	<script src="javaScript/highlight.pack.js"></script>
 	<script src="javaScript/line-numbers.min.js"></script>
-	<script>hljs.initHighlightingOnLoad();hljs.initLineNumbersOnLoad();</script>
+	<!-- <script>hljs.initHighlightingOnLoad();hljs.initLineNumbersOnLoad();</script> -->
 	<!-- remove this if you use Modernizr -->
 	<script>(function(e,t,n){var r=e.querySelectorAll("html")[0];r.className=r.className.replace(/(^|\s)no-js(\s|$)/,"$1js$2")})(document,window,0);</script>
-
+	
+	<script type="text/javascript" src="javaScript/jquery.js"></script>
+	<script type="text/javascript">
+		window.onload = function(){
+			$.ajax({
+				type:"POST",
+				url:"PageOnloadServlet",
+				dataType:"json",
+				traditional:true,
+				//data:$('#form').serialize(),
+				success: function(res){
+					$("#source_code").text(res[0]);
+					hljs.highlightBlock($('code').get(0));
+					hljs.lineNumbersBlock($('code').get(0));
+					for(var i=0; i<res[1].length; i++){
+						$("#slct").append('<option>'+res[1][i]+'.java'+'</option>');
+					}
+				}
+			});
+		}
+		
+		function changeFile(){
+			var myselect = document.getElementById("slct");
+			var id = myselect.selectedIndex;
+			$.ajax({
+				type:"POST",
+				url:"SourceCodeServlet",
+				data:{"id":id},
+				//dataType:"json",
+				//traditional:true,
+				success: function(res){
+					$("#source_code").text(res);
+					hljs.highlightBlock($('code').get(0));
+					hljs.lineNumbersBlock($('code').get(0));
+				}
+			});
+		}
+	</script>
 </head>
 
 <body>
@@ -27,128 +64,25 @@
 <div class="container box">
 
 	<form method="post" name="upload" action="UploadServlet" onsubmit="return checkPost();" enctype="multipart/form-data" novalidate class="type-selector">
-		
-		
-			<div class="select">
-					<select name="slct" id="slct">
-					  <option value="0">Overview &#11167;</option>	
-					  <option value="1">A.java</option>
-					  <option value="2">B.java</option>
-					  <option value="3">C.java</option>
-					  <option value="1">D.java</option>
-					  <option value="2">E.java</option>
-					  <option value="3">F.java</option>
-					</select>
-				  </div>
-				 <div class="options">
-				  { <label><input type="checkbox" name="type" value="bloaters"> Bloaters</label>
-				  <label><input type="checkbox" name="type" value="bloaters"> OOPAbusers</label>
-				  <label><input type="checkbox" name="type" value="bloaters"> Dispensables</label>
-				  <label><input type="checkbox" name="type" value="bloaters"> Couplers</label> 
-		<input type="submit" name="submit" value="UPDATE" class="box__button">  }
-				 </div>
+		<div class="select">
+			<select name="slct" id="slct" onchange="changeFile()">
+				<option value="0">Overview &#11167;</option>	
+			</select>
+		</div>
+		<div class="options">
+			{ 
+				<label><input type="checkbox" name="type" value="bloaters"> Bloaters</label>
+				<label><input type="checkbox" name="type" value="bloaters"> OOPAbusers</label>
+				<label><input type="checkbox" name="type" value="bloaters"> Dispensables</label>
+				<label><input type="checkbox" name="type" value="bloaters"> Couplers</label> 
+				<input type="submit" name="submit" value="UPDATE" class="box__button">  
+			}
+		</div>
 	</form>
 		
+		
 		<div class="box__output column">
-			<pre><code class="java">package net.authorize.sample.Sha512;
-
-					import java.security.*;
-					import java.util.Formatter;
-					
-					import javax.crypto.Mac;
-					import javax.crypto.spec.SecretKeySpec;
-					
-					public class ComputeTransHashSHA2 {
-					
-						public static void main(String[] args) throws Exception {
-							String signatureKey = "56E529FE6C63D60E545F84686096E6AA01D5E18A119F18A130F6023B4C78A9D52C18DA";
-							String transId = "60115868980";
-							String apiLogin = "5T9cRn9FK";
-							String amount = "15.00";
-							//transHashSHA2 represents the computed TransHash2 using SignatureKey for the given transaction
-							//textToHash is formed by concatenating apilogin id , transId for the given transaction and transaction amount.
-							// For more details please visit https://developer.authorize.net/support/hash_upgrade/?utm_campaign=19Q2%20MD5%20Hash%20EOL%20Partner&utm_medium=email&utm_source=Eloqua for implementation details.
-							String transHashSHA2=getHMACSHA512(signatureKey, "^"+ apiLogin+"^"+ transId +"^"+ amount+"^");
-						}
-					
-						/**
-						 * This is method to generate HMAC512 key for a given signature key and Text to Hash
-						 * @param signatureKey
-						 * @param textToHash
-						 * @return
-						 * @throws Exception
-						 */
-						public static String getHMACSHA512(String signatureKey, String textToHash)throws Exception
-						{
-							// Check if Key is null or empty
-							if (signatureKey==null||signatureKey.isEmpty())
-								throw new IllegalArgumentException("HMACSHA512: key Parameter cannot be empty.");
-							//Check if texttoHash is null or empty
-							if (textToHash==null||textToHash.isEmpty())
-								throw new IllegalArgumentException("HMACSHA512: textToHash Parameter cannot be empty.");
-					
-							// Signature Key size cannot be less than 2 or odd
-							if (signatureKey.length() % 2 != 0 || signatureKey.trim().length() < 2)
-							{
-								throw new IllegalArgumentException("HMACSHA512: key Parameter cannot be odd or less than 2 characters.");
-							}
-					
-							// Convert Hex string to byte array
-							byte signatureKeyInByteArray[]=hexStringToByteArray(signatureKey);
-							// Calculate hmac 512 for the byte array contents and text to hash.
-							String hashedValue=calculateHMAC(signatureKeyInByteArray,textToHash);
-							if(hashedValue==null)
-								throw new NullPointerException("For Signature Key :["+signatureKey+"] And Text To Hash ["+textToHash+"] the generated HMAC512 Key is null .Please contact Authorize.net for more information");
-					
-							return hashedValue.toUpperCase();
-						}
-					
-						/**
-						 * This is the method to Calculate Hmac sha512 for given signature signatureKey  in byte array and text to hash in byte array
-						 * @param signatureKey
-						 * @param textToHash
-						 * @return
-						 * @throws SignatureException
-						 * @throws NoSuchAlgorithmException
-						 * @throws InvalidKeyException
-						 */
-						public static String calculateHMAC(byte signatureKey[], String textToHash)
-								throws SignatureException, NoSuchAlgorithmException, InvalidKeyException
-						{
-							SecretKeySpec secretKeySpec = new SecretKeySpec(signatureKey, "HmacSHA512");
-							Mac mac = Mac.getInstance("HmacSHA512");
-							mac.init(secretKeySpec);
-							return toHexString(mac.doFinal(textToHash.getBytes()));
-						}
-					
-						/**
-						 * This is the method to convert byte array into hexadecimal string
-						 * @param bytes
-						 * @return hexadecimal string.
-						 */
-						private static String toHexString(byte[] bytes) {
-							Formatter formatter = new Formatter();
-							for (byte b : bytes) {
-								formatter.format("%02x", b);
-							}
-							return formatter.toString();
-						}
-					
-						/**
-						 * This is the method convert hexadecimal string to byte array
-						 * @param str
-						 * @return byte array
-						 */
-						public static byte[] hexStringToByteArray(String str) {
-							int len = str.length();
-							byte[] data = new byte[len / 2];
-							for (int i = 0; i < len; i += 2) {
-								data[i / 2] = (byte) ((Character.digit(str.charAt(i), 16) << 4)
-										+ Character.digit(str.charAt(i+1), 16));
-							}
-							return data;
-						}
-					}	</code></pre>
+			<pre><code class="java" id="source_code" style="white-space:pre"></code></pre>
 		</div>
 		<div class="column box__results">
 		<div class="results">

@@ -18,10 +18,11 @@ import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
-import fileaddress_base.FileMap;
+import userbase.UserBase;
+import userbase.UserInfo;
 
 /**
- * Servlet implementation class TestServlet
+ * receive the file uploaded by user
  */
 @WebServlet("/UploadServlet")
 public class UploadServlet extends HttpServlet {
@@ -96,13 +97,16 @@ public class UploadServlet extends HttpServlet {
 		          item.delete();
 		          message = "Success to upload file£¡";
 		          System.out.println(message);
+		          // instantiate a user, store the zip address into user
+		          UserInfo user = new UserInfo();
+		          user.setZipAddress(absoluteAdd);
 		          // obtain the session ID
 		          HttpSession session = request.getSession();
-		          String userID = session.getId();
-		          // store the file into the hashmap
-		          // key: session ID	value: the absolute address of the file
-		          FileMap.addFile(userID, absoluteAdd);
-		          System.out.println("User id: "+userID);
+		          String sessionID = session.getId();
+		          // store the user into the hashmap
+		          // key: session ID	value: the user
+		          UserBase.addUser(sessionID, user);
+		          System.out.println("User id: "+sessionID);
 		          
 		          // send the request to ZipDecompservlet
 		          request.getRequestDispatcher("ZipDecompServlet").forward(request, response);
