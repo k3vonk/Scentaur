@@ -28,11 +28,9 @@ public class UploadServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
 		// root directory
-<<<<<<< HEAD
-		String savePath = request.getSession().getServletContext().getRealPath("/");
-=======
+
 		String savePath = request.getSession().getServletContext().getRealPath("/")+"UserFiles";
->>>>>>> cae919df8991f281fd34b71bec27046a97b2317d
+
 		File file = new File(savePath);
 		// check if the root exists
 		if (!file.exists() && !file.isDirectory()) {
