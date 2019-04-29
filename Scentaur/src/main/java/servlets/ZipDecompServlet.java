@@ -7,7 +7,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.nio.charset.Charset;
-import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
 import java.util.zip.ZipEntry;
@@ -29,7 +28,6 @@ import userbase.UserBase;
 @WebServlet("/ZipDecompServlet")
 public class ZipDecompServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private static final int buffer = 2048;
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		long startTime=System.currentTimeMillis();	
@@ -75,15 +73,16 @@ public class ZipDecompServlet extends HttpServlet {
 		in.close();
 		out.close();
 		}
+		zip.close();
 		System.out.println("******************Finish********************");
         long endTime=System.currentTimeMillis();  
         System.out.println("Time consume£º "+(endTime-startTime)+" ms"); 
         
         // parse the file, and store the compilationUnit into the user with sessionID = key in the hashmap
         UserBase.getUser(sessionID).setCompilationUnit(UserBase.getUser(sessionID).getUnzippedAddress());
+        
+        request.getRequestDispatcher("result.html").forward(request, response);
 
-        request.getRequestDispatcher("test.html").forward(request, response);
-        //request.getRequestDispatcher("./pages/test.jsp").forward(request, response);
         convertCuToString(sessionID);
 	}
 	
@@ -92,6 +91,7 @@ public class ZipDecompServlet extends HttpServlet {
 		List<CompilationUnit> compilationUnit = UserBase.getUser(sessionID).getCompilationUnit();
 		for(CompilationUnit cu : compilationUnit) {
 			String class_name = cu.getType(0).getNameAsString();
+			//System.out.println(class_name);
 			UserBase.getUser(sessionID).setClassName(class_name);
 			UserBase.getUser(sessionID).setSourceCode(class_name, cu.toString());
 		}	

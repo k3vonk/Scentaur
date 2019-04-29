@@ -1,8 +1,5 @@
 package servlets;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -29,6 +26,7 @@ public class PageOnloadServlet extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String sessionID = request.getSession().getId();
+
 		// the key for first java file, and return that file
 		String key = UserBase.getUser(sessionID).getClassNames().get(0);
 		String overview = UserBase.getUser(sessionID).getSourceCodeMap().get(key);
