@@ -4,6 +4,7 @@ import java.util.List;
 import com.github.javaparser.ast.CompilationUnit;
 import com.github.javaparser.ast.Node;
 
+import smell.Smell;
 import smell.bloater.LargeClass;
 import smell.bloater.LongMethod;
 import smell.bloater.LongParameterList;
@@ -28,11 +29,10 @@ public class SmellDetect {
 			//System.out.println(c);
 		}
 
-
 	}
 	
 	public static void longParaList(List<CompilationUnit> all) {
-		LongParameterList longParameterList = new LongParameterList();
+		Smell longParameterList = new LongParameterList();
 		// Test Long Param List
 		all.forEach(c -> {
 			c.accept(longParameterList, null);			
