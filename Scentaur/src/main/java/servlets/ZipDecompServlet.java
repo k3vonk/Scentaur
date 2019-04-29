@@ -7,7 +7,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.nio.charset.Charset;
+import java.util.ArrayList;
 import java.util.Enumeration;
+import java.util.List;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 
@@ -17,10 +19,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import filebase.FileMap;
+import com.github.javaparser.ast.CompilationUnit;
+
+import userbase.UserBase;
 
 /**
- * Servlet implementation class ZipDecompServlet
+ * decompress the file uploaded by user
  */
 @WebServlet("/ZipDecompServlet")
 public class ZipDecompServlet extends HttpServlet {
@@ -29,10 +33,12 @@ public class ZipDecompServlet extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		long startTime=System.currentTimeMillis();	
-		String userID = request.getSession().getId();
-		String filePathIn = FileMap.getFile(userID);
+		String sessionID = request.getSession().getId();
+		String filePathIn = UserBase.getUser(sessionID).getZipAddress();
 		System.out.println(filePathIn);
-		String filePathOut = filePathIn.substring(0, filePathIn.lastIndexOf(".")) + "/";
+		String unzippedPath = filePathIn.substring(0, filePathIn.lastIndexOf("."));
+		UserBase.getUser(sessionID).setUnzippedAddress(unzippedPath);
+		String filePathOut = unzippedPath + "/";
 		
 		File pathFile = new File(filePathOut);
 		if(!pathFile.exists()){
@@ -58,7 +64,7 @@ public class ZipDecompServlet extends HttpServlet {
 		continue;
 		}
 		// output
-		System.out.println(outPath);
+		//System.out.println(outPath);
 		OutputStream out = new FileOutputStream(outPath);
 		byte[] buf1 = new byte[1024];
 		int len;
@@ -72,5 +78,22 @@ public class ZipDecompServlet extends HttpServlet {
 		System.out.println("******************Finish********************");
         long endTime=System.currentTimeMillis();  
         System.out.println("Time consume£º "+(endTime-startTime)+" ms"); 
-	} 
+        
+        // parse the file, and store the compilationUnit into the user with sessionID = key in the hashmap
+        UserBase.getUser(sessionID).setCompilationUnit(UserBase.getUser(sessionID).getUnzippedAddress());
+
+        request.getRequestDispatcher("test.html").forward(request, response);
+        //request.getRequestDispatcher("./pages/test.jsp").forward(request, response);
+        convertCuToString(sessionID);
+	}
+	
+	public static void convertCuToString(String sessionID) {
+		
+		List<CompilationUnit> compilationUnit = UserBase.getUser(sessionID).getCompilationUnit();
+		for(CompilationUnit cu : compilationUnit) {
+			String class_name = cu.getType(0).getNameAsString();
+			UserBase.getUser(sessionID).setClassName(class_name);
+			UserBase.getUser(sessionID).setSourceCode(class_name, cu.toString());
+		}	
+	}
 }

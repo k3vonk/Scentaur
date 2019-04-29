@@ -1,5 +1,4 @@
-import java.io.File;
-import java.io.IOException;
+package parser;
 import java.util.List;
 
 import com.github.javaparser.ast.CompilationUnit;
@@ -12,19 +11,22 @@ import smell.bloater.LongParameterList;
 import smell.bloater.PrimitiveObsession;
 import smell.dispensable.Comments;
 
-public class Main {
+/* 
+ * 
+ * Main class, just changed the name.
+ */
 
-	public static void main(String[] args) throws IOException {
-		Parser parse = new Parser(new File("..//testProject//src//testProject").getAbsolutePath());
-		List<CompilationUnit> all = parse.getAllCu();
+public class SmellDetect {
+
+	public static void detect(List<CompilationUnit> all) {
 		longParaList(all);
-		longMethod(all);
-		largeClass(all);
-		PrimitiveObsession(all);
-		comments(all);
+//		longMethod(all);
+//		largeClass(all);
+//		PrimitiveObsession(all);
+//		comments(all);
 		//Has edited code
 		for(CompilationUnit c: all) {
-		//	System.out.println(c);
+			//System.out.println(c);
 		}
 
 	}

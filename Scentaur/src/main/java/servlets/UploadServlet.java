@@ -18,17 +18,22 @@ import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
-import filebase.FileMap;
+import userbase.UserBase;
+import userbase.UserInfo;
 
 /**
- * Servlet implementation class TestServlet
+ * receive the file uploaded by user
  */
 @WebServlet("/UploadServlet")
 public class UploadServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
 		// root directory
+<<<<<<< HEAD
 		String savePath = request.getSession().getServletContext().getRealPath("/");
+=======
+		String savePath = request.getSession().getServletContext().getRealPath("/")+"UserFiles";
+>>>>>>> cae919df8991f281fd34b71bec27046a97b2317d
 		File file = new File(savePath);
 		// check if the root exists
 		if (!file.exists() && !file.isDirectory()) {
@@ -40,19 +45,19 @@ public class UploadServlet extends HttpServlet {
 		String message = "";
 		try{
 			//use Apache FileUpload Module to deal with file uploading£º
-			//1¡¢instantiate a DiskFileItemFactory
+			//1.instantiate a DiskFileItemFactory
 			DiskFileItemFactory factory = new DiskFileItemFactory();
-			//2¡¢instantiate a ServletFileUpload resolver
+			//2.instantiate a ServletFileUpload resolver
 			ServletFileUpload upload = new ServletFileUpload(factory);
 			// deal with messy code
 			upload.setHeaderEncoding("UTF-8"); 
-			//3¡¢check if the data belongs to the form
+			//3.check if the data belongs to the form
 			if(!ServletFileUpload.isMultipartContent(request)){
 				
 				System.out.println("no file uploaded");
 
 			}
-           //4¡¢use ServletFileUpload resolver to analyze uploaded items£¬return a List<FileItem>£¬every FileItem is a Form input
+           //4.use ServletFileUpload resolver to analyze uploaded items£¬return a List<FileItem>£¬every FileItem is a Form input
            List<FileItem> list = upload.parseRequest(request);
            for(FileItem item : list){
                // if items in the list are data
@@ -72,9 +77,9 @@ public class UploadServlet extends HttpServlet {
 		          
 		          // obtain the file name without address
 		          filename = filename.substring(filename.lastIndexOf("\\")+1);
-		          // rename the file which begins with the substring of the request from "@" to the end
-		          // for instance C:\X\XX\@xxxxx-filename
-		          String absoluteAdd = new String(savePath + "\\" + request.toString().substring(request.toString().lastIndexOf("@")) +"-"+ filename);
+		          // rename the file which begins with the substring of the request after "@" to the end
+		          // for instance C:\X\XX\Xxxxxxfilename with the first lowercase "x" is the first char after @, the "X" before "x" is just the letter "X"
+		          String absoluteAdd = new String(savePath + "\\" + "X" + request.toString().substring(request.toString().lastIndexOf("@")+1) + filename);
 		          // obtain the upload stream of the file
 		          InputStream in = item.getInputStream();
                    // instantiate an output stream
@@ -96,13 +101,17 @@ public class UploadServlet extends HttpServlet {
 		          item.delete();
 		          message = "Success to upload file£¡";
 		          System.out.println(message);
+		          // instantiate a user, store the zip address into user
+		          UserInfo user = new UserInfo();
+		          user.setZipAddress(absoluteAdd);
 		          // obtain the session ID
 		          HttpSession session = request.getSession();
-		          String userID = session.getId();
-		          // store the file into the hashmap
-		          // key: session ID	value: the absolute address of the file
-		          FileMap.addFile(userID, absoluteAdd);
-		          System.out.println("User id: "+userID);
+		          String sessionID = session.getId();
+		          // store the user into the hashmap
+		          // key: session ID	value: the user
+		          UserBase.addUser(sessionID, user);
+		          System.out.println("User id: "+sessionID);
+		          
 		          // send the request to ZipDecompservlet
 		          request.getRequestDispatcher("ZipDecompServlet").forward(request, response);
 		      }

@@ -1,0 +1,114 @@
+
+<!DOCTYPE html>
+
+<html lang="en" class="no-js">
+
+<head>
+	<meta charset="utf-8">
+	<title>Results</title>
+	<meta name="viewport" content="width=device-width,initial-scale=1" />
+	<script type="text/javascript" src="javaScript/upload.js"></script>
+	<link rel="stylesheet" href="CSS/result.css" type="text/css"/>
+	<link rel="stylesheet" href="CSS/highlighter/dracula.css">
+	<script src="javaScript/highlight.pack.js"></script>
+	<script src="javaScript/line-numbers.min.js"></script>
+	<!-- <script>hljs.initHighlightingOnLoad();hljs.initLineNumbersOnLoad();</script> -->
+	<!-- remove this if you use Modernizr -->
+	<script>(function(e,t,n){var r=e.querySelectorAll("html")[0];r.className=r.className.replace(/(^|\s)no-js(\s|$)/,"$1js$2")})(document,window,0);</script>
+	
+	<script type="text/javascript" src="javaScript/jquery.js"></script>
+	<script type="text/javascript">
+		window.onload = function(){
+			$.ajax({
+				type:"POST",
+				url:"PageOnloadServlet",
+				dataType:"json",
+				traditional:true,
+				//data:$('#form').serialize(),
+				success: function(res){
+					$("#source_code").text(res[0]);
+					hljs.highlightBlock($('code').get(0));
+					hljs.lineNumbersBlock($('code').get(0));
+					for(var i=0; i<res[1].length; i++){
+						$("#slct").append('<option>'+res[1][i]+'.java'+'</option>');
+					}
+				}
+			});
+		}
+		
+		function changeFile(){
+			var myselect = document.getElementById("slct");
+			var id = myselect.selectedIndex;
+			$.ajax({
+				type:"POST",
+				url:"SourceCodeServlet",
+				data:{"id":id},
+				//dataType:"json",
+				//traditional:true,
+				success: function(res){
+					$("#source_code").text(res);
+					hljs.highlightBlock($('code').get(0));
+					hljs.lineNumbersBlock($('code').get(0));
+				}
+			});
+		}
+	</script>
+</head>
+
+<body>
+
+<h3 class="welcome-message"> 
+    Scentaur
+</h1>
+
+<div class="container box">
+
+	<form method="post" name="upload" action="UploadServlet" onsubmit="return checkPost();" enctype="multipart/form-data" novalidate class="type-selector">
+		<div class="select">
+			<select name="slct" id="slct" onchange="changeFile()">
+				<option value="0">Overview &#11167;</option>	
+			</select>
+		</div>
+		<div class="options">
+			{ 
+				<label><input type="checkbox" name="type" value="bloaters"> Bloaters</label>
+				<label><input type="checkbox" name="type" value="bloaters"> OOPAbusers</label>
+				<label><input type="checkbox" name="type" value="bloaters"> Dispensables</label>
+				<label><input type="checkbox" name="type" value="bloaters"> Couplers</label> 
+				<input type="submit" name="submit" value="UPDATE" class="box__button">  
+			}
+		</div>
+	</form>
+		
+		
+		<div class="box__output column">
+			<pre><code class="java" id="source_code" style="white-space:pre"></code></pre>
+		</div>
+		<div class="column box__results">
+		<div class="results">
+			
+			<h2> -A.java</h2> 
+			
+<ol>
+		<li><p>Smell X (OOPA)<br>
+				Suggested Fix: hmm
+		</p></li>
+		<li><p>Smell Y (DISP)<br>
+			Suggested Fix: hmm
+	</p></li>
+		<li><p>Smell Z (OOPA)<br>
+			Suggested Fix: hmm
+	</p></li>
+	  </ol>  
+
+	  
+				</div>	
+		</div>
+		
+
+</div>
+
+</body>
+
+<script type="text/javascript" src="javaScript/box.js"></script>
+</html>
