@@ -24,12 +24,14 @@ public class MessageChain extends Smell{
 	public void visit(MethodCallExpr n, Void args) {
 		Optional<Expression> subExpression = n.getScope();	//Generate its subexpression
 
-		if(subExpression.get().isMethodCallExpr()) { //If this next expression isMethodCallExpression...
-			
-			MethodCallExpr ssExpr = subExpression.get().asMethodCallExpr();	
-			
-			if(ssExpr.getScope().get().isMethodCallExpr()) {	//And if the sub isMethodCallExpression...
-				smell.add(n);	//A message chain smell
+		if(subExpression.isPresent()) {
+			if(subExpression.get().isMethodCallExpr()) { //If this next expression isMethodCallExpression...
+				
+				MethodCallExpr ssExpr = subExpression.get().asMethodCallExpr();	
+				
+				if(ssExpr.getScope().get().isMethodCallExpr()) {	//And if the sub isMethodCallExpression...
+					smell.add(n);	//A message chain smell
+				}
 			}
 		}
 	}
