@@ -30,10 +30,11 @@ public class Truck implements Drivable{
 
 
 	public boolean isManual() {
-		return manual;
+		return getDoors();
 	}
 	
 	public int isHeavy(int a, int c, int d, int j, int f){
+		isManual();
 		return 0;
 	}
 }
