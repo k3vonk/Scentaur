@@ -8,7 +8,6 @@ import com.github.javaparser.ast.body.FieldDeclaration;
 import smell.Smell;
 
 public class InappropriateIntimacy extends Smell {
-	public String error;
 	public InappropriateIntimacy() {
 		smell = new ArrayList<>();
 	}

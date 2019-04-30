@@ -33,7 +33,7 @@ public class Main {
 		}*/
 		
 		for(Node node: inappropriateIntimacy.getIssue()) {
-			System.out.println(node.getBegin().get().line + ": " + node);
+			System.out.println(node.getBegin().get().line + ": " + node.findCompilationUnit().get().getStorage().get().getFileName());
 		}
 	}
 
