@@ -26,7 +26,12 @@ public class Main {
 
 		List<CompilationUnit> all = parse.getAllCu();
 		
-		Smell messageChain = new MessageChain();
+		Bloater bloater = new Bloater();
+		bloater.detect(all);
+		
+
+		//========================Testing single smells at a time===========================
+		/*Smell messageChain = new MessageChain();
 		Smell middleMan	= new MiddleMan();
 		Smell featureEnvy = new FeatureEnvy();
 		Smell switchStm = new SwitchStatement();
@@ -40,13 +45,7 @@ public class Main {
 			c.accept(switchStm, null);
 			c.accept(dataHiding, null);
 			c.accept(deadCode, null);
-		});
-		
-		Bloater bloater = new Bloater();
-		bloater.detect(all);
-		
-
-		//System.out.println(deadCode.getIssue());
+		});*/
 		
 		/*// Message Chaining
 		System.out.println("\n___MESSAGE CHAINING___\n");

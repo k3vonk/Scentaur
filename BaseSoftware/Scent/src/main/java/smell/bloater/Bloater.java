@@ -7,9 +7,13 @@ import java.util.Map;
 
 import com.github.javaparser.ast.CompilationUnit;
 
+import smell.Detectable;
 import smell.Smell;
 
-public class Bloater {
+/**
+ * A class that detects bloaters within a project filled with Java files
+ */
+public class Bloater implements Detectable{
 	
 	public enum Bloaters{ //Types of Bloaters
 		LARGE_CLASS, LONG_METHOD, LONG_PARAMETER_LIST, PRIMITIVE_OBSESSION;
@@ -57,6 +61,9 @@ public class Bloater {
 		
 	}
 	
+	/**
+	 * System out checks
+	 */
 	public void systemOutBloaters() {
 		for(Map<String, Map<Bloaters, Smell>> map: bloaters) {
 			for(Map<Bloaters,Smell> m: map.values()) {
