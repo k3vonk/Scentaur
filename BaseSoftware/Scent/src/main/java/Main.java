@@ -5,15 +5,13 @@ import java.util.Map;
 
 import com.github.javaparser.ast.CompilationUnit;
 
+import detector.Report;
 import parser.Parser;
 import smell.Smell;
 import smell.Smell.Abusers;
-import smell.Smell.Dispensables;
 import smell.abuser.Abuser;
-import smell.abuser.DataHiding;
 import smell.bloater.Bloater;
 import smell.coupler.Coupler;
-import smell.dispensable.DeadCode;
 import smell.dispensable.Dispensable;
 
 /**
@@ -40,6 +38,9 @@ public class Main {
 		
 		List<Map<String, Map<Abusers, Smell>>> a = abuser.getAbusers();
 		
+		Report report = new Report();
+		report.analyzeProject(all);
+		report.generateOverviewReport();
 		//Calling this 
 		/*for(Map<String, Map<Abusers, Smell>> test: a) {
 			for(String keys: test.keySet()) {
@@ -53,7 +54,7 @@ public class Main {
 		
 		//System.out.println(abuser.getMapUsingFileName("Car"));
 
-		Smell switchStm = new DeadCode();
+		/*Smell switchStm = new DeadCode();
 		Smell datahiding = new DataHiding();
 		all.forEach(c -> {
 			c.accept(datahiding, null);
@@ -61,6 +62,7 @@ public class Main {
 		});
 		
 		System.out.println(datahiding.toString(Abusers.DATA_HIDING.toString()));
+		/*
 		//========================Testing single smells at a time===========================
 		/*Smell messageChain = new MessageChain();
 		Smell middleMan	= new MiddleMan();

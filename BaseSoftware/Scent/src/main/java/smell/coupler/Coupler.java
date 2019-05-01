@@ -59,7 +59,7 @@ public class Coupler implements Detectable<Couplers>{
 	 * Getter for list of couplers
 	 * @return
 	 */
-	public List<Map<String, Map<Couplers, Smell>>> getCoupler(){
+	public List<Map<String, Map<Couplers, Smell>>> getCouplers(){
 		return couplers;
 	}
 

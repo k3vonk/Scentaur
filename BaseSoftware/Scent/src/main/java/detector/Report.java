@@ -1,14 +1,24 @@
 package detector;
 
 import java.util.List;
+import java.util.Map;
 
 import com.github.javaparser.ast.CompilationUnit;
 
+import smell.Smell;
+import smell.Smell.Abusers;
+import smell.Smell.Bloaters;
+import smell.Smell.Couplers;
+import smell.Smell.Dispensables;
 import smell.abuser.Abuser;
 import smell.bloater.Bloater;
 import smell.coupler.Coupler;
 import smell.dispensable.Dispensable;
 
+/**
+ * A class that reports on the different types of smells to users
+ *
+ */
 public class Report {
 	
 	private Abuser abuser;
@@ -32,5 +42,62 @@ public class Report {
 		bloater.detect(cu);
 		coupler.detect(cu);
 		dispensable.detect(cu);
+	}
+	
+	/**
+	 * This class is for Jackie
+	 */
+	public void generateOverviewReport() {
+		//===================Type of Smell Categories
+		List<Map<String, Map<Abusers, Smell>>> abuses = abuser.getAbusers();
+		List<Map<String, Map<Bloaters, Smell>>> bloats = bloater.getBloaters();
+		List<Map<String, Map<Couplers, Smell>>> couples = coupler.getCouplers();
+		List<Map<String, Map<Dispensables, Smell>>> dispenses = dispensable.getDispensables();
+		
+		//UserBase.getUser(sessionID).addSmells(ClassName, bloaters);
+		//===================ABUSERS
+		for(Map<String,Map<Abusers,Smell>> map: abuses) {
+			for(String fileName: map.keySet()) {	//FileName 
+				for(Abusers abuse: map.get(fileName).keySet()) {	//Enum 
+						if(!map.get(fileName).get(abuse).getIssue().isEmpty()) { //Dont print things that are empty
+							System.out.println(fileName + " " + map.get(fileName).get(abuse).toString(abuse.toString()));
+						}
+				}
+			}
+		}
+		
+		//===================BLOATERS
+		for(Map<String,Map<Bloaters,Smell>> map: bloats) {
+			for(String fileName: map.keySet()) {	//FileName 
+				for(Bloaters bloat: map.get(fileName).keySet()) {	//Enum 
+						if(!map.get(fileName).get(bloat).getIssue().isEmpty()) { //Dont print things that are empty
+							System.out.println(fileName + " " + map.get(fileName).get(bloat).toString(bloat.toString()));
+						}
+				}
+			}
+		}
+		
+		//===================COUPLERS
+		for(Map<String,Map<Couplers,Smell>> map: couples) {
+			for(String fileName: map.keySet()) {	//FileName 
+				for(Couplers couple: map.get(fileName).keySet()) {	//Enum 
+						if(!map.get(fileName).get(couple).getIssue().isEmpty()) { //Dont print things that are empty
+							System.out.println(fileName + " " + map.get(fileName).get(couple).toString(couple.toString()));
+						}
+				}
+			}
+		}
+		
+		//===================DISPENSABLES
+		for(Map<String,Map<Dispensables,Smell>> map: dispenses) {
+			for(String fileName: map.keySet()) {	//FileName 
+				for(Dispensables dispense: map.get(fileName).keySet()) {	//Enum 
+						if(!map.get(fileName).get(dispense).getIssue().isEmpty()) { //Dont print things that are empty
+							System.out.println(fileName + " " + map.get(fileName).get(dispense).toString(dispense.toString()));
+						}
+				}
+			}
+		}
+		
 	}
 }

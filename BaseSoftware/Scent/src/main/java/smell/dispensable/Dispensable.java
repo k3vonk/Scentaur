@@ -63,7 +63,7 @@ public class Dispensable implements Detectable<Dispensables>{
 	 * Getter for list of dispensables
 	 * @return
 	 */
-	public List<Map<String, Map<Dispensables, Smell>>> getDispensable(){
+	public List<Map<String, Map<Dispensables, Smell>>> getDispensables(){
 		return dispensables;
 	}
 
