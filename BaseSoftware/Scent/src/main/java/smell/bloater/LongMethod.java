@@ -1,9 +1,12 @@
 package smell.bloater;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import com.github.javaparser.ast.Node;
 import com.github.javaparser.ast.body.MethodDeclaration;
+import com.github.javaparser.ast.stmt.BlockStmt;
+import com.github.javaparser.ast.stmt.Statement;
 
 import smell.Smell;
 
@@ -24,10 +27,10 @@ public class LongMethod extends Smell{
 	 * body length is below the method length threshold.
      */
 	public void visit(MethodDeclaration n, Void args) {
-		String[] lines = n.getBody().toString().split("\r\n|\r|\n");
-		if(lines.length >= METHOD_LENGTH_THRESHOLD) {
+		int lines = n.findAll(Statement.class).size();
+
+		if(lines >= METHOD_LENGTH_THRESHOLD) {
 			smell.add(n);
-			//addComment(n);
 		}
 	}
 
