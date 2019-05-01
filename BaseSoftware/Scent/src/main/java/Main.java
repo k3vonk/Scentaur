@@ -9,11 +9,12 @@ import parser.Parser;
 import smell.Smell;
 import smell.abuser.Abuser;
 import smell.abuser.Abuser.Abusers;
-import smell.abuser.SwitchStatement;
 import smell.bloater.Bloater;
 import smell.bloater.Bloater.Bloaters;
 import smell.coupler.Coupler;
+import smell.dispensable.DeadCode;
 import smell.dispensable.Dispensable;
+import smell.dispensable.Dispensable.Dispensables;
 
 /**
  * This is used for testing, which will then moved to test units
@@ -49,12 +50,12 @@ public class Main {
 			}
 		}*/
 
-		Smell switchStm = new SwitchStatement();
+		Smell switchStm = new DeadCode();
 		all.forEach(c -> {
 			c.accept(switchStm, null);
 		});
 		
-		System.out.println(switchStm.toString(Bloaters.LARGE_CLASS.toString()));
+		System.out.println(switchStm.toString(Dispensables.DEAD_CODE.toString()));
 		//========================Testing single smells at a time===========================
 		/*Smell messageChain = new MessageChain();
 		Smell middleMan	= new MiddleMan();
