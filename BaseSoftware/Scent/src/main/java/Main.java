@@ -5,6 +5,7 @@ import java.util.List;
 import com.github.javaparser.ast.CompilationUnit;
 
 import parser.Parser;
+import smell.Smell;
 import smell.abuser.SwitchStatement;
 import smell.coupler.FeatureEnvy;
 import smell.coupler.InappropriateIntimacy;
@@ -12,6 +13,10 @@ import smell.coupler.MessageChain;
 import smell.coupler.MiddleMan;
 import smell.dispensable.DeadCode;
 
+/**
+ * This is used for testing, which will then moved to test units
+ *
+ */
 public class Main {
 
 	public static void main(String[] args) throws IOException {
@@ -20,12 +25,12 @@ public class Main {
 
 		List<CompilationUnit> all = parse.getAllCu();
 		
-		MessageChain messageChain = new MessageChain();
-		MiddleMan middleMan	= new MiddleMan();
-		FeatureEnvy featureEnvy = new FeatureEnvy();
-		SwitchStatement switchStm = new SwitchStatement();
-		InappropriateIntimacy inapIntimacy = new InappropriateIntimacy();
-		DeadCode deadCode = new DeadCode();
+		Smell messageChain = new MessageChain();
+		Smell middleMan	= new MiddleMan();
+		Smell featureEnvy = new FeatureEnvy();
+		Smell switchStm = new SwitchStatement();
+		Smell inapIntimacy = new InappropriateIntimacy();
+		Smell deadCode = new DeadCode();
 		
 		all.forEach(c -> {
 			c.accept(messageChain, null);		

@@ -11,7 +11,7 @@ import smell.Smell;
 
 /**
  * Detects smells for the following:
- * 1. WHen small objects should be primitives
+ * 1. When small objects should be primitives
  * 2. Use of constants inappropriately
  * 3. Use of string constants as field names for use in data arrays
  *
