@@ -9,6 +9,7 @@ import parser.Parser;
 import smell.Smell;
 import smell.abuser.Abuser;
 import smell.abuser.Abuser.Abusers;
+import smell.abuser.SwitchStatement;
 import smell.bloater.Bloater;
 import smell.coupler.Coupler;
 import smell.dispensable.Dispensable;
@@ -38,15 +39,21 @@ public class Main {
 		List<Map<String, Map<Abusers, Smell>>> a = abuser.getAbusers();
 		
 		//Calling this 
-		for(Map<String, Map<Abusers, Smell>> test: a) {
+		/*for(Map<String, Map<Abusers, Smell>> test: a) {
 			for(String keys: test.keySet()) {
 				System.out.print(keys + "\t");
 				for(Abusers abuse: test.get(keys).keySet()) {
 					System.out.println(abuse + "\n " + test.get(keys).get(abuse).getIssue());
 				}
 			}
-		}
+		}*/
 
+		Smell switchStm = new SwitchStatement();
+		all.forEach(c -> {
+			c.accept(switchStm, null);
+		});
+		
+		System.out.println(switchStm.toString());
 		//========================Testing single smells at a time===========================
 		/*Smell messageChain = new MessageChain();
 		Smell middleMan	= new MiddleMan();

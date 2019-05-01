@@ -35,4 +35,17 @@ public abstract class Smell extends VoidVisitorAdapter<Void> implements Smellabl
 		smell.clear();
 	}
 	
+	/**
+	 * Returns the string of the smell list
+	 */
+	public String toString() {
+		if(!smell.isEmpty()) {
+			String lineNumber = smell.get(0).getBegin().get().line +"";
+			String code = smell.get(0).toString();
+			return lineNumber + "\n" + code + "\n\n";
+		}
+		
+		return "";
+	}
+	
 }
