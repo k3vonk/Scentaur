@@ -10,6 +10,7 @@ import smell.Smell;
 import smell.Smell.Abusers;
 import smell.Smell.Dispensables;
 import smell.abuser.Abuser;
+import smell.abuser.DataHiding;
 import smell.bloater.Bloater;
 import smell.coupler.Coupler;
 import smell.dispensable.DeadCode;
@@ -48,15 +49,18 @@ public class Main {
 				}
 			}
 		}*/
+
 		
-		System.out.println(abuser.getMapUsingFileName("Car"));
+		//System.out.println(abuser.getMapUsingFileName("Car"));
 
 		Smell switchStm = new DeadCode();
+		Smell datahiding = new DataHiding();
 		all.forEach(c -> {
+			c.accept(datahiding, null);
 			c.accept(switchStm, null);
 		});
 		
-		System.out.println(switchStm.toString(Dispensables.DEAD_CODE.toString()));
+		System.out.println(datahiding.toString(Abusers.DATA_HIDING.toString()));
 		//========================Testing single smells at a time===========================
 		/*Smell messageChain = new MessageChain();
 		Smell middleMan	= new MiddleMan();

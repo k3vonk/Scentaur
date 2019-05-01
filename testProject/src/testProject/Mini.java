@@ -2,6 +2,8 @@ package testProject;
 
 public class Mini extends Car{
 
+	public int i;
+	public int j;
 	@Override
 	public int getWheels() {
 		return 4;
