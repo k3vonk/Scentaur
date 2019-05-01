@@ -38,7 +38,7 @@ public class DataClass extends Smell {
         }
     }
 
-    public boolean isToString(MethodDeclaration method) {
+    private boolean isToString(MethodDeclaration method) {
         return method.getNameAsString().equals("toString");
     }
 
@@ -47,7 +47,7 @@ public class DataClass extends Smell {
      * @param method
      * @return
      */
-    public boolean isGetter(MethodDeclaration method) {
+    private boolean isGetter(MethodDeclaration method) {
         if (method.getParameters().size() != 0) {
             return false;
         }
@@ -69,7 +69,7 @@ public class DataClass extends Smell {
      * @param method
      * @return
      */
-    public boolean isSetter(MethodDeclaration method) {
+    private boolean isSetter(MethodDeclaration method) {
         if (method.getParameters().size() != 1) {
             return false;
         }
