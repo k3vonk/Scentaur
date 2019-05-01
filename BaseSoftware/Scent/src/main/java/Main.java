@@ -11,6 +11,7 @@ import smell.abuser.Abuser;
 import smell.abuser.Abuser.Abusers;
 import smell.abuser.SwitchStatement;
 import smell.bloater.Bloater;
+import smell.bloater.Bloater.Bloaters;
 import smell.coupler.Coupler;
 import smell.dispensable.Dispensable;
 
@@ -53,7 +54,7 @@ public class Main {
 			c.accept(switchStm, null);
 		});
 		
-		System.out.println(switchStm.toString());
+		System.out.println(switchStm.toString(Bloaters.LARGE_CLASS.toString()));
 		//========================Testing single smells at a time===========================
 		/*Smell messageChain = new MessageChain();
 		Smell middleMan	= new MiddleMan();
