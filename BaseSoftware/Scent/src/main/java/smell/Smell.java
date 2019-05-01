@@ -11,6 +11,10 @@ import com.github.javaparser.ast.visitor.VoidVisitorAdapter;
  */
 public abstract class Smell extends VoidVisitorAdapter<Void> implements Smellable{
 	
+	public enum Smells{
+		BLOATERS, OOP_ABUSERS, COUPLERS, DISPENSABLES;
+	}
+	
 	protected List<Node> smell;
 	
 	/**

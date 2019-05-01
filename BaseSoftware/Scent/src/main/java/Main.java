@@ -7,6 +7,7 @@ import com.github.javaparser.ast.CompilationUnit;
 import parser.Parser;
 import smell.Smell;
 import smell.abuser.SwitchStatement;
+import smell.bloater.Bloater;
 import smell.coupler.FeatureEnvy;
 import smell.coupler.InappropriateIntimacy;
 import smell.coupler.MessageChain;
@@ -40,6 +41,9 @@ public class Main {
 			c.accept(inapIntimacy, null);
 			c.accept(deadCode, null);
 		});
+		
+		Bloater bloater = new Bloater();
+		bloater.detect(all);
 		
 
 		//System.out.println(deadCode.getIssue());
