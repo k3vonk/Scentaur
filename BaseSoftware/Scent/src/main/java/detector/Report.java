@@ -16,11 +16,11 @@ public class Report {
 	private Coupler coupler;
 	private Dispensable dispensable;
 	
-	public Report(Abuser abuser, Bloater bloater, Coupler coupler, Dispensable dispensable) {
-		this.abuser = abuser;
-		this.bloater = bloater;
-		this.coupler = coupler;
-		this.dispensable = dispensable;
+	public Report() {
+		this.abuser = new Abuser();
+		this.bloater = new Bloater();
+		this.coupler = new Coupler();
+		this.dispensable = new Dispensable();
 	}
 	
 	/**
