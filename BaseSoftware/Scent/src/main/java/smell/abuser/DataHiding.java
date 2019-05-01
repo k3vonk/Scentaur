@@ -1,4 +1,4 @@
-package smell.coupler;
+package smell.abuser;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,8 +8,8 @@ import com.github.javaparser.ast.body.FieldDeclaration;
 
 import smell.Smell;
 
-public class InappropriateIntimacy extends Smell {
-	public InappropriateIntimacy() {
+public class DataHiding extends Smell {
+	public DataHiding() {
 		smell = new ArrayList<>();
 	}
 	

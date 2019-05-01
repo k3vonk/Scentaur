@@ -6,10 +6,10 @@ import com.github.javaparser.ast.CompilationUnit;
 
 import parser.Parser;
 import smell.Smell;
+import smell.abuser.DataHiding;
 import smell.abuser.SwitchStatement;
 import smell.bloater.Bloater;
 import smell.coupler.FeatureEnvy;
-import smell.coupler.InappropriateIntimacy;
 import smell.coupler.MessageChain;
 import smell.coupler.MiddleMan;
 import smell.dispensable.DeadCode;
@@ -30,15 +30,15 @@ public class Main {
 		Smell middleMan	= new MiddleMan();
 		Smell featureEnvy = new FeatureEnvy();
 		Smell switchStm = new SwitchStatement();
-		Smell inapIntimacy = new InappropriateIntimacy();
+		Smell dataHiding = new DataHiding();
 		Smell deadCode = new DeadCode();
-		
+
 		all.forEach(c -> {
 			c.accept(messageChain, null);		
 			c.accept(middleMan, null);
 			c.accept(featureEnvy, null);
 			c.accept(switchStm, null);
-			c.accept(inapIntimacy, null);
+			c.accept(dataHiding, null);
 			c.accept(deadCode, null);
 		});
 		
@@ -47,8 +47,8 @@ public class Main {
 		
 
 		//System.out.println(deadCode.getIssue());
-		/*
-		// Message Chaining
+		
+		/*// Message Chaining
 		System.out.println("\n___MESSAGE CHAINING___\n");
 		for(Node node : messageChain.getIssue()) {
 			System.out.println(node.getBegin().get().line + " " + node.findCompilationUnit().get().getStorage().get().getFileName());
@@ -72,13 +72,16 @@ public class Main {
 			System.out.println(node.getBegin().get().line + " " + node.findCompilationUnit().get().getStorage().get().getFileName());
 		}
 		
+		// Data Hiding
+		System.out.println("\n___DATA HIDING___\n");
+		for(Node node : dataHiding.getIssue()) {
+			System.out.println(node.getBegin().get().line + " " + node.findCompilationUnit().get().getStorage().get().getFileName());
+		}
 		
-		// Inappropriate Intimacy
-		System.out.println("\n___INAPPROPRIATE INTIMACY___\n");
-		for(Node node : inapIntimacy.getIssue()) {
+		System.out.println("\n___DEAD CODE___\n");
+		for(Node node : deadCode.getIssue()) {
 			System.out.println(node.getBegin().get().line + " " + node.findCompilationUnit().get().getStorage().get().getFileName());
 		}*/
-
 	}
 
 }
