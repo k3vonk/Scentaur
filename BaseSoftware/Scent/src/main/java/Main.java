@@ -35,6 +35,8 @@ public class Main {
 
 		});
 		
+		System.out.println(deadCode.getIssue());
+		
 		
 	}
 
