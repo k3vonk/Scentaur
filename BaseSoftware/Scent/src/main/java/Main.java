@@ -1,11 +1,14 @@
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
 import com.github.javaparser.ast.CompilationUnit;
 
 import parser.Parser;
+import smell.Smell;
 import smell.abuser.Abuser;
+import smell.abuser.Abuser.Abusers;
 import smell.bloater.Bloater;
 import smell.coupler.Coupler;
 import smell.dispensable.Dispensable;
@@ -31,6 +34,18 @@ public class Main {
 		coupler.detect(all);
 		dispensable.detect(all);
 		abuser.detect(all);
+		
+		List<Map<String, Map<Abusers, Smell>>> a = abuser.getAbusers();
+		
+		//Calling this 
+		for(Map<String, Map<Abusers, Smell>> test: a) {
+			for(String keys: test.keySet()) {
+				System.out.print(keys + "\t");
+				for(Abusers abuse: test.get(keys).keySet()) {
+					System.out.println(abuse + "\n " + test.get(keys).get(abuse).getIssue());
+				}
+			}
+		}
 
 		//========================Testing single smells at a time===========================
 		/*Smell messageChain = new MessageChain();
