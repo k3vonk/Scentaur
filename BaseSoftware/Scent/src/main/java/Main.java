@@ -5,14 +5,10 @@ import java.util.List;
 import com.github.javaparser.ast.CompilationUnit;
 
 import parser.Parser;
-import smell.Smell;
-import smell.abuser.DataHiding;
-import smell.abuser.SwitchStatement;
+import smell.abuser.Abuser;
 import smell.bloater.Bloater;
-import smell.coupler.FeatureEnvy;
-import smell.coupler.MessageChain;
-import smell.coupler.MiddleMan;
-import smell.dispensable.DeadCode;
+import smell.coupler.Coupler;
+import smell.dispensable.Dispensable;
 
 /**
  * This is used for testing, which will then moved to test units
@@ -27,8 +23,14 @@ public class Main {
 		List<CompilationUnit> all = parse.getAllCu();
 		
 		Bloater bloater = new Bloater();
-		bloater.detect(all);
+		Coupler coupler = new Coupler();
+		Dispensable dispensable = new Dispensable();
+		Abuser abuser = new Abuser();
 		
+		bloater.detect(all);
+		coupler.detect(all);
+		dispensable.detect(all);
+		abuser.detect(all);
 
 		//========================Testing single smells at a time===========================
 		/*Smell messageChain = new MessageChain();

@@ -9,6 +9,7 @@ import com.github.javaparser.ast.CompilationUnit;
 
 import smell.Detectable;
 import smell.Smell;
+import smell.dispensable.Dispensable.Dispensables;
 
 /**
  * A class that detects bloaters within a project filled with Java files
@@ -72,5 +73,13 @@ public class Bloater implements Detectable{
 				}
 			}
 		}
+	}
+	
+	/**
+	 * Getter for list of bloaters
+	 * @return
+	 */
+	public List<Map<String, Map<Bloaters, Smell>>> getBloaters(){
+		return bloaters;
 	}
 }

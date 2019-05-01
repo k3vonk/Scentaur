@@ -9,6 +9,7 @@ import com.github.javaparser.ast.CompilationUnit;
 
 import smell.Detectable;
 import smell.Smell;
+import smell.dispensable.Dispensable.Dispensables;
 
 /**
  * A class that detects abusers within a project filled with Java files
@@ -50,5 +51,13 @@ public class Abuser implements Detectable{
 			abusers.add(map);
 		}
 		
+	}
+	
+	/**
+	 * Getter for list of abusers
+	 * @return
+	 */
+	public List<Map<String, Map<Abusers, Smell>>> getAbusers(){
+		return abusers;
 	}
 }

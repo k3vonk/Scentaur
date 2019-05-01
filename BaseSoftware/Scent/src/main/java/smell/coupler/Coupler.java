@@ -9,6 +9,7 @@ import com.github.javaparser.ast.CompilationUnit;
 
 import smell.Detectable;
 import smell.Smell;
+import smell.dispensable.Dispensable.Dispensables;
 
 /**
  * A class that detects couplers within a project filled with Java files
@@ -55,6 +56,14 @@ public class Coupler implements Detectable{
 			couplers.add(map);
 		}
 		
+	}
+	
+	/**
+	 * Getter for list of couplers
+	 * @return
+	 */
+	public List<Map<String, Map<Couplers, Smell>>> getCoupler(){
+		return couplers;
 	}
 
 }
