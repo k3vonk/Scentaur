@@ -1,8 +1,8 @@
+import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
 import com.github.javaparser.ast.CompilationUnit;
-import com.github.javaparser.ast.Node;
 
 import parser.Parser;
 import smell.abuser.SwitchStatement;
@@ -16,7 +16,7 @@ public class Main {
 
 	public static void main(String[] args) throws IOException {
 		
-		Parser parse = new Parser(System.getProperty("user.dir"));
+		Parser parse = new Parser(new File("..\\..\\testProject\\src\\testProject").getAbsolutePath());
 
 		List<CompilationUnit> all = parse.getAllCu();
 		
@@ -25,6 +25,7 @@ public class Main {
 		FeatureEnvy featureEnvy = new FeatureEnvy();
 		SwitchStatement switchStm = new SwitchStatement();
 		InappropriateIntimacy inapIntimacy = new InappropriateIntimacy();
+		DeadCode deadCode = new DeadCode();
 		
 		all.forEach(c -> {
 			c.accept(messageChain, null);		
@@ -32,9 +33,12 @@ public class Main {
 			c.accept(featureEnvy, null);
 			c.accept(switchStm, null);
 			c.accept(inapIntimacy, null);
+			c.accept(deadCode, null);
 		});
 		
 
+		System.out.println(deadCode.getIssue());
+		/*
 		// Message Chaining
 		System.out.println("\n___MESSAGE CHAINING___\n");
 		for(Node node : messageChain.getIssue()) {
@@ -64,7 +68,7 @@ public class Main {
 		System.out.println("\n___INAPPROPRIATE INTIMACY___\n");
 		for(Node node : inapIntimacy.getIssue()) {
 			System.out.println(node.getBegin().get().line + " " + node.findCompilationUnit().get().getStorage().get().getFileName());
-		}
+		}*/
 
 	}
 
