@@ -53,4 +53,22 @@ public class Car implements Drivable{
 		a=a;
 		a=a;
 	}
+	
+	public void ifstm(int a) {
+		if(a == 1) {
+			
+		}else if(a == 2) {
+			
+		}else if(a == 3) {
+			
+		}else if(a == 4) {
+			
+		}else if(a == 5) {
+			
+		}else if(a == 6) {
+			
+		}else {
+			
+		}
+	}
 }
