@@ -14,7 +14,7 @@ public class InappropriateIntimacy extends Smell {
 	
 	/**
 	 * Method to check if class has encapsulation issues e.g. allowing
-	 * Clients to access its internals (attribues should be private)
+	 * Clients to access its internals (attributes should be private)
 	 */
     public void visit(ClassOrInterfaceDeclaration n, Void arg) {
     	List<FieldDeclaration> classFields = n.getFields();

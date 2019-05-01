@@ -1,17 +1,16 @@
-package smell.dispensables;
+package smell.dispensable;
 
 import java.util.ArrayList;
 
 import com.github.javaparser.ast.Node;
 import com.github.javaparser.ast.body.ClassOrInterfaceDeclaration;
-import com.github.javaparser.ast.body.ConstructorDeclaration;
 import com.github.javaparser.ast.body.MethodDeclaration;
-import com.github.javaparser.ast.comments.Comment;
-import com.github.javaparser.ast.nodeTypes.NodeWithJavadoc;
 
 import smell.Smell;
 
-
+/**
+ * A data class refers to a class that contains only fields and crude methods for accessing them (getters and setters)
+ */
 public class DataClass extends Smell {
 
 
@@ -19,7 +18,9 @@ public class DataClass extends Smell {
         smell = new ArrayList<>();
     }
 
-    @Override
+    /**
+     * Visits each class and checks if there are methods besides getters/setters/toString methods
+     */
     public void visit(ClassOrInterfaceDeclaration n, Void arg) {
         Boolean foundUsefulMethod = false;
 
@@ -29,7 +30,8 @@ public class DataClass extends Smell {
                 foundUsefulMethod = true;
             }
         }
-        // Couldn't find a non getter/set/tostring so is prolly a dataclass
+        
+        // Couldn't find a non getter/set/toString so is likely a DataClass
         if (!foundUsefulMethod) {
             smell.add(n);
         }
@@ -88,7 +90,7 @@ public class DataClass extends Smell {
     public void addComment(Node n) {
 
         //Check if has no comments
-        if (!n.getComment().isPresent()) {
+       /* if (!n.getComment().isPresent()) {
             ((NodeWithJavadoc<ConstructorDeclaration>) n).setJavadocComment(
                     "Possible SmellDetected: " + this.getClass().getSimpleName());
         } else {
@@ -96,7 +98,7 @@ public class DataClass extends Smell {
             ((NodeWithJavadoc<ConstructorDeclaration>) n).setJavadocComment(
                     comment.getContent() + "\n\nPossible SmellDetected: "
                             + this.getClass().getSimpleName());
-        }
+        }*/
     }
 
 }

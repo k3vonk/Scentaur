@@ -1,4 +1,4 @@
-package smell.dispensables;
+package smell.dispensable;
 
 import java.util.ArrayList;
 import java.util.List;

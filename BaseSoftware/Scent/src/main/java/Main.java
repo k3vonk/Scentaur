@@ -10,7 +10,7 @@ import smell.coupler.FeatureEnvy;
 import smell.coupler.InappropriateIntimacy;
 import smell.coupler.MessageChain;
 import smell.coupler.MiddleMan;
-import smell.dispensables.DeadCode;
+import smell.dispensable.DeadCode;
 
 public class Main {
 
@@ -37,7 +37,7 @@ public class Main {
 		});
 		
 
-		System.out.println(deadCode.getIssue());
+		//System.out.println(deadCode.getIssue());
 		/*
 		// Message Chaining
 		System.out.println("\n___MESSAGE CHAINING___\n");
