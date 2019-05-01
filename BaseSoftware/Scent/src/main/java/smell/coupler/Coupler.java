@@ -9,15 +9,13 @@ import com.github.javaparser.ast.CompilationUnit;
 
 import smell.Detectable;
 import smell.Smell;
+import smell.Smell.Couplers;
 
 /**
  * A class that detects couplers within a project filled with Java files
  */
-public class Coupler implements Detectable{
+public class Coupler implements Detectable<Couplers>{
 
-	public enum Couplers{ //Types of Couplers
-		FEATURE_ENVY, MESSAGE_CHAIN, MIDDLE_MAN;
-	}
 	
 	private List<Map<String, Map<Couplers, Smell>>> couplers;
 	
@@ -63,6 +61,22 @@ public class Coupler implements Detectable{
 	 */
 	public List<Map<String, Map<Couplers, Smell>>> getCoupler(){
 		return couplers;
+	}
+
+	/**
+	 * Returns the map based on the fileName if it exists
+	 */
+	public Map<Couplers, Smell> getMapUsingFileName(String fileName) {
+		Map<Couplers, Smell> fileNameCoupler = new HashMap<Couplers, Smell>();
+		
+		for(Map<String, Map<Couplers, Smell>> couple :couplers) {
+			if(couple.containsKey(fileName)) {
+				fileNameCoupler = couple.get(fileName);
+				break;
+			}
+		}
+		
+		return fileNameCoupler;
 	}
 
 }

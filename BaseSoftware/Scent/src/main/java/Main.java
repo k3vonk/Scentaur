@@ -7,14 +7,13 @@ import com.github.javaparser.ast.CompilationUnit;
 
 import parser.Parser;
 import smell.Smell;
+import smell.Smell.Abusers;
+import smell.Smell.Dispensables;
 import smell.abuser.Abuser;
-import smell.abuser.Abuser.Abusers;
 import smell.bloater.Bloater;
-import smell.bloater.Bloater.Bloaters;
 import smell.coupler.Coupler;
 import smell.dispensable.DeadCode;
 import smell.dispensable.Dispensable;
-import smell.dispensable.Dispensable.Dispensables;
 
 /**
  * This is used for testing, which will then moved to test units
@@ -49,6 +48,8 @@ public class Main {
 				}
 			}
 		}*/
+		
+		System.out.println(abuser.getMapUsingFileName("Car"));
 
 		Smell switchStm = new DeadCode();
 		all.forEach(c -> {

@@ -15,6 +15,22 @@ public abstract class Smell extends VoidVisitorAdapter<Void> implements Smellabl
 		BLOATERS, OOP_ABUSERS, COUPLERS, DISPENSABLES;
 	}
 	
+	public enum Abusers{ //Types of Abuser
+		DATA_HIDING, SWITCH_STATEMENT;
+	}
+	
+	public enum Bloaters{ //Types of Bloaters
+		LARGE_CLASS, LONG_METHOD, LONG_PARAMETER_LIST, PRIMITIVE_OBSESSION;
+	}
+	
+	public enum Couplers{ //Types of Couplers
+		FEATURE_ENVY, MESSAGE_CHAIN, MIDDLE_MAN;
+	}
+	
+	public enum Dispensables{ //Types of Dispensables
+		COMMENTS, DATA_CLASS, DEAD_CODE, LAZY_CLASS;
+	}
+	
 	protected List<Node> smell;
 	
 	/**

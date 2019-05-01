@@ -9,15 +9,12 @@ import com.github.javaparser.ast.CompilationUnit;
 
 import smell.Detectable;
 import smell.Smell;
+import smell.Smell.Bloaters;
 
 /**
  * A class that detects bloaters within a project filled with Java files
  */
-public class Bloater implements Detectable{
-	
-	public enum Bloaters{ //Types of Bloaters
-		LARGE_CLASS, LONG_METHOD, LONG_PARAMETER_LIST, PRIMITIVE_OBSESSION;
-	}
+public class Bloater implements Detectable<Bloaters>{
 	
 	private List<Map<String, Map<Bloaters, Smell>>> bloaters;
 	
@@ -80,5 +77,21 @@ public class Bloater implements Detectable{
 	 */
 	public List<Map<String, Map<Bloaters, Smell>>> getBloaters(){
 		return bloaters;
+	}
+
+	/**
+	 * Returns the map based on the fileName if it exists
+	 */
+	public Map<Bloaters, Smell> getMapUsingFileName(String fileName) {
+		Map<Bloaters, Smell> fileNameBloaters = new HashMap<Bloaters, Smell>();
+		
+		for(Map<String, Map<Bloaters, Smell>> bloats :bloaters) {
+			if(bloats.containsKey(fileName)) {
+				fileNameBloaters = bloats.get(fileName);
+				break;
+			}
+		}
+		
+		return fileNameBloaters;
 	}
 }
