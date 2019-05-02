@@ -49,10 +49,12 @@ public class DeadCode extends Smell{
 			}
 		}
 	
-		//Check if it is dead code 
-		for(String check: variableNames) {
-			if(!mdNames.contains(check) && !variableNames.isEmpty()) {
-				smell.add(n.getFieldByName(check).get());
+		if(!mdNames.isEmpty()) {
+			//Check if it is dead code 
+			for(String check: variableNames) {
+				if(!mdNames.contains(check) && !variableNames.isEmpty()) {
+					smell.add(n.getFieldByName(check).get());
+				}
 			}
 		}
 			
