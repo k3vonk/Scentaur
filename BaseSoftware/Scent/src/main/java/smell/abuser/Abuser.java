@@ -73,4 +73,16 @@ public class Abuser implements Detectable<Abusers>{
 		
 		return fileNameAbuser;
 	}
+	
+	/**
+	 * Return the set of file names within this smell category
+	 */
+	public List<String> getFileNames(){
+		List<String> fileName = new ArrayList<>();
+		
+		for(Map<String, Map<Abusers, Smell>> abuse: abusers) {
+			fileName.addAll(abuse.keySet());
+		}
+		return fileName;
+	}
 }

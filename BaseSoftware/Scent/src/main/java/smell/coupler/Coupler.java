@@ -78,5 +78,17 @@ public class Coupler implements Detectable<Couplers>{
 		
 		return fileNameCoupler;
 	}
+	
+	/**
+	 * Return the set of file names within this smell category
+	 */
+	public List<String> getFileNames(){
+		List<String> fileName = new ArrayList<>();
+		
+		for(Map<String, Map<Couplers, Smell>> couple: couplers) {
+			fileName.addAll(couple.keySet());
+		}
+		return fileName;
+	}
 
 }

@@ -12,4 +12,5 @@ import com.github.javaparser.ast.CompilationUnit;
 public interface Detectable<T> {
 	public void detect(List<CompilationUnit> cu);
 	public Map<T, Smell> getMapUsingFileName(String fileName);
+	public List<String> getFileNames();
 }

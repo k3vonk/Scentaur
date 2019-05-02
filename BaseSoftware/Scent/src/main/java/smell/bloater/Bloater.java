@@ -94,4 +94,16 @@ public class Bloater implements Detectable<Bloaters>{
 		
 		return fileNameBloaters;
 	}
+	
+	/**
+	 * Return the set of file names within this smell category
+	 */
+	public List<String> getFileNames(){
+		List<String> fileName = new ArrayList<>();
+		
+		for(Map<String, Map<Bloaters, Smell>> bloat: bloaters) {
+			fileName.addAll(bloat.keySet());
+		}
+		return fileName;
+	}
 }

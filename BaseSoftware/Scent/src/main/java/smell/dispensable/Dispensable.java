@@ -82,4 +82,16 @@ public class Dispensable implements Detectable<Dispensables>{
 		
 		return fileNameDispense;
 	}
+	
+	/**
+	 * Return the set of file names within this smell category
+	 */
+	public List<String> getFileNames(){
+		List<String> fileName = new ArrayList<>();
+		
+		for(Map<String, Map<Dispensables, Smell>> dispense: dispensables) {
+			fileName.addAll(dispense.keySet());
+		}
+		return fileName;
+	}
 }
