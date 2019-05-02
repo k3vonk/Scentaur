@@ -32,7 +32,6 @@ public class Report {
 		this.bloater = new Bloater();
 		this.coupler = new Coupler();
 		this.dispensable = new Dispensable();
-		smellStatistics = new Statistics(abuser, bloater, coupler, dispensable);
 	}
 	
 	/**
@@ -44,6 +43,7 @@ public class Report {
 		bloater.detect(cu);
 		coupler.detect(cu);
 		dispensable.detect(cu);
+		smellStatistics = new Statistics(abuser, bloater, coupler, dispensable);
 	}	
 	
 	/**
