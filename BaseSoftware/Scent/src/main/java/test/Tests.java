@@ -53,6 +53,11 @@ public class Tests {
                 assertEquals(1, m.get(Smell.Abusers.DATA_HIDING).size());
             }
 
+            for (Map<Smell.Abusers, Smell> m : smells.get(1).values()) {
+                assertEquals(0, m.get(Smell.Abusers.SWITCH_STATEMENT).size());
+                assertEquals(0, m.get(Smell.Abusers.DATA_HIDING).size());
+            }
+
         } catch (Exception ex) {
             System.out.println(ex);
         }
