@@ -20,6 +20,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.github.javaparser.ast.CompilationUnit;
 
+import detector.Bloaters;
 import userbase.UserBase;
 
 /**
@@ -78,11 +79,13 @@ public class ZipDecompServlet extends HttpServlet {
         long endTime=System.currentTimeMillis();  
         System.out.println("Time consume£º "+(endTime-startTime)+" ms"); 
         
-        // parse the file, and store the compilationUnit into the user with sessionID = key in the hashmap
-        UserBase.getUser(sessionID).setCompilationUnit(UserBase.getUser(sessionID).getUnzippedAddress());
-        
         request.getRequestDispatcher("result.html").forward(request, response);
-
+        
+        // parse the file, and store the compilationUnit into the user with sessionID = key in the hash map
+        UserBase.getUser(sessionID).setCompilationUnit(UserBase.getUser(sessionID).getUnzippedAddress());
+        // detect bloaters
+        Bloaters bloaters = new Bloaters(sessionID);
+        bloaters.detect(UserBase.getUser(sessionID).getCompilationUnit());
         convertCuToString(sessionID);
 	}
 	
