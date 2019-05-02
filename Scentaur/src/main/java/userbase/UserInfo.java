@@ -16,16 +16,25 @@ public class UserInfo {
 	private List<CompilationUnit> compilationUnit;
 	private List<String> classNames = new ArrayList<String>(); // name of the java file
 	private Map<String, String> sourceCode = new HashMap<String, String>(); // <name_java, code_java>
+	// key = name of java file, value = hash map of smells
+	private Map<String, Map<String, String>> smells = new HashMap<String, Map<String, String>>();
 	
+	private int longParameterList = 0;
+	private int longMethod = 0;
+	private int largeClass = 0;
+	private int primitiveObsession = 0;
 	public String getZipAddress() {
 		return this.zipAddress;
 	}
+	
 	public void setZipAddress(String zipAddress) {
 		this.zipAddress = zipAddress;
 	}
+	
 	public String getUnzippedAddress() {
 		return this.UnzippedAddress;
 	}
+	
 	public void setUnzippedAddress(String unzippedAddress) {
 		this.UnzippedAddress = unzippedAddress;
 	}
@@ -57,6 +66,54 @@ public class UserInfo {
 	
 	public Map<String, String> getSourceCodeMap(){
 		return this.sourceCode;
+	}
+	
+	public void addSmells(String fileName, Map<String, String> smell) {
+		this.smells.put(fileName, smell);
+	}
+	
+	public String getSmellsByType(String fileName, String smellType) {
+		return this.smells.get(fileName).get(smellType);
+	}
+	
+	public Map<String, String> getSmellsMapByFileName(String fileName){
+		return this.smells.get(fileName);
+	}
+	
+	public Map<String, Map<String, String>> getSmellsMap(){
+		return this.smells;
+	}
+	
+	public int getLongParameterList() {
+		return longParameterList;
+	}
+	
+	public void increaseLongParameterList() {
+		this.longParameterList += 1;
+	}
+	
+	public int getLongMethod() {
+		return longMethod;
+	}
+	
+	public void increaseLongMethod() {
+		this.longMethod += 1;
+	}
+	
+	public int getLargeClass() {
+		return largeClass;
+	}
+	
+	public void increaseLargeClass() {
+		this.largeClass += 1;
+	}
+	
+	public int getPrimitiveObsession() {
+		return primitiveObsession;
+	}
+	
+	public void increasePrimitiveObsession() {
+		this.primitiveObsession = 1;
 	}
 
 }

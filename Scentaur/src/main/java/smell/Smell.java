@@ -15,22 +15,6 @@ public abstract class Smell extends VoidVisitorAdapter<Void> implements Smellabl
 		BLOATERS, OOP_ABUSERS, COUPLERS, DISPENSABLES;
 	}
 	
-	public enum Abusers{ //Types of Abuser
-		DATA_HIDING, SWITCH_STATEMENT;
-	}
-	
-	public enum Bloaters{ //Types of Bloaters
-		LARGE_CLASS, LONG_METHOD, LONG_PARAMETER_LIST, PRIMITIVE_OBSESSION;
-	}
-	
-	public enum Couplers{ //Types of Couplers
-		FEATURE_ENVY, MESSAGE_CHAIN, MIDDLE_MAN;
-	}
-	
-	public enum Dispensables{ //Types of Dispensables
-		COMMENTS, DATA_CLASS, DEAD_CODE, LAZY_CLASS;
-	}
-	
 	protected List<Node> smell;
 	
 	/**
@@ -54,19 +38,14 @@ public abstract class Smell extends VoidVisitorAdapter<Void> implements Smellabl
 	/**
 	 * Returns the string of the smell list
 	 */
-	public String toString(String type) {
-		String code = "";
+	public String toString() {
 		if(!smell.isEmpty()) {
-			for(Node node: smell) {
-				String lineNumber = node.getBegin().get().line + "";
-				String javaCode = node.toString();
-				code += type + " list at line: "+ lineNumber + "\n" + javaCode + "\n\n";
-			}
-		}else {
-			code += type + ": None";
+			String lineNumber = smell.get(0).getBegin().get().line +"";
+			String code = smell.get(0).toString();
+			return lineNumber + "\n" + code + "\n\n";
 		}
 		
-		return code;
+		return "";
 	}
 	
 }

@@ -24,18 +24,47 @@ public class DeadCode extends Smell{
 	}
 	
 	/**
-	 * Visits the whole class and checks if the class fields are dead code and the method fields
+	 * Checks Dead Code within a method
+	 */
+	public void visit(MethodDeclaration n, Void args) {
+		
+		List<String> paramName = new ArrayList<>();
+		
+		for(Parameter param: n.getParameters()) { //Obtain parameters
+			if(!param.getName().toString().equals("args")) {	//if it is not a main argument...
+				paramName.add(param.getName().toString());
+			}
+		}
+		
+		boolean isDead = false;
+		if(n.getBody().isPresent() && !paramName.isEmpty()) { //If a method body exists...
+			List<NameExpr> names = n.getBody().get().findAll(NameExpr.class); //Find all the name expressions of a method
+			
+			if(names.isEmpty()) isDead = true;
+			
+			for(NameExpr name: names) {
+				if(!paramName.contains(name.toString())) {
+					isDead = true;
+				}
+			}
+		}
+		
+		if(isDead) smell.add(n);
+	}
+	
+	/**
+	 * Visits the whole class and checks if the class fields are dead code
 	 */
 	public void visit(ClassOrInterfaceDeclaration n, Void args) {
 	
-		List<MethodDeclaration> md = n.getMethods();
-		List<String> paramName = new ArrayList<>();
 		List<String> variableNames = new ArrayList<>();	//Class variable names
 		List<String> mdNames = new ArrayList<>();		//Method variables
 		
 		for(VariableDeclarator vd:n.findAll(VariableDeclarator.class)) { //Get variable declared names
 			variableNames.add(vd.getNameAsString());
 		}
+
+		List<MethodDeclaration> md = n.findAll(MethodDeclaration.class);
 		
 		for(MethodDeclaration m: md) { //For each method find their variables
 			if(m.getBody().isPresent()) {
@@ -49,36 +78,15 @@ public class DeadCode extends Smell{
 			}
 		}
 	
+		boolean isDead = false;
 		//Check if it is dead code 
 		for(String check: variableNames) {
 			if(!mdNames.contains(check) && !variableNames.isEmpty()) {
-				smell.add(n.getFieldByName(check).get());
+				isDead = true;
 			}
 		}
-			
-		//Search the methods of the class
-		for(MethodDeclaration method: md) {
-			for(Parameter param: method.getParameters()) { //Obtain parameters
-				if(!param.getName().toString().equals("args")) {	//if it is not a main argument...
-					paramName.add(param.getName().toString());
-				}
-			}
-			
-			boolean isDead = false;
-			if(method.getBody().isPresent() && !paramName.isEmpty()) { //If a method body exists...
-				List<NameExpr> names = method.getBody().get().findAll(NameExpr.class); //Find all the name expressions of a method
-				
-				if(names.isEmpty()) isDead = true;
-				
-				for(NameExpr name: names) {
-					if(!paramName.contains(name.toString())) {
-						isDead = true;
-					}
-				}
-			}
-			
-			if(isDead) smell.add(method);
-		}
+		
+		if(isDead) smell.add(n);
 	}
 	
 	

@@ -18,7 +18,7 @@
 	<script>(function(e,t,n){var r=e.querySelectorAll("html")[0];r.className=r.className.replace(/(^|\s)no-js(\s|$)/,"$1js$2")})(document,window,0);</script>
 	<script type="text/javascript" src="javaScript/jquery.js"></script>
 	
-	<script type="text/javascript">
+ 	<script type="text/javascript">
 
 		function changeFile(){
 			var myselect = document.getElementById("slct");
@@ -30,13 +30,15 @@
 				//dataType:"json",
 				//traditional:true,
 				success: function(res){
-					$("#source_code").text(res);
+					$("#fileName1").text(res[0]);
+					$("#source_code").text(res[1]);
 					hljs.highlightBlock($('code').get(0));
 					hljs.lineNumbersBlock($('code').get(0));
 				}
 			});
 		}
-	</script>
+		
+	</script> 
 
 </head>
 
@@ -48,49 +50,34 @@
 </h3>
 <div class="container box">
 
-	<form method="post" onsubmit="return false" enctype="multipart/form-data" novalidate class="type-selector">
+	<form id="smell-choose" onsubmit="return false" method="post" enctype="multipart/form-data" novalidate class="type-selector">
 		<div class="select">
-			<select id="slct" onchange="changeFile()">
+			<select id="slct" onchange="changeFile">
 				<option value="0">Overview &#11167;</option>	
 			</select>
 		</div>
 		<div class="options">
 			{ 
 			
-				<label><input type="checkbox" name="bloaters"> Bloaters</label>
-				<label><input type="checkbox" name="abusers"> OOPAbusers</label>
-				<label><input type="checkbox" name="dispensables"> Dispensables</label>
-				<label><input type="checkbox" name="couplers"> Couplers</label> 
-				<button class="box__button" >UPDATE</button>
+				<label><input type="checkbox" name="bloaters" value="Bloaters"> Bloaters</label>
+				<label><input type="checkbox" name="abusers" value="OOPAbusers"> OOPAbusers</label>
+				<label><input type="checkbox" name="dispensables" value="Dispensables"> Dispensables</label>
+				<label><input type="checkbox" name="couplers" value="Couplers"> Couplers</label> 
+				<input type="submit" value="UPDATE" class="box__button" onclick="callSmells()">
 			
 			}
 		</div>
 	</form>
 		
 		
-		<div class="box__output column">
-			<pre><code class="java" id="source_code" style="white-space:pre"></code></pre>
-		</div>
-		<div class="column box__results">
-		<div class="results">
-			
-			<h2> -A.java</h2> 
-			
-<ol>
-		<li><p>Smell X (OOPA)<br>
-				Suggested Fix: hmm
-		</p></li>
-		<li><p>Smell Y (DISP)<br>
-			Suggested Fix: hmm
-	</p></li>
-		<li><p>Smell Z (OOPA)<br>
-			Suggested Fix: hmm
-	</p></li>
-	  </ol>  
-
-	  
-				</div>	
-		</div>
+	<div class="box__output column">
+		<h3 id="fileName1"></h3>
+		<pre><code class="java" id="source_code" style="white-space:pre"></code></pre>
+	</div>
+	<div class="column box__results">
+		<h3 id="fileName2"></h3>  
+		<pre><code id="smells" class="java" style="white-space:pre"></code></pre>
+	</div>
 		
 
 </div>
@@ -108,6 +95,7 @@
 			traditional:true,
 			//data:$('#form').serialize(),
 			success: function(res){
+				$("#fileName1").text(res[2]);
 				$("#source_code").text(res[0]);
 				hljs.highlightBlock($('code').get(0));
 				hljs.lineNumbersBlock($('code').get(0));

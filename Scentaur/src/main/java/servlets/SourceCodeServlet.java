@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import net.sf.json.JSONArray;
 import userbase.UserBase;
 
 /**
@@ -31,8 +32,16 @@ public class SourceCodeServlet extends HttpServlet {
 		String className = UserBase.getUser(sessionID).getClassNames().get(key-1);
 		String sourceCode = UserBase.getUser(sessionID).getSourceCode(className);
 		
+		Object [] res = new String[2];
+		res[0] = className;
+		res[1] = sourceCode;
+		
+		// convert to json string
+		String json = JSONArray.fromObject(res).toString();		
+		response.setHeader("Cache-Control", "no-cache");
+		response.setContentType("text/json; charset=utf-8");
 		PrintWriter out = response.getWriter();
-		out.print(sourceCode);
+		out.print(json);
 	}
 
 }

@@ -33,9 +33,10 @@ public class PageOnloadServlet extends HttpServlet {
 		
 		// form the response as res[0] = the source to display, res[1] = an array of all the java file names
 		List<String> classNames = UserBase.getUser(sessionID).getClassNames();
-		Object [] res = new Object[2];
-		res[0] = overview;
-		res[1] = classNames.toArray();
+		Object [] res = new Object[3];
+		res[0] = overview; // source code of the first java file
+		res[1] = classNames.toArray(); // names of all the java files
+		res[2] = key; // name fo the first java file
 		
 		// convert to json string
 		String json = JSONArray.fromObject(res).toString();		

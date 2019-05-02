@@ -19,13 +19,7 @@ public class DataHiding extends Smell {
 	 */
     public void visit(ClassOrInterfaceDeclaration n, Void arg) {
     	List<FieldDeclaration> classFields = n.getFields();
-    	for(FieldDeclaration f : classFields) {
-    		// Public static variables are acceptable as they represent useful constants belonging to class (usually)
-    		if(f.isPublic() && !f.isStatic()) {
-    			smell.add(n);
-    			break;
-    		}
-    	}
+    	for(FieldDeclaration f : classFields) if(f.isPublic()) smell.add(n);
     }
     
     @Override
