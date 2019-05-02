@@ -98,7 +98,7 @@ public class UserInfo {
 	}
 	
 	public String getReportFileAddr() {
-		return this.UnzippedAddress+"/ProjectSmell.txt";
+		return this.UnzippedAddress+"/SmellReport.txt";
 	}
 
 }
