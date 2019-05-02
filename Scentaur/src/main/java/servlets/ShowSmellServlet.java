@@ -59,6 +59,18 @@ public class ShowSmellServlet extends HttpServlet {
 			
 			out.print(json);
 		}
+		else {
+			String fileName = UserBase.getUser(sessionID).getClassNames().get(0);
+			res[0] = "Overview";
+			res[1] = "overview to be implemented";
+			res[2] = UserBase.getUser(sessionID).getSourceCode(fileName);
+			
+			String json = JSONArray.fromObject(res).toString();		
+			response.setHeader("Cache-Control", "no-cache");
+			response.setContentType("text/json; charset=utf-8");
+			
+			out.print(json);
+		}
 	}
 
 }
