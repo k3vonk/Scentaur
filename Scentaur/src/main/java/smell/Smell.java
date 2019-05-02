@@ -60,7 +60,7 @@ public abstract class Smell extends VoidVisitorAdapter<Void> implements Smellabl
 			for(Node node: smell) {
 				String lineNumber = node.getBegin().get().line + "";
 				String javaCode = node.toString();
-				code += type + " list at line: "+ lineNumber + "\n" + javaCode + "\n\n";
+				code += type + " list at line: "+ lineNumber + "\r\n" + javaCode + "\r\n\r\n";
 			}
 		}else {
 			code += type + ": None";

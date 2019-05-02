@@ -1,5 +1,7 @@
 package detector;
 
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
 import java.util.List;
 import java.util.Map;
 
@@ -65,15 +67,16 @@ public class Report {
     /**
      * Used to generate text files based on the report for abuser, bloater, couplers and
      * dispensables
+     * @throws FileNotFoundException 
      */
-    public void generateTextFileReport() {
+    public void generateTextFileReport(String fileNameOut) throws FileNotFoundException {
         //===================Type of Smell Categories
-        List<Map<String, Map<Abusers, Smell>>> abuses = abuser.getAbusers();
-        List<Map<String, Map<Bloaters, Smell>>> bloats = bloater.getBloaters();
-        List<Map<String, Map<Couplers, Smell>>> couples = coupler.getCouplers();
-        List<Map<String, Map<Dispensables, Smell>>> dispenses = dispensable.getDispensables();
+        List<Map<String, Map<Abusers, Smell>>> abuses = this.abuser.getAbusers();
+        List<Map<String, Map<Bloaters, Smell>>> bloats = this.bloater.getBloaters();
+        List<Map<String, Map<Couplers, Smell>>> couples = this.coupler.getCouplers();
+        List<Map<String, Map<Dispensables, Smell>>> dispenses = this.dispensable.getDispensables();
 
-        //PrintWriter writer = new PrintWriter("File name", "type")
+        PrintWriter writer = new PrintWriter(fileNameOut);
         //CREATE A FILE FOR ABUSER, BLOATER, COUPLER AND DISPENSABLE
         //===================ABUSERS
         for (Map<String, Map<Abusers, Smell>> map : abuses) {
@@ -81,8 +84,8 @@ public class Report {
                 for (Abusers abuse : map.get(fileName).keySet()) {    //Enum
                     if (!map.get(fileName).get(
                             abuse).getIssue().isEmpty()) { //Dont print things that are empty
-                        System.out.println(fileName + " " + map.get(fileName).get(abuse).toString(
-                                abuse.toString()));
+                        writer.print(fileName + "\r\n" + map.get(fileName).get(abuse).toString(
+                                abuse.toString())+"\r\n");
                     }
                 }
             }
@@ -94,8 +97,8 @@ public class Report {
                 for (Bloaters bloat : map.get(fileName).keySet()) {    //Enum
                     if (!map.get(fileName).get(
                             bloat).getIssue().isEmpty()) { //Dont print things that are empty
-                        System.out.println(fileName + " " + map.get(fileName).get(bloat).toString(
-                                bloat.toString()));
+                    	writer.print(fileName + "\r\n" + map.get(fileName).get(bloat).toString(
+                                bloat.toString())+"\r\n");
                     }
                 }
             }
@@ -107,8 +110,8 @@ public class Report {
                 for (Couplers couple : map.get(fileName).keySet()) {    //Enum
                     if (!map.get(fileName).get(
                             couple).getIssue().isEmpty()) { //Dont print things that are empty
-                        System.out.println(fileName + " " + map.get(fileName).get(couple).toString(
-                                couple.toString()));
+                    	writer.print(fileName + "\r\n" + map.get(fileName).get(couple).toString(
+                                couple.toString())+"\r\n");
                     }
                 }
             }
@@ -120,12 +123,14 @@ public class Report {
                 for (Dispensables dispense : map.get(fileName).keySet()) {    //Enum
                     if (!map.get(fileName).get(
                             dispense).getIssue().isEmpty()) { //Dont print things that are empty
-                        System.out.println(fileName + " " + map.get(fileName).get(
-                                dispense).toString(dispense.toString()));
+                    	writer.print(fileName + "\r\n" + map.get(fileName).get(
+                                dispense).toString(dispense.toString())+"\r\n");
                     }
                 }
             }
         }
+        
+        writer.close();
     }
 
 

@@ -23,6 +23,7 @@ public class UserInfo {
 	private Map<String, String> sourceCode = new HashMap<String, String>(); // <name_java, code_java>
 	private Detector smells;
 	private Report report;
+	private String reportFileAddr;
 
 	public String getZipAddress() {
 		return this.zipAddress;
@@ -94,6 +95,10 @@ public class UserInfo {
 
 	public void setReport(Report report) {
 		this.report = report;
+	}
+	
+	public String getReportFileAddr() {
+		return this.UnzippedAddress+"/ProjectSmell.txt";
 	}
 
 }

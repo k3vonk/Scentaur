@@ -97,6 +97,7 @@ public class ZipDecompServlet extends HttpServlet {
         Report report = new Report(detector);
         report.analyzeProject();
         UserBase.getUser(sessionID).setReport(report);
+        UserBase.getUser(sessionID).getReport().generateTextFileReport(UserBase.getUser(sessionID).getReportFileAddr());
         
         // convert Cu to String to be displayed as source code on HTML
         convertCuToString(sessionID);
