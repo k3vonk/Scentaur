@@ -9,6 +9,7 @@ import java.io.OutputStream;
 import java.nio.charset.Charset;
 import java.util.Enumeration;
 import java.util.List;
+import java.util.Map;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 
@@ -20,7 +21,10 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.github.javaparser.ast.CompilationUnit;
 
-import detector.Bloaters;
+import detector.Detector;
+import detector.Report;
+import smell.Smell;
+import smell.Smell.Bloaters;
 import userbase.UserBase;
 
 /**
@@ -83,9 +87,13 @@ public class ZipDecompServlet extends HttpServlet {
         
         // parse the file, and store the compilationUnit into the user with sessionID = key in the hash map
         UserBase.getUser(sessionID).setCompilationUnit(UserBase.getUser(sessionID).getUnzippedAddress());
+        
         // detect bloaters
-        Bloaters bloaters = new Bloaters(sessionID);
-        bloaters.detect(UserBase.getUser(sessionID).getCompilationUnit());
+        Detector detector = new Detector();
+        detector.detect(UserBase.getUser(sessionID).getCompilationUnit());
+        UserBase.getUser(sessionID).addSmells(detector);
+        
+        // convert Cu to String to be displayed as source code on HTML
         convertCuToString(sessionID);
 	}
 	

@@ -8,7 +8,11 @@ import java.util.Map;
 
 import com.github.javaparser.ast.CompilationUnit;
 
+import detector.Detector;
 import parser.Parser;
+import smell.Smell;
+import smell.Smell.Abusers;
+import smell.Smell.Bloaters;
 
 public class UserInfo {
 	private String zipAddress; 		// Disk:/xxxxx/xxxx/xxxx/abc.zip
@@ -17,7 +21,7 @@ public class UserInfo {
 	private List<String> classNames = new ArrayList<String>(); // name of the java file
 	private Map<String, String> sourceCode = new HashMap<String, String>(); // <name_java, code_java>
 	// key = name of java file, value = hash map of smells
-	private Map<String, Map<String, String>> smells = new HashMap<String, Map<String, String>>();
+	private Detector smells;
 	
 	private int longParameterList = 0;
 	private int longMethod = 0;
@@ -68,21 +72,26 @@ public class UserInfo {
 		return this.sourceCode;
 	}
 	
-	public void addSmells(String fileName, Map<String, String> smell) {
-		this.smells.put(fileName, smell);
+	public void addSmells(Detector smell) {
+		this.smells = smell;
 	}
 	
-	public String getSmellsByType(String fileName, String smellType) {
-		return this.smells.get(fileName).get(smellType);
+	public String getSmellsByFileNameAndType(int index, String fileName, String requestSmell) {
+		if(requestSmell.equals("abuser")) {		
+			return this.smells.getAbuserSmell(index, fileName);
+		}
+		else if(requestSmell.equals("bloater")) {
+			return this.smells.getBloaterSmell(index, fileName);
+		}
+		else if(requestSmell.equals("coupler")) {
+			return this.smells.getCouplerSmell(index, fileName);
+		}
+		else {
+			return this.smells.getDispensableSmell(index, fileName);
+		}
+
 	}
 	
-	public Map<String, String> getSmellsMapByFileName(String fileName){
-		return this.smells.get(fileName);
-	}
-	
-	public Map<String, Map<String, String>> getSmellsMap(){
-		return this.smells;
-	}
 	
 	public int getLongParameterList() {
 		return longParameterList;

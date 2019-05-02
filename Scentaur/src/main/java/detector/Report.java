@@ -55,10 +55,13 @@ public class Report {
 		List<Map<String, Map<Bloaters, Smell>>> bloats = bloater.getBloaters();
 		List<Map<String, Map<Couplers, Smell>>> couples = coupler.getCouplers();
 		List<Map<String, Map<Dispensables, Smell>>> dispenses = dispensable.getDispensables();
+		for(int i=0;i<bloats.size();i++) {
+			System.out.println(bloats.get(i).get("Car"));
+		}
 		
 		//UserBase.getUser(sessionID).addSmells(ClassName, bloaters);
 		//===================ABUSERS
-		for(Map<String,Map<Abusers,Smell>> map: abuses) {
+		/*for(Map<String,Map<Abusers,Smell>> map: abuses) {
 			for(String fileName: map.keySet()) {	//FileName 
 				for(Abusers abuse: map.get(fileName).keySet()) {	//Enum 
 						if(!map.get(fileName).get(abuse).getIssue().isEmpty()) { //Dont print things that are empty
@@ -99,7 +102,7 @@ public class Report {
 						}
 				}
 			}
-		}
+		}*/
 	}
 	
 	/**

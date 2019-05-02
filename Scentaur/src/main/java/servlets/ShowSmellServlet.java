@@ -52,7 +52,7 @@ public class ShowSmellServlet extends HttpServlet {
 			
 			if(smells.size()>0) {
 				for(String s: smells) {
-					smellsReturn += s+":\n"+UserBase.getUser(sessionID).getSmellsByType(fileName, s)+"\n\n";
+					smellsReturn += s.toUpperCase()+":\n"+UserBase.getUser(sessionID).getSmellsByFileNameAndType(fileKeyInt-1, fileName, s)+"\n\n";
 				}
 				res[1] = smellsReturn;				
 			}
