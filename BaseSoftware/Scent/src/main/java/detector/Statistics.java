@@ -36,7 +36,7 @@ public class Statistics {
 	 * 
 	 * @return numTimesOOPAbuserDetected
 	 */
-	public int computeNumTimesOOPAbuserDetectedInProject() {
+	public int numTimesOOPAbuserDetectedInProject() {
 		int numTimesOOPAbuserDetected = 0;
 		//Iterate over each type of OOPAbuser smell
 		for(Map<String,Map<Abusers,Smell>> map: abusers.getAbusers()) {
@@ -56,7 +56,7 @@ public class Statistics {
 	 * 
 	 * @return numTimesBloaterDetected
 	 */
-	public int computeNumTimesBloaterDetectedInProject() {
+	public int numTimesBloaterDetectedInProject() {
 		int numTimesBloaterDetected = 0;
 		//Iterate over each type of Bloater smell
 		for(Map<String, Map<Bloaters, Smell>> map: bloaters.getBloaters()) {
@@ -76,7 +76,7 @@ public class Statistics {
 	 * 
 	 * @return numTimesCouplerDetected
 	 */
-	public int computeNumTimesCouplerDetectedInProject() {
+	public int numTimesCouplerDetectedInProject() {
 		int numTimesCouplerDetected = 0;
 		//Iterate over each type of Coupler smell
 		for(Map<String, Map<Couplers, Smell>> map: couplers.getCouplers()) {
@@ -96,7 +96,7 @@ public class Statistics {
 	 * 
 	 * @return numTimesDispensableDetected
 	 */
-	public int computeNumTimesDispensableDetectedInProject() {
+	public int numTimesDispensableDetectedInProject() {
 		int numTimesDispensableDetected = 0;
 		//Iterate over each type of Dispensable smell
 		for(Map<String, Map<Dispensables, Smell>> map: dispensables.getDispensables()) {
@@ -116,8 +116,8 @@ public class Statistics {
 	 * 
 	 * @return numTimesSmellDetected
 	 */
-	public int computeNumTimesSmellDetectedInProject() {
-		return this.computeNumTimesBloaterDetectedInProject() + this.computeNumTimesCouplerDetectedInProject() + this.computeNumTimesDispensableDetectedInProject() + this.computeNumTimesOOPAbuserDetectedInProject();
+	public int numTimesSmellDetectedInProject() {
+		return this.numTimesBloaterDetectedInProject() + this.numTimesCouplerDetectedInProject() + this.numTimesDispensableDetectedInProject() + this.numTimesOOPAbuserDetectedInProject();
 	}
 	
 	/**
@@ -125,8 +125,8 @@ public class Statistics {
 	 * 
 	 * @return numTimesOOPAbuserDetected / numTimesSmellDetected
 	 */
-	public float proportionProjectOOPAbuserDetected() {
-		return ((float) this.computeNumTimesOOPAbuserDetectedInProject() / this.computeNumTimesSmellDetectedInProject()) * 100;
+	public double proportionProjectOOPAbuserDetected() {
+		return ((float) this.numTimesOOPAbuserDetectedInProject() / this.numTimesSmellDetectedInProject()) * 100;
 	}
 	
 	/**
@@ -134,8 +134,8 @@ public class Statistics {
 	 * 
 	 * @return numTimesCouplerDetected / numTimesSmellDetected
 	 */
-	public float proportionProjectCouplerDetected() {
-		return ((float) this.computeNumTimesCouplerDetectedInProject() / this.computeNumTimesSmellDetectedInProject()) * 100;
+	public double proportionProjectCouplerDetected() {
+		return ((double) this.numTimesCouplerDetectedInProject() / this.numTimesSmellDetectedInProject()) * 100;
 	}
 	
 	/**
@@ -143,8 +143,8 @@ public class Statistics {
 	 * 
 	 * @return numTimesBloaterDetected / numTimesSmellDetected
 	 */
-	public float proportionProjectBloaterDetected() {
-		return ((float) this.computeNumTimesBloaterDetectedInProject() / this.computeNumTimesSmellDetectedInProject()) * 100;
+	public double proportionProjectBloaterDetected() {
+		return ((double) this.numTimesBloaterDetectedInProject() / this.numTimesSmellDetectedInProject()) * 100;
 	}
 	
 	/**
@@ -152,9 +152,10 @@ public class Statistics {
 	 * 
 	 * @return numTimesBloaterDetected / numTimesSmellDetected
 	 */
-	public float proportionProjectDispensableDetected() {
-		return ((float) this.computeNumTimesDispensableDetectedInProject() / this.computeNumTimesSmellDetectedInProject()) * 100;
+	public double proportionProjectDispensableDetected() {
+		return ((double) this.numTimesDispensableDetectedInProject() / this.numTimesSmellDetectedInProject()) * 100;
 	}
+	
 	
 	/**
 	 * @return String representation of all computed statistics
@@ -162,11 +163,11 @@ public class Statistics {
 	@Override
 	public String toString() {
 		String statsStr = "____SMELL STATISTICS____\n\n";
-		statsStr += "Total number of times a smell was detected in the entire project:  " + this.computeNumTimesSmellDetectedInProject() + "\n";
-		statsStr += "Total number of times an OOPAbuser smell was detected in the entire project:  " + this.computeNumTimesOOPAbuserDetectedInProject() + "\n";
-		statsStr += "Total number of times a Bloater smell was detected in the entire project:  " + this.computeNumTimesBloaterDetectedInProject() + "\n";
-		statsStr += "Total number of times a Coupler smell was detected in the entire project:  " + this.computeNumTimesCouplerDetectedInProject() + "\n";
-		statsStr += "Total number of times a Dispensable smell was detected in the entire project:  " + this.computeNumTimesDispensableDetectedInProject() + "\n";
+		statsStr += "Total number of times a smell was detected in the entire project:  " + this.numTimesSmellDetectedInProject() + "\n";
+		statsStr += "Total number of times an OOPAbuser smell was detected in the entire project:  " + this.numTimesOOPAbuserDetectedInProject() + "\n";
+		statsStr += "Total number of times a Bloater smell was detected in the entire project:  " + this.numTimesBloaterDetectedInProject() + "\n";
+		statsStr += "Total number of times a Coupler smell was detected in the entire project:  " + this.numTimesCouplerDetectedInProject() + "\n";
+		statsStr += "Total number of times a Dispensable smell was detected in the entire project:  " + this.numTimesDispensableDetectedInProject() + "\n";
 		statsStr += "Proportion of entire project where OOPAbuser was detected: " + formatter.format(this.proportionProjectOOPAbuserDetected()) + "%\n";
 		statsStr += "Proportion of entire project where Coupler was detected: " + formatter.format(this.proportionProjectCouplerDetected()) + "%\n";
 		statsStr += "Proportion of entire project where Bloater was detected: " + formatter.format(this.proportionProjectBloaterDetected()) + "%\n";
