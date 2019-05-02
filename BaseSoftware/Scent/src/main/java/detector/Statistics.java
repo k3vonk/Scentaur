@@ -55,9 +55,9 @@ public class Statistics {
 	 */
 	public int computeNumTimesBloaterDetectedInProject() {
 		int numTimesBloaterDetected = 0;
-		//Iterate over each type of OOPAbuser smell
+		//Iterate over each type of Bloater smell
 		for(Map<String, Map<Bloaters, Smell>> map: bloaters.getBloaters()) {
-			//Iterate over file names this OOPAbuser was detected
+			//Iterate over file names this Bloater was detected
 			for(String fileName: map.keySet()) {	 
 				for(Bloaters bloater: map.get(fileName).keySet()) {	
 					numTimesBloaterDetected += map.get(fileName).get(bloater).getIssue().size();
@@ -75,9 +75,9 @@ public class Statistics {
 	 */
 	public int computeNumTimesCouplerDetectedInProject() {
 		int numTimesCouplerDetected = 0;
-		//Iterate over each type of OOPAbuser smell
+		//Iterate over each type of Coupler smell
 		for(Map<String, Map<Couplers, Smell>> map: couplers.getCouplers()) {
-			//Iterate over file names this OOPAbuser was detected
+			//Iterate over file names this Coupler was detected
 			for(String fileName: map.keySet()) {	 
 				for(Couplers coupler: map.get(fileName).keySet()) {	
 					numTimesCouplerDetected += map.get(fileName).get(coupler).getIssue().size();
@@ -95,9 +95,9 @@ public class Statistics {
 	 */
 	public int computeNumTimesDispensableDetectedInProject() {
 		int numTimesDispensableDetected = 0;
-		//Iterate over each type of OOPAbuser smell
+		//Iterate over each type of Dispensable smell
 		for(Map<String, Map<Dispensables, Smell>> map: dispensables.getDispensables()) {
-			//Iterate over file names this OOPAbuser was detected
+			//Iterate over file names this Dispensable was detected
 			for(String fileName: map.keySet()) {	 
 				for(Dispensables dispensable: map.get(fileName).keySet()) {	
 					numTimesDispensableDetected += map.get(fileName).get(dispensable).getIssue().size();
@@ -108,11 +108,22 @@ public class Statistics {
 	}
 	
 	/**
+	 * Computes total number of times a smell was detected in 
+	 * entire project.
+	 * 
+	 * @return numTimesSmellDetected
+	 */
+	public int computeNumTimesSmellDetectedInProject() {
+		return this.computeNumTimesBloaterDetectedInProject() + this.computeNumTimesCouplerDetectedInProject() + this.computeNumTimesDispensableDetectedInProject() + this.computeNumTimesOOPAbuserDetectedInProject();
+	}
+	
+	/**
 	 * @return String representation of all computed statistics
 	 */
 	@Override
 	public String toString() {
 		String statsStr = "____SMELL STATISTICS____\n\n";
+		statsStr += "Total number of times a smell was detected in the entire project:  " + this.computeNumTimesSmellDetectedInProject() + "\n";
 		statsStr += "Total number of times an OOPAbuser smell was detected in the entire project:  " + this.computeNumTimesOOPAbuserDetectedInProject() + "\n";
 		statsStr += "Total number of times a Bloater smell was detected in the entire project:  " + this.computeNumTimesBloaterDetectedInProject() + "\n";
 		statsStr += "Total number of times a Coupler smell was detected in the entire project:  " + this.computeNumTimesCouplerDetectedInProject() + "\n";
