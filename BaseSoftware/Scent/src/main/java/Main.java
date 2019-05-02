@@ -35,12 +35,11 @@ public class Main {
 		coupler.detect(all);
 		dispensable.detect(all);
 		abuser.detect(all);
-		
-		List<Map<String, Map<Abusers, Smell>>> a = abuser.getAbusers();
-		
+				
 		Report report = new Report();
 		report.analyzeProject(all);
 		report.generateOverviewReport();
+		System.out.println(report.showSmellStatistics());
 		//Calling this 
 		/*for(Map<String, Map<Abusers, Smell>> test: a) {
 			for(String keys: test.keySet()) {

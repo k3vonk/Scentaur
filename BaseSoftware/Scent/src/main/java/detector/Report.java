@@ -25,12 +25,14 @@ public class Report {
 	private Bloater bloater;
 	private Coupler coupler;
 	private Dispensable dispensable;
+	private Statistics smellStatistics;
 	
 	public Report() {
 		this.abuser = new Abuser();
 		this.bloater = new Bloater();
 		this.coupler = new Coupler();
 		this.dispensable = new Dispensable();
+		smellStatistics = new Statistics(abuser, bloater, coupler, dispensable);
 	}
 	
 	/**
@@ -42,7 +44,7 @@ public class Report {
 		bloater.detect(cu);
 		coupler.detect(cu);
 		dispensable.detect(cu);
-	}
+	}	
 	
 	/**
 	 * This class is for Jackie
@@ -98,6 +100,14 @@ public class Report {
 				}
 			}
 		}
-		
+	}
+	
+	/**
+	 * Show all the computed smell statistics 
+	 * 
+	 * @return statistics about smells in formatted string
+	 */
+	public String showSmellStatistics() {
+		return smellStatistics.toString();
 	}
 }
