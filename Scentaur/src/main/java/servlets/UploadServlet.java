@@ -21,95 +21,88 @@ import userbase.UserBase;
 import userbase.UserInfo;
 
 /**
- * receive the file uploaded by user
+ * Receive the file uploaded by user
  */
 @WebServlet("/UploadServlet")
 public class UploadServlet extends HttpServlet {
+	
 	private static final long serialVersionUID = 1L;
+	
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
-		// root directory
-
+		
+		// Root directory
 		String savePath = request.getSession().getServletContext().getRealPath("/")+"UserFiles";
-
 		File file = new File(savePath);
-		// check if the root exists
+		
+		// Check if the root exists...
 		if (!file.exists() && !file.isDirectory()) {
 			System.out.println(savePath+"file doesn't exist, a new one has been created");
-			// creat the root file
-			file.mkdir();
+			file.mkdir();	// Create the root file
 		}
-		// alert
+		
+		// Alert
 		String message = "";
 		try{
 			//use Apache FileUpload Module to deal with file uploading£º
-			//1.instantiate a DiskFileItemFactory
-			DiskFileItemFactory factory = new DiskFileItemFactory();
-			//2.instantiate a ServletFileUpload resolver
-			ServletFileUpload upload = new ServletFileUpload(factory);
-			// deal with messy code
-			upload.setHeaderEncoding("UTF-8"); 
-			//3.check if the data belongs to the form
-			if(!ServletFileUpload.isMultipartContent(request)){
-				
-				System.out.println("no file uploaded");
-
-			}
+			DiskFileItemFactory factory = new DiskFileItemFactory();	//1.instantiate a DiskFileItemFactory
+			ServletFileUpload upload = new ServletFileUpload(factory);	//2.instantiate a ServletFileUpload resolver
+			upload.setHeaderEncoding("UTF-8"); 							// deal with messy code
+			
+			//3.check if the data belongs to the form...
+			if(!ServletFileUpload.isMultipartContent(request)){ System.out.println("no file uploaded");}
+			
            //4.use ServletFileUpload resolver to analyze uploaded items£¬return a List<FileItem>£¬every FileItem is a Form input
            List<FileItem> list = upload.parseRequest(request);
+           
            for(FileItem item : list){
-               // if items in the list are data
-               if(item.isFormField()){
+          
+               if(item.isFormField()){ // if items in the list are data...
                    String name = item.getFieldName();
-                   // deal with messy code
-		          String value = item.getString("UTF-8");
-		          //value = new String(value.getBytes("iso8859-1"),"UTF-8");
-		          System.out.println(name + "=" + value);
-		      }else{// if items in the list are files
-                   // obtain the file name
-                   String filename = item.getName();
+                   String value = item.getString("UTF-8"); // deal with messy code
+                   
+		          System.out.println(name + "=" + value); //value = new String(value.getBytes("iso8859-1"),"UTF-8");
+		      }else{// else items in the list are files
+                  
+                   String filename = item.getName(); // obtain the file name
                    System.out.println(filename);
                    if(filename==null || filename.trim().equals("")){
                        continue;
                    }
 		          
-		          // obtain the file name without address
-		          filename = filename.substring(filename.lastIndexOf("\\")+1);
+		          filename = filename.substring(filename.lastIndexOf("\\")+1); // obtain the file name without address
 		          // rename the file which begins with the substring of the request after "@" to the end
 		          // for instance C:\X\XX\Xxxxxxfilename with the first lowercase "x" is the first char after @, the "X" before "x" is just the letter "X"
 		          String absoluteAdd = new String(savePath + "\\" + "X" + request.toString().substring(request.toString().lastIndexOf("@")+1) + filename);
-		          // obtain the upload stream of the file
-		          InputStream in = item.getInputStream();
-                   // instantiate an output stream
-                   FileOutputStream out = new FileOutputStream(absoluteAdd);
-                   // a buffer
-                   byte buffer[] = new byte[1024];
-                   // a mark for checking if the input stream is empty
-		          int len = 0;
+		          InputStream in = item.getInputStream(); 						// obtain the upload stream of the file
+                  FileOutputStream out = new FileOutputStream(absoluteAdd); 	// instantiate an output stream
+                   
+                  byte buffer[] = new byte[1024];	
+                  int len = 0;	// a mark for checking if the input stream is empty
+		          
 		          // read the input stream into the buffer£¬(len=in.read(buffer))>0 means 'in' is not empty
 		          while((len=in.read(buffer))>0){
-		              // use FileOutputStream to write the data in buffer into (savePath + "\\" + filename)
-		              out.write(buffer, 0, len);
+		              
+		              out.write(buffer, 0, len);	// use FileOutputStream to write the data in buffer into (savePath + "\\" + filename)
 		          }
-                   // close input stream
-                   in.close();
-                   // close output stream
-                   out.close();
-		          // eliminate temporary file created during upload
-		          item.delete();
+                   
+                  in.close();	// close input stream
+                  out.close(); // close output stream
+		          item.delete();	// eliminate temporary file created during upload
 		          message = "Success to upload file£¡";
+		          
 		          System.out.println(message);
-		          // instantiate a user, store the zip address into user
-		          UserInfo user = new UserInfo();
+		          
+		          UserInfo user = new UserInfo(); // instantiate a user, store the zip address into user
 		          user.setZipAddress(absoluteAdd);
-		          // obtain the session ID
-		          HttpSession session = request.getSession();
+		          HttpSession session = request.getSession(); // obtain the session ID
 		          String sessionID = session.getId();
-		          // store the user into the hashmap
-		          // key: session ID	value: the user
+		          
+		          // Store the user into the HashMap
+		          // Key: session ID	Value: the user
 		          UserBase.addUser(sessionID, user);
 		          System.out.println("User id: "+sessionID);
 		          
-		          // send the request to ZipDecompservlet
+		          // Send the request to ZipDecompservlet
 		          request.getRequestDispatcher("ZipDecompServlet").forward(request, response);
 		      }
 		  }

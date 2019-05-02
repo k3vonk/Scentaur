@@ -15,23 +15,31 @@ import smell.bloater.Bloater;
 import smell.coupler.Coupler;
 import smell.dispensable.Dispensable;
 
+/**
+ * A class that detects smells for the different smell categories
+ */
+
 public class Detector {
+	
+	//Different smell category
 	public Abuser abuser = new Abuser();
 	public Bloater bloater = new Bloater();
 	public Coupler coupler = new Coupler();
 	public Dispensable dispensable = new Dispensable();
 	
-	public Detector() {
-
-	}
-	
+	/**
+	 * Detects smell for a specific list of compilation units
+	 */
 	public void detect(List<CompilationUnit> all) {
 		abuser.detect(all);
 		bloater.detect(all);
 		coupler.detect(all);
 		dispensable.detect(all);
-		
 	}
+	
+	/**
+	 * @return a string representation of a specific abuser smell
+	 */
 	public String getAbuserSmell(int index, String fileName) {
 		
 		List<Map<String,Map<Abusers,Smell>>> abuses = this.abuser.getAbusers();
@@ -48,6 +56,9 @@ public class Detector {
 		return res;
 	}
 	
+	/**
+	 * @return a string representation of a specific bloater smell
+	 */
 	public String getBloaterSmell(int index, String fileName) {
 		
 		List<Map<String,Map<Bloaters,Smell>>> bloats = this.bloater.getBloaters();
@@ -64,6 +75,9 @@ public class Detector {
 		return res;
 	}
 
+	/**
+	 * @return a string representation of a specific couplers smell
+	 */
 	public String getCouplerSmell(int index, String fileName) {
 		
 		List<Map<String,Map<Couplers,Smell>>> couplers = this.coupler.getCouplers();
@@ -79,6 +93,10 @@ public class Detector {
 			}
 		return res;
 	}
+	
+	/**
+	 * @return a string representation of a specific dispensable smell
+	 */
 	public String getDispensableSmell(int index, String fileName) {
 		
 		List<Map<String,Map<Dispensables,Smell>>> dispensables = this.dispensable.getDispensables();

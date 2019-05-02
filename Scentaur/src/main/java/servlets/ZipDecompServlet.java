@@ -1,7 +1,6 @@
 package servlets;
 
 import java.io.File;
-
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -9,7 +8,6 @@ import java.io.OutputStream;
 import java.nio.charset.Charset;
 import java.util.Enumeration;
 import java.util.List;
-import java.util.Map;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 
@@ -23,17 +21,16 @@ import com.github.javaparser.ast.CompilationUnit;
 
 import detector.Detector;
 import detector.Report;
-import smell.Smell;
-import smell.Smell.Bloaters;
 import userbase.UserBase;
 
 /**
- * decompress the file uploaded by user
+ * Decompress the file uploaded by user
  */
 @WebServlet("/ZipDecompServlet")
 public class ZipDecompServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
+	@SuppressWarnings("rawtypes")
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		long startTime=System.currentTimeMillis();	
 		String sessionID = request.getSession().getId();
@@ -42,42 +39,48 @@ public class ZipDecompServlet extends HttpServlet {
 		String unzippedPath = filePathIn.substring(0, filePathIn.lastIndexOf("."));
 		UserBase.getUser(sessionID).setUnzippedAddress(unzippedPath);
 		String filePathOut = unzippedPath + "/";
-		
 		File pathFile = new File(filePathOut);
+		
 		if(!pathFile.exists()){
-		pathFile.mkdirs();
+			pathFile.mkdirs();
 		}
-		// deal with messy code
-		ZipFile zip = new ZipFile(filePathIn, Charset.forName("GBK"));
+		
+		ZipFile zip = new ZipFile(filePathIn, Charset.forName("GBK"));	// deal with messy code
+		
 		for(Enumeration entries = zip.entries(); entries.hasMoreElements();)
 		{
-		ZipEntry entry = (ZipEntry)entries.nextElement();
-		String zipEntryName = entry.getName();
-		InputStream in = zip.getInputStream(entry);
-		String outPath = (filePathOut+zipEntryName).replaceAll("\\*", "/");;
-		// check if the file exists, create a new one if it deoesn't
-		File file = new File(outPath.substring(0, outPath.lastIndexOf('/')));
-		if(!file.exists())
-		{
-		file.mkdirs();
+			ZipEntry entry = (ZipEntry)entries.nextElement();
+			String zipEntryName = entry.getName();
+			InputStream in = zip.getInputStream(entry);
+			String outPath = (filePathOut+zipEntryName).replaceAll("\\*", "/");;
+			
+			// check if the file exists, create a new one if it deoesn't
+			File file = new File(outPath.substring(0, outPath.lastIndexOf('/')));
+			
+			if(!file.exists()){
+				file.mkdirs();
+			}
+			
+			// if a directory, keep it
+			if(new File(outPath).isDirectory()){
+				continue;
+			}
+			
+			// output
+			//System.out.println(outPath);
+			OutputStream out = new FileOutputStream(outPath);
+			byte[] buf1 = new byte[1024];
+			int len;
+			
+			while((len=in.read(buf1))>0){
+				out.write(buf1,0,len);
+			}
+			
+			in.close();
+			out.close();
 		}
-		// if a directory, keep it
-		if(new File(outPath).isDirectory())
-		{
-		continue;
-		}
-		// output
-		//System.out.println(outPath);
-		OutputStream out = new FileOutputStream(outPath);
-		byte[] buf1 = new byte[1024];
-		int len;
-		while((len=in.read(buf1))>0)
-		{
-		out.write(buf1,0,len);
-		}
-		in.close();
-		out.close();
-		}
+		
+		
 		zip.close();
 		System.out.println("******************Finish********************");
         long endTime=System.currentTimeMillis();  
@@ -91,6 +94,7 @@ public class ZipDecompServlet extends HttpServlet {
         // Detect smells in the project
         Detector detector = new Detector();
         detector.detect(UserBase.getUser(sessionID).getCompilationUnit());
+        
         // store the detector into UserInfo
         UserBase.getUser(sessionID).addSmells(detector);
         

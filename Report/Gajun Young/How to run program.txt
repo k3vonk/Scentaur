@@ -1,0 +1,22 @@
+1. Using Eclipse download the following plugins
+	a. Builship Gradle integration 3.0
+	b. Eclipse Java EE Developer Tools 3.12
+	c. Eclipse JST Server Adapters (Apache Tomcat, Jon..
+
+2. On the web browser - download Tomcat 8.0 
+	a. Install it onto your java JRE folder
+	b. (If u cant see Tomcat)
+		i. Window preferences on Eclipse -> Search Tomcat -> config the server -> select version 8.5 -> server location
+		other fields will be automatically filled
+
+(Change facet to 1.8 if errors occur)
+3. Importing Scentaur
+	a. File -> Import -> Gradle -> Existing Gradle Project -> Scentaur
+	b. Accept everything
+
+4. Right click Scentaur -> Properties -> Java Build Path -> libraries -> Add External JARs -> Scentaur -> WebContent 
+	-> WEB-INF -> lib -> Everything -> Apply
+5. Right Click Scentaur -> Properties -> Deployment Assembly -> Add -> Java Build Path Entries -> Select Everything -> Finish -> Apply
+
+6. Refresh
+	a. Right click Scentaur -> Gradle -> Refresh Gradle

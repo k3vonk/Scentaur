@@ -3,7 +3,6 @@ package servlets;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
-import java.util.Enumeration;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -32,8 +31,8 @@ public class ShowSmellServlet extends HttpServlet {
 		PrintWriter out = response.getWriter();
 		Object[] res = new String[3];
 		
-		// smell request is formatted in "bloaters=Bloaters&dispensables=Dispensables"
-		// split it into a list containing only the values [Bloaters, Dispensables,....]
+		// Smell request is formatted in "bloaters=Bloaters&dispensables=Dispensables"
+		// Split it into a list containing only the values [Bloaters, Dispensables,....]
 		String[] arrSplit = smellsInUrl.split("&");
 		for(String strSplit : arrSplit) {
 			String [] keyAndValue = strSplit.split("=");
