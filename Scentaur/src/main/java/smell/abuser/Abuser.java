@@ -9,15 +9,12 @@ import com.github.javaparser.ast.CompilationUnit;
 
 import smell.Detectable;
 import smell.Smell;
+import smell.Smell.Abusers;
 
 /**
  * A class that detects abusers within a project filled with Java files
  */
-public class Abuser implements Detectable{
-	
-	public enum Abusers{ //Types of Abuser
-		DATA_HIDING, SWITCH_STATEMENT;
-	}
+public class Abuser implements Detectable<Abusers>{
 	
 	private List<Map<String, Map<Abusers, Smell>>> abusers;
 	
@@ -58,5 +55,34 @@ public class Abuser implements Detectable{
 	 */
 	public List<Map<String, Map<Abusers, Smell>>> getAbusers(){
 		return abusers;
+	}
+
+	/**
+	 * Returns the map based on the fileName if it exists
+	 */
+	public Map<Abusers, Smell> getMapUsingFileName(String fileName) {
+		
+		Map<Abusers, Smell> fileNameAbuser = new HashMap<Abusers, Smell>();
+		
+		for(Map<String, Map<Abusers, Smell>> abuse :abusers) {
+			if(abuse.containsKey(fileName)) {
+				fileNameAbuser = abuse.get(fileName);
+				break;
+			}
+		}
+		
+		return fileNameAbuser;
+	}
+	
+	/**
+	 * Return the set of file names within this smell category
+	 */
+	public List<String> getFileNames(){
+		List<String> fileName = new ArrayList<>();
+		
+		for(Map<String, Map<Abusers, Smell>> abuse: abusers) {
+			fileName.addAll(abuse.keySet());
+		}
+		return fileName;
 	}
 }

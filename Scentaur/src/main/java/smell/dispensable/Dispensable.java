@@ -9,15 +9,12 @@ import com.github.javaparser.ast.CompilationUnit;
 
 import smell.Detectable;
 import smell.Smell;
+import smell.Smell.Dispensables;
 
 /**
  * A class that detects dispensables within a project filled with Java files
  */
-public class Dispensable implements Detectable{
-
-	public enum Dispensables{ //Types of Dispensables
-		COMMENTS, DATA_CLASS, DEAD_CODE, LAZY_CLASS;
-	}
+public class Dispensable implements Detectable<Dispensables>{
 	
 	private List<Map<String, Map<Dispensables, Smell>>> dispensables;
 	
@@ -66,7 +63,35 @@ public class Dispensable implements Detectable{
 	 * Getter for list of dispensables
 	 * @return
 	 */
-	public List<Map<String, Map<Dispensables, Smell>>> getDispensable(){
+	public List<Map<String, Map<Dispensables, Smell>>> getDispensables(){
 		return dispensables;
+	}
+
+	/**
+	 * Returns the map based on the fileName if it exists
+	 */
+	public Map<Dispensables, Smell> getMapUsingFileName(String fileName) {
+		Map<Dispensables, Smell> fileNameDispense = new HashMap<Dispensables, Smell>();
+		
+		for(Map<String, Map<Dispensables, Smell>> dispense :dispensables) {
+			if(dispense.containsKey(fileName)) {
+				fileNameDispense = dispense.get(fileName);
+				break;
+			}
+		}
+		
+		return fileNameDispense;
+	}
+	
+	/**
+	 * Return the set of file names within this smell category
+	 */
+	public List<String> getFileNames(){
+		List<String> fileName = new ArrayList<>();
+		
+		for(Map<String, Map<Dispensables, Smell>> dispense: dispensables) {
+			fileName.addAll(dispense.keySet());
+		}
+		return fileName;
 	}
 }
