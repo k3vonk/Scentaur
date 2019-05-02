@@ -39,6 +39,26 @@
 		}
 		
 	</script> 
+	<script type="text/javascript">
+		function callSmells(){
+			var myselect = document.getElementById("slct");
+			var id = myselect.selectedIndex;
+			var formData = $('#smell-choose').serialize();
+			$.ajax({
+				type:"POST",
+				url:"ShowSmellServlet",
+				data:{"id":id,
+					  "formData":formData},
+				dataType:"json",
+				success: function(res){
+					$('#fileName2').text(res[0]);			
+					$("#smells").text(res[1]);
+					hljs.highlightBlock($("#smells").get(0));
+					hljs.lineNumbersBlock($("#smells").get(0));
+				}
+			});
+		}	
+	</script>
 
 </head>
 
