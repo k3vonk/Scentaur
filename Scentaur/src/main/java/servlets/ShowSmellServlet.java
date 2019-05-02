@@ -38,7 +38,9 @@ public class ShowSmellServlet extends HttpServlet {
 		System.out.println(arrSplit.length);
 		for(String strSplit : arrSplit) {
 			String [] keyAndValue = strSplit.split("=");
-				smells.add(keyAndValue[1]);	
+			if(keyAndValue.length>1) {
+				smells.add(keyAndValue[1]);
+			}		
 		}
 
 		
@@ -48,10 +50,15 @@ public class ShowSmellServlet extends HttpServlet {
 			res[0] = fileName;
 			res[2] = UserBase.getUser(sessionID).getSourceCode(fileName);
 			
-			for(String s: smells) {
-				smellsReturn += s+":\n"+UserBase.getUser(sessionID).getSmellsByType(fileName, s)+"\n\n";
+			if(smells.size()>0) {
+				for(String s: smells) {
+					smellsReturn += s+":\n"+UserBase.getUser(sessionID).getSmellsByType(fileName, s)+"\n\n";
+				}
+				res[1] = smellsReturn;				
 			}
-			res[1] = smellsReturn;				
+			else {
+				res[1] = "No smell selected!";
+			}
 			
 			String json = JSONArray.fromObject(res).toString();		
 			response.setHeader("Cache-Control", "no-cache");

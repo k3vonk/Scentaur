@@ -18,27 +18,6 @@
 	<script>(function(e,t,n){var r=e.querySelectorAll("html")[0];r.className=r.className.replace(/(^|\s)no-js(\s|$)/,"$1js$2")})(document,window,0);</script>
 	<script type="text/javascript" src="javaScript/jquery.js"></script>
 	
-<!--  	<script type="text/javascript">
-
-		function changeFile(){
-			var myselect = document.getElementById("slct");
-			var id = myselect.selectedIndex;
-			$.ajax({
-				type:"POST",
-				url:"SourceCodeServlet",
-				data:{id},
-				//dataType:"json",
-				//traditional:true,
-				success: function(res){
-					$("#fileName1").text(res[0]);
-					$("#source_code").text(res[1]);
-					hljs.highlightBlock($('code').get(0));
-					hljs.lineNumbersBlock($('code').get(0));
-				}
-			});
-		}
-		
-	</script>  -->
 	<script type="text/javascript">
 		function callSmells(){
 			var myselect = document.getElementById("slct");
