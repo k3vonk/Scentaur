@@ -22,24 +22,18 @@ public class Main {
 
 	public static void main(String[] args) throws IOException {
 		
-		Parser parse = new Parser(new File("..\\..\\testProject\\src\\testProject").getAbsolutePath());
+		Parser parse = new Parser(new File("..//..//testProject//src//testProject").getAbsolutePath());
 
 		List<CompilationUnit> all = parse.getAllCu();
 		
-		Bloater bloater = new Bloater();
-		Coupler coupler = new Coupler();
-		Dispensable dispensable = new Dispensable();
-		Abuser abuser = new Abuser();
-		
-		bloater.detect(all);
-		coupler.detect(all);
-		dispensable.detect(all);
-		abuser.detect(all);
+
 				
 		Report report = new Report();
 		report.analyzeProject(all);
-		report.generateOverviewReport();
-		System.out.println(report.showSmellStatistics());
+		Map<String, Integer> results = report.fetchStats().getFilesWithMostAmountofSmells();
+		System.out.println(results);
+		//report.generateOverviewReport();
+		//System.out.println(report.showSmellStatistics());
 		//Calling this 
 		/*for(Map<String, Map<Abusers, Smell>> test: a) {
 			for(String keys: test.keySet()) {
