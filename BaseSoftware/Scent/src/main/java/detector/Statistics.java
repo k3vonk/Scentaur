@@ -1,5 +1,7 @@
 package detector;
 
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.Map;
 
 import smell.Smell;
@@ -18,7 +20,8 @@ public class Statistics {
 	private Bloater bloaters;
 	private Coupler couplers;
 	private Dispensable dispensables;
-	
+	private static NumberFormat formatter = new DecimalFormat("#0.00");	
+
 	// Constructor
 	public Statistics(Abuser abuser, Bloater bloater, Coupler coupler, Dispensable dispensable) {
 		 this.abusers = abuser;
@@ -118,6 +121,15 @@ public class Statistics {
 	}
 	
 	/**
+	 * Computes proportion of project where OOPAbuser detected.
+	 * 
+	 * @return numTimesOOPAbuserDetected / numTimesSmellDetected
+	 */
+	public float proportionProjectOOPAbuserDetected() {
+		return ((float) this.computeNumTimesOOPAbuserDetectedInProject() / this.computeNumTimesSmellDetectedInProject()) * 100;
+	}
+	
+	/**
 	 * @return String representation of all computed statistics
 	 */
 	@Override
@@ -128,6 +140,7 @@ public class Statistics {
 		statsStr += "Total number of times a Bloater smell was detected in the entire project:  " + this.computeNumTimesBloaterDetectedInProject() + "\n";
 		statsStr += "Total number of times a Coupler smell was detected in the entire project:  " + this.computeNumTimesCouplerDetectedInProject() + "\n";
 		statsStr += "Total number of times a Dispensable smell was detected in the entire project:  " + this.computeNumTimesDispensableDetectedInProject() + "\n";
+		statsStr += "Proportion of entire project where OOPAbuser was detected: " + formatter.format(this.proportionProjectOOPAbuserDetected()) + "%\n";
 		return statsStr;
 	}
 }
