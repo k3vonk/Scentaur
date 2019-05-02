@@ -130,6 +130,33 @@ public class Statistics {
 	}
 	
 	/**
+	 * Computes proportion of project where Coupler detected.
+	 * 
+	 * @return numTimesCouplerDetected / numTimesSmellDetected
+	 */
+	public float proportionProjectCouplerDetected() {
+		return ((float) this.computeNumTimesCouplerDetectedInProject() / this.computeNumTimesSmellDetectedInProject()) * 100;
+	}
+	
+	/**
+	 * Computes proportion of project where Bloater detected.
+	 * 
+	 * @return numTimesBloaterDetected / numTimesSmellDetected
+	 */
+	public float proportionProjectBloaterDetected() {
+		return ((float) this.computeNumTimesBloaterDetectedInProject() / this.computeNumTimesSmellDetectedInProject()) * 100;
+	}
+	
+	/**
+	 * Computes proportion of project where Dispensable detected.
+	 * 
+	 * @return numTimesBloaterDetected / numTimesSmellDetected
+	 */
+	public float proportionProjectDispensableDetected() {
+		return ((float) this.computeNumTimesDispensableDetectedInProject() / this.computeNumTimesSmellDetectedInProject()) * 100;
+	}
+	
+	/**
 	 * @return String representation of all computed statistics
 	 */
 	@Override
@@ -141,6 +168,9 @@ public class Statistics {
 		statsStr += "Total number of times a Coupler smell was detected in the entire project:  " + this.computeNumTimesCouplerDetectedInProject() + "\n";
 		statsStr += "Total number of times a Dispensable smell was detected in the entire project:  " + this.computeNumTimesDispensableDetectedInProject() + "\n";
 		statsStr += "Proportion of entire project where OOPAbuser was detected: " + formatter.format(this.proportionProjectOOPAbuserDetected()) + "%\n";
+		statsStr += "Proportion of entire project where Coupler was detected: " + formatter.format(this.proportionProjectCouplerDetected()) + "%\n";
+		statsStr += "Proportion of entire project where Bloater was detected: " + formatter.format(this.proportionProjectBloaterDetected()) + "%\n";
+		statsStr += "Proportion of entire project where Dispensable was detected: " + formatter.format(this.proportionProjectDispensableDetected()) + "%\n";
 		return statsStr;
 	}
 }
