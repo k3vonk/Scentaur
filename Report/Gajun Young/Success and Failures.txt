@@ -1,0 +1,30 @@
+4. Successes and Failures
+
+4.1 Team Learning outcomes.
+
+Producing Scentaur was not an easy feat. It required many solid hours of work shared amongst
+all our team members. Every individual in the team had their own unique experience and 
+their own learning outcomes however, collectively we understood that delegation of work
+was key to the success of Scentaur.
+
+In order for Scentaur to progress the team had to work at a quick pace but also develop things
+that can connect with other components that other team members have created. i.e. for the
+server to display any sort of smells, at least one smell had to be created first. And for
+statistics to be created we must be able to gather all the smell information.
+This gave insight to the team members of Scentaur to understand what dependencies and components
+require more attention than others.
+
+The Scentaur team learned that great communication goes a long way in helping others on the team
+to understand the different components. In order for the usage of the abuser class a brief
+comment description and a sample was required to show the idea of how the abuser class worked.
+Similarly, members had to discuss how to import different packages to set up the server on their 
+own local machine. Without communication the team wouldn't have progressed as far as it has today.
+
+Another learning outcome was the overall coding and learning outside libraries. The team
+had a research phase to decide what libraries would suit Scentaur and from that conclusion
+one of the major libraries was JavaParser. We had to hold team meetings to discuss and understand
+how JavaParser work so everyone was on board. Thus enabling team bonding.
+
+With that there are so many components that the team experienced throughout the building up of Scentaur.
+The ability to lead specific components, to voice your opinion and suggestions within the group, and many more
+unique learning outcomes that each individual gained.

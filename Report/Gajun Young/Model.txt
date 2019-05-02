@@ -1,0 +1,101 @@
+======================== 3.1 Model ==============================
+
+Diagram of Smell to each concrete concept;
+
+At the beginning of Scentaur’s build up, the team had envisioned to build Smells as an abstract class with subclasses (Abuser, Bloater, Coupler and Dispensable). This plan was in place because we felt that each concrete smell would have some methods that belong to all smells and then they would fall into their respective sub-categories (Abuser, Bloater, Coupler and Dispensable). i.e. Long Method would have a method from Smells and a unique method only for bloaters.
+-However, as time progressed and smells were being built the design changed-
+
+All the concrete smells did not require any unique methods in their sub categories meaning that the sub-
+classes abuser, bloater, coupler and dispensable was left empty and redundant. Thus, the team decided
+to cut off these dependencies and just have each concrete smell extend from Smell class.
+This seems rather messy so we packaged the smells into their respective packages to differentiate them to their categories.
+
+This enabled us to use polymorphism to encapsulate a class. i.e.
+
+- Smell longMethod = new LongMethod();
+
+Which is a really handy feature as it allowed the team to make lists of smell rather than
+writing lines of code for each instance of a smell over and over again.
+
+Another great thing about this Smell class is that it is an extension of JavaParser's VoidVisitor class
+which enables subclasses of smell to visit all of a classes specific features e.g. visit all of a class' methods
+Futher more Smell holds a list of node data. This is because JavaParser creates an abstract syntax tree for 
+each class and the nodes are essentially the components of that class. Thus if I wanted to store only
+Methods then I would find the method nodes of that class.
+
+
+Since we removed the dependency of Abuser, Bloater, Coupler and Dispensable. The team decided
+to utilize these classes in another aspect. Each of these class is itself a plug-and-play system
+different to those of the concrete smells. They enable us to instantiate smells based on their category and
+place them into a Hashmap to enable use on the server.
+The data that the hashmap holds is very important as it enables us to do alot of unique things on our web server.
+Each Hashmap a key which is the class file name followed by the value another hashmap with the
+key Sub category enum e.g. Abusers.DATA_HIDING and the value which is smells that are in this case
+only Data Hiding.
+With such data the server can request smells for a specific class file. Thus it is possible
+to look at smells only for example Car.java. And if you wanted to be even more specific.
+The server can look for only bloating smells in Car.java.
+
+=====================REport Model? ======================
+
+===================== Web FrameWork ======================
+
+3.3 Third Party
+
+Scentaur was not able to achieve the state it is in now without the help of third party libraries 
+and components.
+Scentaur uses the Gradle plugin which is available on the Eclipse marketplace. This is a free
+plugin that allows the team to import external libraries easily. Simply adding additional dependencies
+to the build.gradle file will import external libraries for Scentaur to use.
+
+Scentaur uses many different libraries to achieve in being a code smell detector tool.
+The following is a list of libraries and their usage:
+	1. Javaparser: This external library enabled Scentaur to easily parse Java files into an Abstract Syntax Tree
+			which is then used to detect smells through a visitor class.
+	2. Tomcat:
+	3. JSON:
+	4. Servlet:
+
+3.4 Proud Aspect
+
+The most rewarding aspect of Scentaur is its ability to project the software onto the web page.
+This was a very impressive feature as the team members never developed a web application before
+and enables us to dwelve into this path if we wished in the future.
+
+Another proud aspect is the usage of different Java features such as polymorphism and generics.
+At the start in building Scentaur we never really looked into these features and expected to use them.
+But as a result of developing the smells in Java it was almost a must to use these two Java features.
+The generics part helped in creating a plug-and-play system for bloater, abuser, coupler and dispensable class
+and it allows us to add more categories in the future if we wished. Having the ability of
+reusability within these classes gives us a great advantage if we ever wish to look at these 
+classes again. And changing some of its components will highly unlikely break the system which means that
+these classes have low coupling and high cohesion.
+
+3.4 Benefits of further development
+
+With further development of Scentaur we wish to implement some of the features that was not
+implemented listed above. This would require more time and effort to research in order to
+come up with a solid solution. E.g. We might have to re-imagine how Smells should be 
+designed in order to accompany smells like "Refused Bequest" which
+needs information on another class.
+
+Other benefits with further development would include refactoring. We originally intended to do
+some basic refactoring but with the amount of time we were given it was not possible.
+However, we did include a method called addComment that can potentially act as refactoring the code.
+AddComment was originally intended to add a piece of comment above or inline to the starting location of where
+the smell occured. It would detail with the line number of where it was found and the type of smell it was.
+This was nice but when we look at another detector and it would addComments again the line position of the code
+would drastically change. i.e. Abusers found an abuse on line 10, Bloaters found a bloater on line 15, but as more and more
+comment lines are added the original position of where the smell was detected would have been shifted. So although line 10 would be correct,
+the comments added would shift the code down and as a result bloater detected a smell on line 15.
+
+Knowing that we were capable of adding comment tags and comments onto the code tells us that it is possible to change things like field access specifiers 
+when a field access specifier was meant to be private but the user set it to public.
+
+Another benefit that would greater help user experience is the display of code smells to users. Currently we can show a side to side comparison 
+original versus pieces of code that contains smells (Similar to how HTML validators display their errors). But with further development we wish
+to provide a perfect side to side comparison with the right hand side having color coded lines to identify smells. This would greatly benefit 
+users visual experience and the ability to find and refactor their own code themselves faster.
+
+
+

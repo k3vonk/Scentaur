@@ -5,8 +5,6 @@ import java.io.PrintWriter;
 import java.util.List;
 import java.util.Map;
 
-import com.github.javaparser.ast.CompilationUnit;
-
 import smell.Smell;
 import smell.Smell.Abusers;
 import smell.Smell.Bloaters;
