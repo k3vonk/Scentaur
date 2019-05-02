@@ -88,10 +88,15 @@ public class ZipDecompServlet extends HttpServlet {
         // parse the file, and store the compilationUnit into the user with sessionID = key in the hash map
         UserBase.getUser(sessionID).setCompilationUnit(UserBase.getUser(sessionID).getUnzippedAddress());
         
-        // detect bloaters
+        // Detect smells in the project
         Detector detector = new Detector();
         detector.detect(UserBase.getUser(sessionID).getCompilationUnit());
+        // store the detector into UserInfo
         UserBase.getUser(sessionID).addSmells(detector);
+        
+        Report report = new Report(detector);
+        report.analyzeProject();
+        UserBase.getUser(sessionID).setReport(report);
         
         // convert Cu to String to be displayed as source code on HTML
         convertCuToString(sessionID);

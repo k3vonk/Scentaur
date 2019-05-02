@@ -99,9 +99,13 @@
 			//data:$('#form').serialize(),
 			success: function(res){
 				$("#fileName1").text(res[2]);
+				$("#fileName2").text(res[3]);
 				$("#source_code").text(res[0]);
+				$("#smells").text(res[4]);
 				hljs.highlightBlock($('code').get(0));
 				hljs.lineNumbersBlock($('code').get(0));
+				hljs.highlightBlock($("#smells").get(0));
+				hljs.lineNumbersBlock($("#smells").get(0));
 				for(var i=0; i<res[1].length; i++){
 					$("#slct").append('<option>'+res[1][i]+'.java'+'</option>');
 				}

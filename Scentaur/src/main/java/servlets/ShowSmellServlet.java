@@ -35,7 +35,6 @@ public class ShowSmellServlet extends HttpServlet {
 		// smell request is formatted in "bloaters=Bloaters&dispensables=Dispensables"
 		// split it into a list containing only the values [Bloaters, Dispensables,....]
 		String[] arrSplit = smellsInUrl.split("&");
-		System.out.println(arrSplit.length);
 		for(String strSplit : arrSplit) {
 			String [] keyAndValue = strSplit.split("=");
 			if(keyAndValue.length>1) {
@@ -69,7 +68,7 @@ public class ShowSmellServlet extends HttpServlet {
 		else {
 			String fileName = UserBase.getUser(sessionID).getClassNames().get(0);
 			res[0] = "Overview";
-			res[1] = "overview to be implemented";
+			res[1] = UserBase.getUser(sessionID).getReport().showSmellStatistics();
 			res[2] = UserBase.getUser(sessionID).getSourceCode(fileName);
 			
 			String json = JSONArray.fromObject(res).toString();		
