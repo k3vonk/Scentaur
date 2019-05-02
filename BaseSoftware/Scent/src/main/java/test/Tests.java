@@ -2,13 +2,13 @@ package test;
 
 import static org.junit.Assert.assertEquals;
 
-import com.github.javaparser.ast.CompilationUnit;
-
-import org.junit.Test;
-
 import java.io.File;
 import java.util.List;
 import java.util.Map;
+
+import org.junit.Test;
+
+import com.github.javaparser.ast.CompilationUnit;
 
 import parser.Parser;
 import smell.Smell;
