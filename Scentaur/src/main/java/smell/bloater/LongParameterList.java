@@ -4,9 +4,14 @@ import java.util.ArrayList;
 
 import com.github.javaparser.ast.Node;
 import com.github.javaparser.ast.body.MethodDeclaration;
-import com.github.javaparser.ast.comments.Comment;
 
-public class LongParameterList extends Bloater {
+import smell.Smell;
+
+/**
+ * A class that detects smell within methods that have long parameters [3+]
+ *
+ */
+public class LongParameterList extends Smell {
 
     public static final int PARAMETER_THRESHOLD = 3;
     
@@ -23,7 +28,7 @@ public class LongParameterList extends Bloater {
 
         if (numParams >= PARAMETER_THRESHOLD) {
             smell.add(n);
-            addComment(n);
+            //addComment(n);
         }
     }
 
@@ -32,7 +37,7 @@ public class LongParameterList extends Bloater {
      */
 	@Override
 	public void addComment(Node n) {
-		MethodDeclaration md = (MethodDeclaration) n;
+		/*MethodDeclaration md = (MethodDeclaration) n;
 		
 		//Check if has no comments
 		if(!md.getComment().isPresent()) {
@@ -41,6 +46,6 @@ public class LongParameterList extends Bloater {
 			Comment comment = md.getComment().get();
 			md.setJavadocComment(
                 comment.getContent() + "\n\nSmellDetected: " + this.getClass().getSimpleName());
-		}
+		}*/
 	}
 }

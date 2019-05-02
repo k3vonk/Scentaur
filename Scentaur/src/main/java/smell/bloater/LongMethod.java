@@ -1,12 +1,18 @@
 package smell.bloater;
 
 import java.util.ArrayList;
+
 import com.github.javaparser.ast.Node;
 import com.github.javaparser.ast.body.MethodDeclaration;
-import com.github.javaparser.ast.comments.Comment;
+import com.github.javaparser.ast.stmt.Statement;
 
+import smell.Smell;
 
-public class LongMethod extends Bloater{
+/**
+ * A class that detects smell within methods that contains too many lines of code
+ *
+ */
+public class LongMethod extends Smell{
 	
 	public static final int METHOD_LENGTH_THRESHOLD = 10;
 	
@@ -19,16 +25,16 @@ public class LongMethod extends Bloater{
 	 * body length is below the method length threshold.
      */
 	public void visit(MethodDeclaration n, Void args) {
-		String[] lines = n.getBody().toString().split("\r\n|\r|\n");
-		if(lines.length >= METHOD_LENGTH_THRESHOLD) {
+		int lines = n.findAll(Statement.class).size();
+
+		if(lines >= METHOD_LENGTH_THRESHOLD) {
 			smell.add(n);
-			addComment(n);
 		}
 	}
 
 	@Override
 	public void addComment(Node n) {
-		MethodDeclaration md = (MethodDeclaration) n;
+		/*MethodDeclaration md = (MethodDeclaration) n;
 		
 		//Check if has no comments
 		if(!md.getComment().isPresent()) {
@@ -37,6 +43,6 @@ public class LongMethod extends Bloater{
 			Comment comment = md.getComment().get();
 			md.setJavadocComment(
                 comment.getContent() + "\n\nSmellDetected: " + this.getClass().getSimpleName());
-		}
+		}*/
 	}
 }

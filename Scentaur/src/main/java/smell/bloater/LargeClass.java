@@ -7,10 +7,14 @@ import com.github.javaparser.ast.body.ClassOrInterfaceDeclaration;
 import com.github.javaparser.ast.body.ConstructorDeclaration;
 import com.github.javaparser.ast.body.FieldDeclaration;
 import com.github.javaparser.ast.body.MethodDeclaration;
-import com.github.javaparser.ast.comments.Comment;
-import com.github.javaparser.ast.nodeTypes.NodeWithJavadoc;
 
-public class LargeClass extends Bloater{
+import smell.Smell;
+
+/**
+ * A smell that relates to classes that contain many fields/methods/lines of code
+ *
+ */
+public class LargeClass extends Smell{
 	
 	public static final int LINES_THRESHOLD = 110;
 	
@@ -18,7 +22,9 @@ public class LargeClass extends Bloater{
 		smell = new ArrayList<>();
 	}
 	
-	@Override
+	/**
+	 * Visits classes and checks how many fields/methods/lines of code it contains and decides if it is a smell
+	 */
 	public void visit(ClassOrInterfaceDeclaration n, Void arg) {
 		int length = 1;
         for (Node child : n.getMembers()){
@@ -40,7 +46,7 @@ public class LargeClass extends Bloater{
 
 	@Override
 	public void addComment(Node n) {
-		
+		/*
 		//Check if has no comments
 		if(!n.getComment().isPresent()) {
 			((NodeWithJavadoc<ConstructorDeclaration>) n).setJavadocComment("SmellDetected: " + this.getClass().getSimpleName());
@@ -48,7 +54,7 @@ public class LargeClass extends Bloater{
 			Comment comment = n.getComment().get();
 			((NodeWithJavadoc<ConstructorDeclaration>) n).setJavadocComment(
                 comment.getContent() + "\n\nSmellDetected: " + this.getClass().getSimpleName());
-		}
+		}*/
 	}
 
 }

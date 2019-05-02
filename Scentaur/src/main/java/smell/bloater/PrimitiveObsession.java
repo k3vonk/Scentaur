@@ -6,13 +6,19 @@ import java.util.List;
 import com.github.javaparser.ast.Node;
 import com.github.javaparser.ast.body.ClassOrInterfaceDeclaration;
 import com.github.javaparser.ast.body.FieldDeclaration;
-import com.github.javaparser.ast.comments.Comment;
-import com.github.javaparser.ast.nodeTypes.NodeWithJavadoc;
 
-public class PrimitiveObsession extends Bloater{
+import smell.Smell;
+
+/**
+ * Detects smells for the following:
+ * 1. When small objects should be primitives
+ * 2. Use of constants inappropriately
+ * 3. Use of string constants as field names for use in data arrays
+ *
+ */
+public class PrimitiveObsession extends Smell{
 	public static final int PRIMITIVES_THRESHOLD = 0;
 	
-	// Constructor
 	public PrimitiveObsession() {
     	smell = new ArrayList<>();
     }
@@ -28,7 +34,7 @@ public class PrimitiveObsession extends Bloater{
 		for(FieldDeclaration f : classFields) if(f.getElementType().isPrimitiveType()) numPrimitives++;
 		if(numPrimitives >= PRIMITIVES_THRESHOLD) {
 			smell.add(cOri);
-			addComment(cOri);
+			//addComment(cOri);
 		}
 	}
 
@@ -37,7 +43,7 @@ public class PrimitiveObsession extends Bloater{
      */
 	@Override
 	public void addComment(Node n) {
-		ClassOrInterfaceDeclaration cOri = (ClassOrInterfaceDeclaration) n;
+		/*ClassOrInterfaceDeclaration cOri = (ClassOrInterfaceDeclaration) n;
 		
 		if(!cOri.getComment().isPresent()) {
 			cOri.setJavadocComment("SmellDetected: " + this.getClass().getSimpleName());
@@ -45,6 +51,6 @@ public class PrimitiveObsession extends Bloater{
 			Comment comment = cOri.getComment().get();
 			cOri.setJavadocComment(
                 comment.getContent() + "\n\nSmellDetected: " + this.getClass().getSimpleName());
-		}
+		}*/
 	}
 }
