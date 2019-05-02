@@ -18,7 +18,7 @@
 	<script>(function(e,t,n){var r=e.querySelectorAll("html")[0];r.className=r.className.replace(/(^|\s)no-js(\s|$)/,"$1js$2")})(document,window,0);</script>
 	<script type="text/javascript" src="javaScript/jquery.js"></script>
 	
- 	<script type="text/javascript">
+<!--  	<script type="text/javascript">
 
 		function changeFile(){
 			var myselect = document.getElementById("slct");
@@ -38,7 +38,7 @@
 			});
 		}
 		
-	</script> 
+	</script>  -->
 	<script type="text/javascript">
 		function callSmells(){
 			var myselect = document.getElementById("slct");
@@ -51,10 +51,14 @@
 					  "formData":formData},
 				dataType:"json",
 				success: function(res){
+					$('#fileName1').text(res[0]);
 					$('#fileName2').text(res[0]);			
 					$("#smells").text(res[1]);
+					$("#source_code").text(res[2]);
 					hljs.highlightBlock($("#smells").get(0));
 					hljs.lineNumbersBlock($("#smells").get(0));
+					hljs.highlightBlock($("#source_code").get(0));
+					hljs.lineNumbersBlock($("#source_code").get(0)); 
 				}
 			});
 		}	
@@ -72,7 +76,7 @@
 
 	<form id="smell-choose" onsubmit="return false" method="post" enctype="multipart/form-data" novalidate class="type-selector">
 		<div class="select">
-			<select id="slct" onchange="changeFile">
+			<select id="slct" onchange="callSmells()">
 				<option value="0">Overview &#11167;</option>	
 			</select>
 		</div>

@@ -29,10 +29,10 @@ public class Tests {
 
 
             for (Map<Smell.Bloaters, Smell> m : smells.get(0).values()) {
-                assertEquals(6, m.get(Smell.Bloaters.LONG_METHOD).size());
-                assertEquals(6, m.get(Smell.Bloaters.LONG_PARAMETER_LIST).size());
-                assertEquals(1, m.get(Smell.Bloaters.LARGE_CLASS).size());
-                assertEquals(1, m.get(Smell.Bloaters.PRIMITIVE_OBSESSION).size());
+                assertEquals(6, m.get(Smell.Bloaters.LONG_METHOD).getIssue().size());
+                assertEquals(6, m.get(Smell.Bloaters.LONG_PARAMETER_LIST).getIssue().size());
+                assertEquals(1, m.get(Smell.Bloaters.LARGE_CLASS).getIssue().size());
+                assertEquals(1, m.get(Smell.Bloaters.PRIMITIVE_OBSESSION).getIssue().size());
             }
 
         } catch (Exception ex) {
@@ -49,13 +49,13 @@ public class Tests {
             List<Map<String, Map<Smell.Abusers, Smell>>> smells = abuserTest.getAbusers();
 
             for (Map<Smell.Abusers, Smell> m : smells.get(0).values()) {
-                assertEquals(1, m.get(Smell.Abusers.SWITCH_STATEMENT).size());
-                assertEquals(1, m.get(Smell.Abusers.DATA_HIDING).size());
+                assertEquals(1, m.get(Smell.Abusers.SWITCH_STATEMENT).getIssue().size());
+                assertEquals(1, m.get(Smell.Abusers.DATA_HIDING).getIssue().size());
             }
 
             for (Map<Smell.Abusers, Smell> m : smells.get(1).values()) {
-                assertEquals(0, m.get(Smell.Abusers.SWITCH_STATEMENT).size());
-                assertEquals(0, m.get(Smell.Abusers.DATA_HIDING).size());
+                assertEquals(0, m.get(Smell.Abusers.SWITCH_STATEMENT).getIssue().size());
+                assertEquals(0, m.get(Smell.Abusers.DATA_HIDING).getIssue().size());
             }
 
         } catch (Exception ex) {
@@ -75,17 +75,17 @@ public class Tests {
 
 
             for (Map<Smell.Dispensables, Smell> m : smells.get(0).values()) {
-                assertEquals(1, m.get(Smell.Dispensables.COMMENTS).size());
-                assertEquals(1, m.get(Smell.Dispensables.DATA_CLASS).size());
-                assertEquals(0, m.get(Smell.Dispensables.DEAD_CODE).size());
-                assertEquals(1, m.get(Smell.Dispensables.LAZY_CLASS).size());
+                assertEquals(1, m.get(Smell.Dispensables.COMMENTS).getIssue().size());
+                assertEquals(1, m.get(Smell.Dispensables.DATA_CLASS).getIssue().size());
+                assertEquals(0, m.get(Smell.Dispensables.DEAD_CODE).getIssue().size());
+                assertEquals(1, m.get(Smell.Dispensables.LAZY_CLASS).getIssue().size());
             }
 
             for (Map<Smell.Dispensables, Smell> m : smells.get(1).values()) {
-                assertEquals(1, m.get(Smell.Dispensables.COMMENTS).size());
-                assertEquals(1, m.get(Smell.Dispensables.DATA_CLASS).size());
-                assertEquals(1, m.get(Smell.Dispensables.DEAD_CODE).size());
-                assertEquals(1, m.get(Smell.Dispensables.LAZY_CLASS).size());
+                assertEquals(1, m.get(Smell.Dispensables.COMMENTS).getIssue().size());
+                assertEquals(1, m.get(Smell.Dispensables.DATA_CLASS).getIssue().size());
+                assertEquals(1, m.get(Smell.Dispensables.DEAD_CODE).getIssue().size());
+                assertEquals(1, m.get(Smell.Dispensables.LAZY_CLASS).getIssue().size());
             }
 
 
@@ -104,9 +104,9 @@ public class Tests {
             List<Map<String, Map<Smell.Couplers, Smell>>> smells = couplerTest.getCouplers();
 
             for (Map<Smell.Couplers, Smell> m : smells.get(0).values()) {
-                assertEquals(0, m.get(Smell.Couplers.FEATURE_ENVY).size());
-                assertEquals(1, m.get(Smell.Couplers.MESSAGE_CHAIN).size());
-                assertEquals(0, m.get(Smell.Couplers.MIDDLE_MAN).size());
+                assertEquals(0, m.get(Smell.Couplers.FEATURE_ENVY).getIssue().size());
+                assertEquals(1, m.get(Smell.Couplers.MESSAGE_CHAIN).getIssue().size());
+                assertEquals(0, m.get(Smell.Couplers.MIDDLE_MAN).getIssue().size());
             }
 
         } catch (Exception ex) {
