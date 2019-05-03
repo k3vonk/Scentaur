@@ -30,6 +30,8 @@ public class DeadCode extends Smell{
 	
 		List<MethodDeclaration> md = n.getMethods();
 		List<String> paramName = new ArrayList<>();
+		
+		//This code was used to detect dead variables but it cant
 		List<String> variableNames = new ArrayList<>();	//Class variable names
 		List<String> mdNames = new ArrayList<>();		//Method variables
 		
@@ -53,7 +55,9 @@ public class DeadCode extends Smell{
 			//Check if it is dead code 
 			for(String check: variableNames) {
 				if(!mdNames.contains(check) && !variableNames.isEmpty()) {
-					smell.add(n.getFieldByName(check).get());
+					if(n.getFieldByName(check).isPresent()) {
+						smell.add(n.getFieldByName(check).get());
+					}
 				}
 			}
 		}
@@ -61,25 +65,27 @@ public class DeadCode extends Smell{
 		//Search the methods of the class
 		for(MethodDeclaration method: md) {
 			for(Parameter param: method.getParameters()) { //Obtain parameters
-				if(!param.getName().toString().equals("args")) {	//if it is not a main argument...
+				if(!param.getName().toString().equals("args") && !method.getParameters().isEmpty()) {	//if it is not a main argument...
 					paramName.add(param.getName().toString());
 				}
 			}
 			
-			boolean isDead = false;
 			if(method.getBody().isPresent() && !paramName.isEmpty()) { //If a method body exists...
 				List<NameExpr> names = method.getBody().get().findAll(NameExpr.class); //Find all the name expressions of a method
-				
-				if(names.isEmpty()) isDead = true;
+				List<String> nameString = new ArrayList<>();
 				
 				for(NameExpr name: names) {
-					if(!paramName.contains(name.toString())) {
-						isDead = true;
+					nameString.add(name.toString());
+				}
+				
+				for(String param: paramName) {
+					if(!nameString.contains(param)) {
+						smell.add(method);
+						break;
 					}
 				}
 			}
 			
-			if(isDead) smell.add(method);
 		}
 	}
 	

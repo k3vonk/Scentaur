@@ -77,7 +77,7 @@ public class Tests {
             for (Map<Smell.Dispensables, Smell> m : smells.get(0).values()) {
                 assertEquals(1, m.get(Smell.Dispensables.COMMENTS).getIssue().size());
                 assertEquals(1, m.get(Smell.Dispensables.DATA_CLASS).getIssue().size());
-                assertEquals(1, m.get(Smell.Dispensables.DEAD_CODE).getIssue().size());
+                assertEquals(0, m.get(Smell.Dispensables.DEAD_CODE).getIssue().size());
                 assertEquals(1, m.get(Smell.Dispensables.LAZY_CLASS).getIssue().size());
             }
 

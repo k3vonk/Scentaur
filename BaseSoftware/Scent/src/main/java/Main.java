@@ -1,18 +1,12 @@
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
-import java.util.Map;
 
 import com.github.javaparser.ast.CompilationUnit;
 
-import detector.Report;
 import parser.Parser;
 import smell.Smell;
-import smell.Smell.Abusers;
-import smell.abuser.Abuser;
-import smell.bloater.Bloater;
-import smell.coupler.Coupler;
-import smell.dispensable.Dispensable;
+import smell.dispensable.DeadCode;
 
 /**
  * This is used for testing, which will then moved to test units
@@ -22,16 +16,16 @@ public class Main {
 
 	public static void main(String[] args) throws IOException {
 		
-		Parser parse = new Parser(new File("..//..//testProject//src//testProject").getAbsolutePath());
+		Parser parse = new Parser(new File("C:\\Users\\Gajun\\Desktop\\Software Engineering III\\Scentaur").getAbsolutePath());
 
 		List<CompilationUnit> all = parse.getAllCu();
 		
 
 				
-		Report report = new Report();
-		report.analyzeProject(all);
-		Map<String, Integer> results = report.fetchStats().getFilesWithMostAmountofSmells();
-		System.out.println(results);
+		Smell m = new DeadCode();
+		all.forEach(c ->{
+			c.accept(m, null);
+		});
 		//report.generateOverviewReport();
 		//System.out.println(report.showSmellStatistics());
 		//Calling this 

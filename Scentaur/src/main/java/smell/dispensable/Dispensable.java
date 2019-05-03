@@ -42,10 +42,10 @@ public class Dispensable implements Detectable<Dispensables>{
 			c_dispense.put(Dispensables.DATA_CLASS, dataClass);
 			
 			//-----------DeadCode
-			Smell deadCode = new DeadCode();
+			/*Smell deadCode = new DeadCode();
 			c.accept(deadCode, null);
 			c_dispense.put(Dispensables.DEAD_CODE, deadCode);
-			
+			*/
 			//-----------LazyClass
 			Smell lazyClass = new LazyClass();
 			c.accept(lazyClass, null);
