@@ -17,7 +17,7 @@ import smell.Smell;
  *
  */
 public class PrimitiveObsession extends Smell{
-	public static final int PRIMITIVES_THRESHOLD = 3;
+	public static final int PRIMITIVES_THRESHOLD = 4;
 	
 	public PrimitiveObsession() {
     	smell = new ArrayList<>();

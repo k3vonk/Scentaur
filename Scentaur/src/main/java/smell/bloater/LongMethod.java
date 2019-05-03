@@ -14,7 +14,7 @@ import smell.Smell;
  */
 public class LongMethod extends Smell{
 	
-	public static final int METHOD_LENGTH_THRESHOLD = 10;
+	public static final int METHOD_LENGTH_THRESHOLD = 18;
 	
 	public LongMethod() {
 		smell = new ArrayList<>();

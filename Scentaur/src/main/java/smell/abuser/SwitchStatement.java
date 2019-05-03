@@ -43,7 +43,6 @@ public class SwitchStatement extends Smell{
 	
 	@Override
 	public void addComment(Node n) {
-		// TODO Auto-generated method stub
 		
 	}
 

@@ -3,6 +3,9 @@ package userbase;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * A class that holds the user base information
+ */
 public class UserBase {
 	private static Map<String, UserInfo> users = new HashMap<String, UserInfo>();
 	

@@ -11,10 +11,11 @@ import com.github.javaparser.ast.CompilationUnit;
 import detector.Detector;
 import detector.Report;
 import parser.Parser;
-import smell.Smell;
-import smell.Smell.Abusers;
-import smell.Smell.Bloaters;
 
+/**
+ * A class that holds user info, thus other users can't obtain this info
+ *
+ */
 public class UserInfo {
 	private String zipAddress; 		// Disk:/xxxxx/xxxx/xxxx/abc.zip
 	private String UnzippedAddress; // Disk:/xxxxx/xxxx/xxxx/abc
@@ -23,7 +24,6 @@ public class UserInfo {
 	private Map<String, String> sourceCode = new HashMap<String, String>(); // <name_java, code_java>
 	private Detector smells;
 	private Report report;
-	private String reportFileAddr;
 
 	public String getZipAddress() {
 		return this.zipAddress;
