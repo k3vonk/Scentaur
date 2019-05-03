@@ -49,7 +49,7 @@
 			});
 
 			// drag&drop files if the feature is available
-			if( isAdvancedUpload )
+			if( true )
 			{
 				form.classList.add( 'has-advanced-upload' ); // letting the CSS part to know drag&drop is supported by the browser
 
@@ -79,6 +79,8 @@
 				form.addEventListener( 'drop', function( e )
 				{
 					droppedFiles = e.dataTransfer.files; // the files that were dropped
+					 $("input[type='file']")
+				        .prop("files", droppedFiles);
 					showFiles( droppedFiles );
 
 									});
