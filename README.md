@@ -1,5 +1,5 @@
 # Scentaur
-Code Smell Detector
+Just Another Web-Based Code Smell Detector
 
 ## Setup Instructions. 
 #### Scentaur.war file is in the home directory just above, all you need is to follow the following steps.
