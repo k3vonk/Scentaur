@@ -1,0 +1,57 @@
+================ Your Project In Detail =====================
+
+Applying Scentaur's detection tool onto itself provides a great sample for 
+the team to understand the problems Scentaur may experience as a software. 
+Along with the ability to help team members to strengthen their coding 
+style especially in Java. The following is a worked example of Scentaur:
+
+----------
+
+After the server is switched on, it is possible to host the web server on our 
+local machine. To obtain a more impressive view of the web page, it is ideal to
+run localhost on your selective browser. In our case, we will be running on 
+Google Chrome. When you first open the page, the user is met with a simplistic, modern,
+and minimal style landing page. Where the user is requested to send a zip folder to 
+the server either through "Drag-and-Drop" or click on the link and search the zip file
+from one of your own directory. 
+
+------------
+
+Once the user has drag and dropped, the user then has to click on the update button to
+request the next action. This action will send the user to the detailed page. The detail
+page contains many information about the users zip file. The back-end handles the zip file
+by decompressing the information inside and take out all the relevant Java files.
+It is clearly visible on the left hand side and a tab bar on the top that Scentaur is capable
+of reading in Java files and displaying the original files back out to the user.
+
+-------------
+
+On the right hand side, the overview displays the different figures statistical based. 
+It is not visually appealing however, it nails down numbers straight to the users.
+Along with this text of statistics comes with statistical charts. These different charts
+represent the type of smell that Scentaur has. 
+
+-------------
+
+
+The user is then enabled to check the type of smell categories on the topic for specific classes.
+In this sample below, I can choose the x.java class and find bloaters and dispensables.
+Immediately on the right provides snippets of code where the smell occured. 
+Each snippet is accompanied by the file name, smell type and the line at which it was detected.
+We use this to map the smell to the line number of the original file.
+
+Scentaur enables us to do this for infinite numbers of times searching through a combinations of smells.
+
+================================================================
+
+WHAT DOES YOUR SYSTEM SAY ABOUT YOUR CODE? + Insignt
+
+
+
+
+
+
+
+Activation method
+
+
