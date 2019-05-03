@@ -9,6 +9,8 @@
 	<meta name="viewport" content="width=device-width,initial-scale=1" />
 	<script type="text/javascript" src="javaScript/upload.js"></script>
 	<link rel="stylesheet" href="CSS/result.css" type="text/css"/>
+	<link rel="stylesheet" href="CSS/chart.css" type="text/css" />
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
 	<link rel="stylesheet" href="CSS/highlighter/dracula.css">
 	<script src="javaScript/highlight.pack.js"></script>
 	<script src="javaScript/line-numbers.min.js"></script>
@@ -72,8 +74,8 @@
 		</div>
 	</form>
 		
-		
 	<div class="box__output column">
+	
 		<h3 id="fileName1"></h3>
 		<pre><code class="java" id="source_code" style="white-space:pre"></code></pre>
 	</div>
@@ -85,11 +87,18 @@
 
 </div>
 
+
+		
+					<div class="chart"><canvas id="mainChart" width="1600" height="600"></canvas></div><br><br>
+					<div class="chart"><canvas id="secondaryChart" width="1600" height="600"></canvas></div><br><br>
+
 </body>
 
 <script type="text/javascript" src="javaScript/box.js"></script>
+
 <script  type="text/javascript">
 
+	var myData;
 	window.onload = function(){
 		$.ajax({
 			type:"POST",
@@ -102,6 +111,74 @@
 				$("#fileName2").text(res[3]);
 				$("#source_code").text(res[0]);
 				$("#smells").text(res[4]);
+				myData = res[5];
+				var ctx = document.getElementById("mainChart");
+				var myDoughnutChart = new Chart(ctx, {
+				    type: 'doughnut',
+				    data: data = {
+				        datasets: [{
+				            data: myData,
+				            backgroundColor: [
+				                "#003f5c",
+				                "#58508d",
+				                "#bc5090",
+				                "#ff6361",
+				            ],
+				            
+				        }],
+
+				        // These labels appear in the legend and in the tooltips when hovering different arcs
+				        labels: [
+				            'Bloater',
+				            'OOPAbuser',
+				            'Coupler',
+				            'Dispensable'
+				        ]
+				    },
+				    options: {
+				        
+				        title: {
+				          display: true,
+				          text: 'Most Common Smell Types'
+				        }
+				      }
+				});
+				
+
+
+
+				new Chart(document.getElementById("secondaryChart"), {
+				    type: 'bar',
+				    data: {
+				      labels: res[6],
+				      datasets: [
+				        {
+				          label: "Smells (number)",
+				          backgroundColor: ["#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9","#c45850"],
+				          data: res[7]
+				        }
+				      ]
+				    },
+				    options: {
+				     scales: {
+				    	      xAxes: [{
+				    	        display: true
+				    	      }],
+				    	      yAxes: [{
+				    	        display: true,
+				    	        ticks: {
+					    	          min: 0
+					    	        }
+				    	      }],
+				    	    },
+				      legend: { display: true },
+				      title: {
+				        display: true,
+				        text: 'Files with Most Amount of Smells'
+				      }
+				    }
+				});
+				
 				hljs.highlightBlock($('code').get(0));
 				hljs.lineNumbersBlock($('code').get(0));
 				hljs.highlightBlock($("#smells").get(0));
@@ -112,5 +189,8 @@
 			}
 		});
 	}
+	
+	
 </script>
+
 </html>
