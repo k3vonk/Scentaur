@@ -1,8 +1,16 @@
 package detector;
 
+import java.lang.reflect.Array;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 
 import smell.Smell;
@@ -116,7 +124,8 @@ public class Statistics {
     /**
      * Produces a map with filenames and the number of smells for that filename.
      */
-    public Map<String, Integer> getFilesWithMostAmountofSmells() {
+    public ArrayList<String> getFilesWithMostAmountofSmells() {
+
         HashMap<String, Integer> myMap = new HashMap<>();
         for (Map<String, Map<Dispensables, Smell>> map : dispensables.getDispensables()) {
             for (String fileName : map.keySet()) {
@@ -157,8 +166,51 @@ public class Statistics {
             }
         }
 
-        return myMap;
+
+        myMap = sortByValue(myMap);
+
+        LinkedList<String> files = new LinkedList<>();
+        LinkedList<Integer> values = new LinkedList<>();
+        myMap.forEach((k, v) -> {
+            files.add('"' + k + '"');
+            values.add(v);
+        });
+
+        int max = 5;
+        if(files.size() < 5){
+            max = files.size();
+        }
+
+        ArrayList<String> response = new ArrayList<>();
+        response.add(files.subList(0,max).toString());
+        response.add(values.subList(0,max).toString());
+        
+        return response;
     }
+
+    public static HashMap<String, Integer> sortByValue(HashMap<String, Integer> hm)
+    {
+        // Create a list from elements of HashMap
+        List<Map.Entry<String, Integer> > list =
+                new LinkedList<Map.Entry<String, Integer> >(hm.entrySet());
+
+        // Sort the list
+        Collections.sort(list, new Comparator<Map.Entry<String, Integer> >() {
+            public int compare(Map.Entry<String, Integer> o1,
+                    Map.Entry<String, Integer> o2)
+            {
+                return (o2.getValue()).compareTo(o1.getValue());
+            }
+        });
+
+        // put data from sorted list to hashmap
+        HashMap<String, Integer> temp = new LinkedHashMap<String, Integer>();
+        for (Map.Entry<String, Integer> aa : list) {
+            temp.put(aa.getKey(), aa.getValue());
+        }
+        return temp;
+    }
+
 
     /**
      * Computes total number of times a smell was detected in
