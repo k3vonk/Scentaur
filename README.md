@@ -36,3 +36,9 @@ Just Another Web-Based Code Smell Detector sending .wars to fight wars.
 * ``` Right click Scentaur -> Properties -> Deployment Assembly -> Add -> Java Build Path Entries -> Select Everything -> Finish -> Apply```
 * ``` Right click Scentaur -> Properties -> Project Facets (Make sure dynamic Web Module is checked & Tomcat v8.5 is applied in Runtimes)```
 * ``` Right click Scentaur -> Run as -> Run on Server, Select Tomcat v8.5 Server at localhost```
+
+# Contributors
+William Ikkena-Nwosu <br>
+Zheng Ju <br>
+Royal Thomas<br>
+Ga Jun Young
