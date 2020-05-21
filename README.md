@@ -1,6 +1,8 @@
 # Scentaur
 Just Another Web-Based Code Smell Detector sending .wars to fight wars.
 
+![Demo Scentaur Software](https://github.com/k3vonk/Scentaur/blob/master/59152978_740432773025108_8004884257291894784_n.png)
+
 # Local Install
 
 1) Install: https://www-us.apache.org/dist/tomcat/tomcat-8/v8.5.40/bin/apache-tomcat-8.5.40.exe
